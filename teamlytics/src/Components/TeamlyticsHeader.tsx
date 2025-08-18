@@ -23,7 +23,7 @@ const TeamlyticsHeader = () => {
                         <BreadcrumbSeparator className="text-blue-100" />
                         <BreadcrumbItem>
                             <BreadcrumbPage className="text-blue-100 text-lg">
-                                Dashboard
+                                Home
                             </BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>

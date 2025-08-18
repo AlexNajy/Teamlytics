@@ -3,7 +3,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -13,7 +12,7 @@ import {Home, Users, Settings, CheckSquareIcon, ClockIcon} from "lucide-react";
 // Menu items for the sidebar
 const items = [
     {
-        title: "Dashboard",
+        title: "Home",
         url: "#",
         icon: Home,
     },
@@ -42,11 +41,6 @@ const items = [
 const TeamlyticsSideBar = () => {
     return (
         <Sidebar>
-            <SidebarHeader>
-                {/*<h2 className="px-2 text-lg font-semibold text-sidebar-foreground">*/}
-                {/*    Sidebar*/}
-                {/*</h2>*/}
-            </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupContent>
