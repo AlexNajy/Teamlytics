@@ -3,7 +3,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
@@ -44,18 +43,20 @@ const TeamlyticsSideBar = () => {
     return (
         <Sidebar>
             <SidebarHeader>
-                <h2 className="px-2 text-lg font-semibold text-sidebar-foreground">
-                    Sidebar
-                </h2>
+                {/*<h2 className="px-2 text-lg font-semibold text-sidebar-foreground">*/}
+                {/*    Sidebar*/}
+                {/*</h2>*/}
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Navigation</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
+                                    <SidebarMenuButton
+                                        asChild
+                                        className="hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 hover:text-purple-700 data-[state=open]:bg-gradient-to-r data-[state=open]:from-purple-100 data-[state=open]:to-blue-100"
+                                    >
                                         <a href={item.url}>
                                             <item.icon />
                                             <span>{item.title}</span>
