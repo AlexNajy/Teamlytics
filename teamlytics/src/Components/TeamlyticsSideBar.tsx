@@ -7,38 +7,48 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/Components/ui/sidebar";
-import {Home, Users, Settings, CheckSquareIcon, ClockIcon} from "lucide-react";
+import { Home, Users, Settings, CheckSquareIcon, ClockIcon } from "lucide-react";
+import { makeStyles } from "@griffel/react";
 
-// Menu items for the sidebar
+const useClasses = makeStyles({
+    menuButton: {
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        padding: "0.5rem 0.75rem",
+        borderRadius: "0.375rem", // rounded-md
+        transition: "background 0.2s ease, color 0.2s ease",
+
+        ":hover": {
+            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
+            color: "#7e22ce", // purple-700
+        },
+
+        '[data-state="open"]': {
+            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
+            color: "#7e22ce",
+        },
+    },
+    link: {
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        textDecoration: "none",
+        color: "inherit",
+    },
+});
+
 const items = [
-    {
-        title: "Home",
-        url: "#",
-        icon: Home,
-    },
-    {
-        title: "Tasks",
-        url: "#",
-        icon: CheckSquareIcon,
-    },
-    {
-        title: "Team",
-        url: "#",
-        icon: Users,
-    },
-    {
-        title: "Schedule",
-        url: "#",
-        icon: ClockIcon,
-    },
-    {
-        title: "Settings",
-        url: "#",
-        icon: Settings,
-    },
+    { title: "Home", url: "#", icon: Home },
+    { title: "Tasks", url: "#", icon: CheckSquareIcon },
+    { title: "Team", url: "#", icon: Users },
+    { title: "Schedule", url: "#", icon: ClockIcon },
+    { title: "Settings", url: "#", icon: Settings },
 ];
 
 const TeamlyticsSideBar = () => {
+    const classes = useClasses();
+
     return (
         <Sidebar>
             <SidebarContent>
@@ -47,11 +57,8 @@ const TeamlyticsSideBar = () => {
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton
-                                        asChild
-                                        className="hover:bg-gradient-to-r hover:from-purple-100 hover:to-blue-100 hover:text-purple-700 data-[state=open]:bg-gradient-to-r data-[state=open]:from-purple-100 data-[state=open]:to-blue-100"
-                                    >
-                                        <a href={item.url}>
+                                    <SidebarMenuButton asChild className={classes.menuButton}>
+                                        <a href={item.url} className={classes.link}>
                                             <item.icon />
                                             <span>{item.title}</span>
                                         </a>
