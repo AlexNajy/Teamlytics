@@ -1,5 +1,6 @@
 import { SidebarTrigger } from "@/Components/ui/sidebar";
 import { makeStyles } from '@griffel/react';
+import { useLocation } from 'react-router-dom';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -19,6 +20,8 @@ const useClasses = makeStyles({
         boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)",
         borderBottom: "1px solid #e5e7eb",
         flexShrink: 0,
+        borderBottomLeftRadius: "0.375rem",
+        borderBottomRightRadius: "0.375rem"
     },
     container: {
         display: "flex",
@@ -40,14 +43,28 @@ const useClasses = makeStyles({
             backgroundColor: "#7e22ce", // purple-700
         },
     },
-    breadcrumb: {
+    breadcrumbSeparator: {
+        color: "#dbeafe",
+    },
+    breadcrumbText: {
         color: "#dbeafe",
         fontSize: "1.125rem", // text-lg
-    },
+    }
 });
+
+const routeNames: Record<string, string> = {
+    '/': 'Home',
+    '/tasks': 'Tasks',
+    '/team': 'Team',
+    '/schedule': 'Schedule',
+    '/settings': 'Settings',
+};
 
 const TeamlyticsHeader = () => {
     const classes = useClasses();
+    const location = useLocation();
+    const currentPage = routeNames[location.pathname] || 'Unknown';
+
 
     return (
         <header className={classes.header}>
@@ -61,10 +78,10 @@ const TeamlyticsHeader = () => {
 
                 <Breadcrumb>
                     <BreadcrumbList>
-                        <BreadcrumbSeparator className={classes.breadcrumb} />
+                        <BreadcrumbSeparator className={classes.breadcrumbSeparator} />
                         <BreadcrumbItem>
-                            <BreadcrumbPage className={classes.breadcrumb}>
-                                Home
+                            <BreadcrumbPage className={classes.breadcrumbText}>
+                                {currentPage}
                             </BreadcrumbPage>
                         </BreadcrumbItem>
                     </BreadcrumbList>
