@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 
 const useClasses = makeStyles({
     container: {
-        backgroundImage: "linear-gradient(to right, white, ghostwhite)"
+        backgroundImage: "linear-gradient(to left, white, #f5f5f5)"
     },
     menuButton: {
         display: "flex",
@@ -40,9 +40,6 @@ const useClasses = makeStyles({
         gap: "0.5rem",
         textDecoration: "none",
         color: "inherit",
-    },
-    activeLink: {
-        color: "red", // or any active link color you want
     },
 });
 

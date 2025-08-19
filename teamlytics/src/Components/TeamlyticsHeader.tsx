@@ -20,8 +20,8 @@ const useClasses = makeStyles({
         boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)",
         borderBottom: "1px solid #e5e7eb",
         flexShrink: 0,
-        borderBottomLeftRadius: "0.375rem",
-        borderBottomRightRadius: "0.375rem"
+        borderBottomLeftRadius: "0rem",
+        borderBottomRightRadius: "0rem"
     },
     container: {
         display: "flex",

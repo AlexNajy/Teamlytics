@@ -25,9 +25,9 @@ const useClasses = makeStyles({
     },
     mainContent: {
         flex: 1,
-        padding: "1.5rem", // p-6
         backgroundColor: "#f9fafb", // bg-gray-50
         overflow: "auto",
+        margin: 0,
     },
     innerContent: {
         maxWidth: "112rem", // max-w-7xl
@@ -42,10 +42,8 @@ const BasePage = ({ children }: BasePageProps) => {
     return (
         <SidebarProvider>
             <div className={classes.container}>
-                {/* Sidebar */}
                 <TeamlyticsSideBar />
 
-                {/* Main content */}
                 <div className={classes.mainContentWrapper}>
                     <TeamlyticsHeader />
 
