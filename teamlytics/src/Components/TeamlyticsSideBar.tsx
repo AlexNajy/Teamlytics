@@ -9,6 +9,7 @@ import {
 } from "@/Components/ui/sidebar";
 import { Home, Users, Settings, CheckSquareIcon, ClockIcon } from "lucide-react";
 import { makeStyles } from "@griffel/react";
+import { NavLink } from "react-router-dom";
 
 const useClasses = makeStyles({
     menuButton: {
@@ -39,11 +40,11 @@ const useClasses = makeStyles({
 });
 
 const items = [
-    { title: "Home", url: "#", icon: Home },
-    { title: "Tasks", url: "#", icon: CheckSquareIcon },
-    { title: "Team", url: "#", icon: Users },
-    { title: "Schedule", url: "#", icon: ClockIcon },
-    { title: "Settings", url: "#", icon: Settings },
+    { title: "Home", url: "/", icon: Home },
+    { title: "Tasks", url: "/tasks", icon: CheckSquareIcon },
+    { title: "Team", url: "/team", icon: Users },
+    { title: "Schedule", url: "/schedule", icon: ClockIcon },
+    { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 const TeamlyticsSideBar = () => {
@@ -58,10 +59,15 @@ const TeamlyticsSideBar = () => {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild className={classes.menuButton}>
-                                        <a href={item.url} className={classes.link}>
+                                        <NavLink
+                                            to={item.url}
+                                            className={({ isActive }) =>
+                                                `${classes.link} ${isActive ? classes.activeLink : ''}`
+                                            }
+                                        >
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </NavLink>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
