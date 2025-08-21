@@ -31,7 +31,7 @@ const useClasses = makeStyles({
     title: {
         fontSize: "1.25rem",
         fontWeight: "bold",
-        backgroundImage: "linear-gradient(to right, black, gray)",
+        backgroundImage: "linear-gradient(to right, #111827, #111827)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
     },

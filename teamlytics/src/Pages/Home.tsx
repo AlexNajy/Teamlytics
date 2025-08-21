@@ -25,7 +25,7 @@ const useStyles = makeStyles({
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         opacity: 'transparent',
-        color: "black",
+        color: '#111827', //soft black
     },
     heroDescription: {
         fontSize: '1.25rem',
@@ -87,7 +87,7 @@ const useStyles = makeStyles({
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
         ':hover': {
             background: "black",
-            color: "lightblue",
+            color: "lightgray",
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
         },
         ':disabled': {

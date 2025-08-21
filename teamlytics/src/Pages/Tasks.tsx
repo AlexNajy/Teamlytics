@@ -1,4 +1,5 @@
 import AddTask from "@/Components/AddTask";
+import TaskList from "@/Components/TaskList";
 import { makeStyles } from '@griffel/react';
 
 const useStyles = makeStyles({
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
         fontSize: 'clamp(2.25rem, 5vw, 3rem)',
         fontWeight: 'bold',
         marginBottom: '1.5rem',
-        color: "black",
+        color: '#111827',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
     },
@@ -36,6 +37,9 @@ const useStyles = makeStyles({
     },
     formSection: {
         marginBottom: '3rem'
+    },
+    listSection: {
+        marginBottom: '3rem'
     }
 });
 
@@ -46,7 +50,7 @@ const Tasks = () => {
         <div className={styles.container}>
             <main className={styles.main}>
                 <div className={styles.contentWrapper}>
-                    {/* Hero Section */}
+
                     <div className={styles.heroSection}>
                         <h2 className={styles.heroTitle}>
                             Task Management
@@ -56,9 +60,12 @@ const Tasks = () => {
                         </p>
                     </div>
 
-                    {/* Add Task Form */}
                     <div className={styles.formSection}>
                         <AddTask />
+                    </div>
+
+                    <div className={styles.listSection}>
+                        <TaskList />
                     </div>
                 </div>
             </main>
