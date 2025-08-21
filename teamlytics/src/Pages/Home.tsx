@@ -3,7 +3,7 @@ import { makeStyles } from '@griffel/react';
 const useStyles = makeStyles({
     container: {
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%)'
+        //background: 'linear-gradient(155deg, #f0fafc 0%, #dbeafe 75%, #e0e7ff 80%)'
     },
     main: {
         flex: '1',
@@ -79,14 +79,15 @@ const useStyles = makeStyles({
     },
     sendButton: {
         padding: '0.5rem 1.5rem',
-        background: 'linear-gradient(135deg, lightgray, lightslategray)',
+        background: 'black',
         color: 'white',
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
         ':hover': {
-            background: 'linear-gradient(135deg, lightslategray, darkslategray)',
+            background: "black",
+            color: "lightblue",
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
         },
         ':disabled': {
