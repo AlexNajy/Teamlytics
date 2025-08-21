@@ -12,7 +12,7 @@ import {
 const useClasses = makeStyles({
     header: {
         width: "100%",
-        backgroundImage: "linear-gradient(to right, #9333ea, #2563eb)",
+        //backgroundImage: "linear-gradient(to right, #a958f5, #3f75eb)",
         paddingLeft: "1.5rem",
         paddingRight: "1.5rem",
         paddingTop: "1rem",
@@ -26,29 +26,29 @@ const useClasses = makeStyles({
     container: {
         display: "flex",
         alignItems: "baseline",
-        gap: "1rem", // gap-4
+        gap: "1rem",
     },
     title: {
-        fontSize: "1.25rem", // text-xl
+        fontSize: "1.25rem",
         fontWeight: "bold",
-        backgroundImage: "linear-gradient(to right, white, #dbeafe)",
+        backgroundImage: "linear-gradient(to right, black, gray)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
     },
     sidebarTrigger: {
-        color: "white",
+        color: "black",
         padding: "0.5rem", // p-2
         borderRadius: "0.375rem", // rounded-md
         ":hover": {
-            backgroundColor: "#7e22ce", // purple-700
+            backgroundColor: "lightgray",
         },
     },
     breadcrumbSeparator: {
-        color: "#dbeafe",
+        color: "gray",
     },
     breadcrumbText: {
-        color: "#dbeafe",
-        fontSize: "1.125rem", // text-lg
+        color: "gray",
+        fontSize: "1.125rem",
     }
 });
 

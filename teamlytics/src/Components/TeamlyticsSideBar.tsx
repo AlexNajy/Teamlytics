@@ -22,16 +22,16 @@ const useClasses = makeStyles({
         padding: "0.5rem 0.75rem",
         borderRadius: "0.375rem", // rounded-md
         transition: "background 0.2s ease, color 0.2s ease",
-        color: "black",
+        color: "7e22ce",
 
         ":hover": {
-            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
-            color: "#7e22ce", // purple-700
+            backgroundImage: "linear-gradient(to right, #e3e3e3, lightgray)",
+            color: "black",
         },
 
         '[data-state="open"]': {
-            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
-            color: "#7e22ce",
+            backgroundImage: "linear-gradient(to right, #e3e3e3, lightgray)",
+            color: "black",
         },
     },
     link: {
