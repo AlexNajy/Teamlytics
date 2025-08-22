@@ -8,4 +8,4 @@ async def root():
 
 @app.get("/health")
 async def health():
-    return {"status": "This whole project has been flagged for plagiarism. Kidding! It's healthy!"}
+    return {"status": "This whole p⁄roject has been flagged for plagiarism. Kidding! It's healthy!"}
