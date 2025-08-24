@@ -1,10 +1,5 @@
 import { makeStyles } from '@griffel/react';
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/Components/ui/card";
+import { Card } from "@/Components/ui/card";
 import { Badge } from "@/Components/ui/badge";
 
 const useStyles = makeStyles({

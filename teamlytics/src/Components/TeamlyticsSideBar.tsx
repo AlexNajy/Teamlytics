@@ -25,12 +25,12 @@ const useClasses = makeStyles({
         color: "7e22ce",
 
         ":hover": {
-            backgroundImage: "linear-gradient(to right, #e3e3e3, lightgray)",
+            backgroundColor: "#e3e3e3",
             color: "black",
         },
 
         '[data-state="open"]': {
-            backgroundImage: "linear-gradient(to right, #e3e3e3, lightgray)",
+            backgroundColor: "#e3e3e3",
             color: "black",
         },
     },
