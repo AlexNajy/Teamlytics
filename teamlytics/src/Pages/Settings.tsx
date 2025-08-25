@@ -6,7 +6,7 @@ const useClasses = makeStyles({
     },
 });
 
-const TeamlyticsHeader = () => {
+const Settings = () => {
     const classes = useClasses();
 
     return (
@@ -16,4 +16,4 @@ const TeamlyticsHeader = () => {
     );
 };
 
-export default TeamlyticsHeader;
+export default Settings;

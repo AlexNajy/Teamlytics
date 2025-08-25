@@ -12,6 +12,9 @@ import { makeStyles } from "@griffel/react";
 import { NavLink } from "react-router-dom";
 
 const useClasses = makeStyles({
+    container: {
+        backgroundImage: "linear-gradient(to left, white, #f5f5f5)"
+    },
     menuButton: {
         display: "flex",
         alignItems: "center",
@@ -19,15 +22,16 @@ const useClasses = makeStyles({
         padding: "0.5rem 0.75rem",
         borderRadius: "0.375rem", // rounded-md
         transition: "background 0.2s ease, color 0.2s ease",
+        color: "7e22ce",
 
         ":hover": {
-            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
-            color: "#7e22ce", // purple-700
+            backgroundColor: "#e3e3e3",
+            color: "black",
         },
 
         '[data-state="open"]': {
-            backgroundImage: "linear-gradient(to right, #f3e8ff, #dbeafe)",
-            color: "#7e22ce",
+            backgroundColor: "#e3e3e3",
+            color: "black",
         },
     },
     link: {
@@ -52,19 +56,14 @@ const TeamlyticsSideBar = () => {
 
     return (
         <Sidebar>
-            <SidebarContent>
+            <SidebarContent className={classes.container}>
                 <SidebarGroup>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild className={classes.menuButton}>
-                                        <NavLink
-                                            to={item.url}
-                                            className={({ isActive }) =>
-                                                `${classes.link} ${isActive ? classes.activeLink : ''}`
-                                            }
-                                        >
+                                        <NavLink to={item.url} className={classes.link}>
                                             <item.icon />
                                             <span>{item.title}</span>
                                         </NavLink>
