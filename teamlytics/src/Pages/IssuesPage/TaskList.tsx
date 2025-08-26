@@ -1,6 +1,7 @@
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
 import { Badge } from "@/Components/ui/badge";
+import useTasks, {type Task} from "@/Pages/IssuesPage/hooks/ListIssues.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
         lineHeight: '1.5',
         textAlign: 'left',
     },
-    type: {
+    assignee: {
         backgroundColor: '#f3f4f6',
         color: '#374151',
         fontSize: '0.75rem',
@@ -47,31 +48,17 @@ const useStyles = makeStyles({
 
 const TaskList = () => {
     const styles = useStyles();
-
-    // Hardcoded tasks
-    const tasks = [
-        {
-            id: 1,
-            title: "Update user authentication system",
-            type: "Development",
-            estimatedTime: "4 hours",
-            description: "Implement work email authentication that is specific to the client company"
-        },
-        {
-            id: 2,
-            title: "Demo to mock client",
-            type: "Research",
-            estimatedTime: "2 hours",
-            description: "Prepare the MVP and pitch it to a mock potential client for feedback"
-        },
-        {
-            id: 3,
-            title: "Weekly standup meeting",
-            type: "Meeting",
-            estimatedTime: "30 minutes",
-            description: "Review sprint goals and discuss projections"
+    const fetchedTasks = useTasks()
+    const tasks = fetchedTasks.tasks.map((issue: Task) => {
+        return {
+            id: issue.id,
+            title: issue.title,
+            description: issue.description,
+            status: issue.status,
+            assignee: issue.assignee,
+            estimatedTime: issue.estimatedTime
         }
-    ];
+    })
 
     return (
         <div className={styles.container}>
@@ -82,7 +69,8 @@ const TaskList = () => {
                     <h4 className={styles.title} > {task.title}</h4>
                     <div className={styles.time} > {task.estimatedTime}</div>
                     <p className={styles.description} > {task.description}</p>
-                    <Badge className={styles.type} > {task.type}</Badge>
+                    <p className={styles.description} > {task.status}</p>
+                    <Badge className={styles.assignee} > {task.assignee}</Badge>
                 </Card>
             ))}
         </div>
