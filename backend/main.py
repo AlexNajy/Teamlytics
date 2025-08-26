@@ -1,10 +1,10 @@
 from fastapi import FastAPI
 
-from api.v1.issues import issues_router
+from api.v1.tasks import tasks_router
 
 app = FastAPI(title="My FastAPI App", version="1.0.0")
 
-app.include_router(issues_router, prefix="/api/v1")
+app.include_router(tasks_router, prefix="/api/v1")
 
 @app.get("/")
 async def root():
