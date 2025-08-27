@@ -3,7 +3,7 @@ import { makeStyles } from '@griffel/react';
 const useStyles = makeStyles({
     container: {
         minHeight: '100vh',
-        //background: 'linear-gradient(155deg, #f0fafc 0%, #dbeafe 75%, #e0e7ff 80%)'
+        backgroundColor: 'var(--background)',
     },
     main: {
         flex: '1',
@@ -25,11 +25,11 @@ const useStyles = makeStyles({
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         opacity: 'transparent',
-        color: '#111827', //soft black
+        color: 'var(--foreground)',
     },
     heroDescription: {
         fontSize: '1.25rem',
-        color: '#4b5563',
+        color: 'var(--muted-foreground)',
         maxWidth: '32rem',
         margin: '0 auto 2rem',
     },
@@ -41,10 +41,10 @@ const useStyles = makeStyles({
     },
     inputWrapper: {
         position: 'relative',
-        background: 'white',
+        background: 'var(--card)',
         borderRadius: '1rem',
         boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        border: '1px solid #e5e7eb',
+        border: '1px solid var(--border)',
         overflow: 'hidden',
         transition: 'box-shadow 0.3s ease',
         ':hover': {
@@ -55,10 +55,10 @@ const useStyles = makeStyles({
         width: '100%',
         padding: '1.5rem 1.5rem 1rem',
         fontSize: '1.125rem',
-        color: '#1f2937',
+        color: 'var(--card-foreground)',
         backgroundColor: 'transparent',
         '::placeholder': {
-            color: '#6b7280'
+            color: 'var(--muted-foreground)'
         },
         ':focus': {
             outline: 'none',
@@ -70,24 +70,22 @@ const useStyles = makeStyles({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '0.75rem 1.5rem',
-        background: '#f9fafb',
-        borderTop: '1px solid #f3f4f6'
-    },
-    inputHint: {
-        fontSize: '0.75rem',
-        color: '#6b7280'
+        background: 'var(--muted)',
+        borderTop: '1px solid var(--border)'
     },
     sendButton: {
         padding: '0.5rem 1.5rem',
-        background: 'black',
-        color: 'white',
+        background: 'var(--primary)',
+        color: 'var(--primary-foreground)',
+        backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
         ':hover': {
-            background: "black",
-            color: "lightgray",
+            background: 'var(--primary)',
+            color: 'var(--primary-foreground)',
+            opacity: '0.9',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
         },
         ':disabled': {
@@ -100,9 +98,9 @@ const useStyles = makeStyles({
         padding: '1.5rem',
         textAlign: 'center'
     },
-    footerText: {
+    subtext: {
         fontSize: '0.75rem',
-        color: '#6b7280'
+        color: 'var(--muted-foreground)'
     }
 });
 
@@ -133,7 +131,7 @@ const AIHomepage = () => {
                                     className={styles.textarea}
                                 />
                                 <div className={styles.inputFooter}>
-                                    <div className={styles.inputHint}>
+                                    <div className={styles.subtext}>
                                         Press Enter to send, Shift+Enter for new line
                                     </div>
                                     <button className={styles.sendButton}>
@@ -149,7 +147,7 @@ const AIHomepage = () => {
             {/* Footer */}
             <footer className={styles.footer}>
                 <div className={styles.contentWrapper}>
-                    <p className={styles.footerText}>
+                    <p className={styles.subtext}>
                         Teamlytics AI can make mistakes. Consider checking important information.
                     </p>
                 </div>

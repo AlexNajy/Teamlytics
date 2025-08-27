@@ -17,6 +17,8 @@ const useClasses = makeStyles({
     },
 });
 
+document.documentElement.setAttribute('data-theme', 'root');
+
 function TeamlyticsApp() {
     const classes = useClasses();
 
