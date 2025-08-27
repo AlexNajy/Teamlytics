@@ -29,7 +29,7 @@ const useClasses = makeStyles({
         margin: 0,
     },
     innerContent: {
-        maxWidth: "114rem", // max-w-7xl
+        maxWidth: "114rem",
         marginLeft: "auto",
         marginRight: "auto",
     },

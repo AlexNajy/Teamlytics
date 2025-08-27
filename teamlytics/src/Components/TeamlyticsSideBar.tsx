@@ -15,7 +15,7 @@ const useClasses = makeStyles({
     container: {
         backgroundColor: "var(--card)",
         height: "100%",
-        border: '1px solid var(--border)',
+        borderRight: '1px solid var(--border)',
     },
     menuButton: {
         display: "flex",
@@ -52,7 +52,7 @@ const TeamlyticsSideBar = () => {
     const classes = useClasses();
 
     return (
-        <Sidebar>
+        <Sidebar style={{ borderRight: 'none' }}>
             <SidebarContent className={classes.container}>
                 <SidebarGroup>
                     <SidebarGroupContent>
