@@ -16,6 +16,8 @@ const useClasses = makeStyles({
         backgroundColor: "var(--card)",
         height: "100%",
         borderRight: '1px solid var(--border)',
+        boxShadow: "0 8px 12px var(--shadow)",
+        zIndex: 1,
     },
     menuButton: {
         display: "flex",

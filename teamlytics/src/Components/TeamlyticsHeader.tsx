@@ -17,11 +17,13 @@ const useClasses = makeStyles({
         paddingRight: "1.5rem",
         paddingTop: "1rem",
         paddingBottom: "1rem",
-        boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)",
+        boxShadow: "0 4px 6px var(--shadow)",
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
         borderBottomLeftRadius: "0rem",
-        borderBottomRightRadius: "0rem"
+        borderBottomRightRadius: "0rem",
+        zIndex: 1,
+
     },
     container: {
         display: "flex",

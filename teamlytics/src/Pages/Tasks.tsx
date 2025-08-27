@@ -5,7 +5,7 @@ import { makeStyles } from '@griffel/react';
 const useStyles = makeStyles({
     container: {
         minHeight: '100vh',
-        //background: 'linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%)'
+        background: 'var(--background)',
     },
     main: {
         flex: '1',
@@ -15,32 +15,29 @@ const useStyles = makeStyles({
         maxWidth: '64rem',
         margin: '0 auto'
     },
-    heroSection: {
+    titleSection: {
         textAlign: 'center',
         marginBottom: '3rem',
         paddingTop: '4rem'
     },
-    heroTitle: {
+    title: {
         fontSize: 'clamp(2.25rem, 5vw, 3rem)',
         fontWeight: 'bold',
         marginBottom: '1.5rem',
-        color: '#111827',
+        color: 'var(--foreground)',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
     },
-    heroDescription: {
+    subtitle: {
         fontSize: '1.25rem',
-        color: '#4b5563',
+        color: 'var(--muted-foreground)',
         maxWidth: '32rem',
         margin: '0 auto 2rem',
         lineHeight: '1.75'
     },
-    formSection: {
+    form: {
         marginBottom: '3rem'
     },
-    listSection: {
-        marginBottom: '3rem'
-    }
 });
 
 const Tasks = () => {
@@ -51,20 +48,20 @@ const Tasks = () => {
             <main className={styles.main}>
                 <div className={styles.contentWrapper}>
 
-                    <div className={styles.heroSection}>
-                        <h2 className={styles.heroTitle}>
+                    <div className={styles.titleSection}>
+                        <h2 className={styles.title}>
                             Task Management
                         </h2>
-                        <p className={styles.heroDescription}>
+                        <p className={styles.subtitle}>
                             Create and organize your tasks efficiently
                         </p>
                     </div>
 
-                    <div className={styles.formSection}>
+                    <div className={styles.form}>
                         <AddTask />
                     </div>
 
-                    <div className={styles.listSection}>
+                    <div className={styles.form}>
                         <TaskList />
                     </div>
                 </div>

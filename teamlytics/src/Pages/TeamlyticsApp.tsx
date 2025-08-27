@@ -10,6 +10,9 @@ import Schedule from "./Schedule";
 import Settings from "./Settings";
 
 const useClasses = makeStyles({
+    background: {
+        backgroundColor: "var(--background)",
+    },
     container: {
         display: "flex",
         flexDirection: "column",
@@ -18,23 +21,25 @@ const useClasses = makeStyles({
 });
 
 document.documentElement.setAttribute('data-theme', 'root');
-document.documentElement.classList.toggle('light');
+document.documentElement.classList.toggle('dark');
 
 function TeamlyticsApp() {
     const classes = useClasses();
 
     return (
-        <BasePage>
-            <div className={classes.container}>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/team" element={<Team />} />
-                    <Route path="/schedule" element={<Schedule />} />
-                    <Route path="/settings" element={<Settings />} />
-                </Routes>
-            </div>
-        </BasePage>
+        <div className={classes.background}>
+            <BasePage>
+                <div className={classes.container}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/tasks" element={<Tasks />} />
+                        <Route path="/team" element={<Team />} />
+                        <Route path="/schedule" element={<Schedule />} />
+                        <Route path="/settings" element={<Settings />} />
+                    </Routes>
+                </div>
+            </BasePage>
+        </div>
     );
 }
 
