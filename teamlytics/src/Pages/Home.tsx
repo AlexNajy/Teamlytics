@@ -76,16 +76,17 @@ const useStyles = makeStyles({
     sendButton: {
         padding: '0.5rem 1.5rem',
         background: 'var(--primary)',
-        color: 'var(--primary-foreground)',
+        color: 'var(--card)',
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
         boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        opacity: '0.9',
         ':hover': {
-            background: 'var(--primary)',
-            color: 'var(--primary-foreground)',
-            opacity: '0.9',
+            backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
+            color: 'var(--card)',
+            opacity: '1',
             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
         },
         ':disabled': {

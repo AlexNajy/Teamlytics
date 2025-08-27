@@ -25,12 +25,11 @@ const useClasses = makeStyles({
     },
     mainContent: {
         flex: 1,
-        backgroundColor: "#f9fafb", // bg-gray-50
         overflow: "auto",
         margin: 0,
     },
     innerContent: {
-        maxWidth: "112rem", // max-w-7xl
+        maxWidth: "114rem", // max-w-7xl
         marginLeft: "auto",
         marginRight: "auto",
     },

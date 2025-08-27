@@ -13,11 +13,12 @@ const useClasses = makeStyles({
     container: {
         display: "flex",
         flexDirection: "column",
-        rowGap: "1rem", // equivalent to Tailwind's space-y-4
+        rowGap: "1rem",
     },
 });
 
 document.documentElement.setAttribute('data-theme', 'root');
+document.documentElement.classList.toggle('light');
 
 function TeamlyticsApp() {
     const classes = useClasses();

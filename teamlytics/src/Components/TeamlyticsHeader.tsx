@@ -12,13 +12,13 @@ import {
 const useClasses = makeStyles({
     header: {
         width: "100%",
-        backgroundColor: "var(--card)",
+        backgroundColor: 'var(--card)',
         paddingLeft: "1.5rem",
         paddingRight: "1.5rem",
         paddingTop: "1rem",
         paddingBottom: "1rem",
         boxShadow: "0 1px 2px 0 rgba(0,0,0,0.05)",
-        borderBottom: "1px solid #e5e7eb",
+        borderBottom: '1px solid var(--border)',
         flexShrink: 0,
         borderBottomLeftRadius: "0rem",
         borderBottomRightRadius: "0rem"
@@ -35,9 +35,10 @@ const useClasses = makeStyles({
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
+        opacity: '0.9',
     },
     sidebarTrigger: {
-        color: "black",
+        color: "var(--foreground)",
         padding: "0.5rem",
         borderRadius: "0.375rem",
         ":hover": {

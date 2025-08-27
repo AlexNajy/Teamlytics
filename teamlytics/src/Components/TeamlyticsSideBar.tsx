@@ -13,33 +13,30 @@ import { NavLink } from "react-router-dom";
 
 const useClasses = makeStyles({
     container: {
-        backgroundImage: "linear-gradient(to left, white, #f5f5f5)"
+        backgroundColor: "var(--card)",
+        height: "100%",
+        border: '1px solid var(--border)',
     },
     menuButton: {
         display: "flex",
         alignItems: "center",
         gap: "0.5rem",
         padding: "0.5rem 0.75rem",
-        borderRadius: "0.375rem", // rounded-md
+        borderRadius: "0.375rem",
         transition: "background 0.2s ease, color 0.2s ease",
-        color: "7e22ce",
+        color: "var(--foreground)",
 
         ":hover": {
-            backgroundColor: "#e3e3e3",
-            color: "black",
-        },
-
-        '[data-state="open"]': {
-            backgroundColor: "#e3e3e3",
-            color: "black",
+            backgroundImage: 'linear-gradient(to right, var(--primary-transparent), var(--secondary-transparent))',
+            color: "var(--foreground)",
+            opacity: '0.75',
         },
     },
     link: {
         display: "flex",
         alignItems: "center",
         gap: "0.5rem",
-        textDecoration: "none",
-        color: "inherit",
+        color: "var(--foreground)",
     },
 });
 
