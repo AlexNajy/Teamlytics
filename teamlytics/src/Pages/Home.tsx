@@ -43,12 +43,12 @@ const useStyles = makeStyles({
         position: 'relative',
         background: 'var(--card)',
         borderRadius: '1rem',
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
         border: '1px solid var(--border)',
         overflow: 'hidden',
         transition: 'box-shadow 0.3s ease',
         ':hover': {
-            boxShadow: '0 25px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+            boxShadow: '0 25px 25px -5px var(--shadow), 0 10px 10px -5px var(--shadow)'
         }
     },
     textarea: {
@@ -81,13 +81,13 @@ const useStyles = makeStyles({
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
-        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        boxShadow: '0 1px 2px 0 var(--shadow)',
         opacity: '0.9',
         ':hover': {
             backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-            color: 'var(--card)',
+            color: 'var(--muted)',
             opacity: '1',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+            boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
         },
         ':disabled': {
             opacity: '0.5',

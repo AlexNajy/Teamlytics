@@ -20,7 +20,7 @@ const useClasses = makeStyles({
     },
 });
 
-document.documentElement.setAttribute('data-theme', 'root');
+document.documentElement.setAttribute('data-theme', 'magenta');
 document.documentElement.classList.toggle('dark');
 
 function TeamlyticsApp() {

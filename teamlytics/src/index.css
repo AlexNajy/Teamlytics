@@ -32,7 +32,7 @@
     --secondary-transparent: oklch(0.497 0.125 300);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --border: oklch(0.409 0 89.876 / 0);
+    --border: oklch(0 0 0 / 0.1);
     --shadow: rgba(0, 0, 0, 0.1);
 }
 
@@ -64,6 +64,6 @@
     --secondary-transparent: oklch(0.4225 0.125 25);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --border: oklch(0.409 0 89.876 / 0);
+    --border: oklch(0 0 0 / 0.1);
     --shadow: rgba(0, 0, 0, 0.1);
 }
