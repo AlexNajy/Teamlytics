@@ -12,6 +12,10 @@ import { makeStyles } from "@griffel/react";
 import { NavLink } from "react-router-dom";
 
 const useClasses = makeStyles({
+    sidebar:  {
+        borderRight: "none",
+        flex: 1,
+    },
     container: {
         backgroundColor: "var(--card)",
         height: "100%",

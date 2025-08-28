@@ -16,6 +16,7 @@ const useClasses = makeStyles({
         top: 0,
         left: 0,
         display: "flex",
+        backgroundColor: "var(--background)"
     },
     mainContentWrapper: {
         flex: 1,

@@ -116,7 +116,7 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         transition: 'background-color 0.2s ease',
         ':hover': {
-            backgroundColor: 'var(--muted-foreground)',
+            backgroundColor: 'var(--muted)',
         },
         ':focus': {
             backgroundColor: 'var(--primary-transparent)',
