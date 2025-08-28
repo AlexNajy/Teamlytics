@@ -7,7 +7,7 @@
     --radius: 0.625rem;
     /* Blue & Purple Theme (default) */
     --background: oklch(0.984 0.002 17.195);
-    --foreground: oklch(0.173 0 89.876);
+    --foreground: oklch(0.125 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.164 0 89.876);
     --primary: oklch(0.518 0.224 262.987);
@@ -38,8 +38,8 @@
 
 [data-theme="magenta"] {
     /* Magenta & Red Theme */
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --background: oklch(0.984 0.002 17.195);
+    --foreground: oklch(0.125 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --primary: oklch(0.65 0.28 330);
