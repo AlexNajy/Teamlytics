@@ -51,7 +51,7 @@ const useClasses = makeStyles({
         color: "var(--muted-foreground)",
     },
     breadcrumbText: {
-        color: "var(--muted-foreground)",
+        color: "var(--foreground)",
         fontSize: "1.125rem",
     }
 });

@@ -36,10 +36,10 @@ const useStyles = makeStyles({
     content: {
         backgroundColor: "var(--card)",
         borderRight: "1px solid var(--border)",
-        boxShadow: "0 4px 6px var(--shadow)",
+        boxShadow: "0 4px 6px 2px var(--shadow)",
     },
     header: {
-        padding: "1rem",
+        padding: "0.75rem",
         borderRight: "1px solid var(--border)",
         backgroundColor: "var(--card)",
     },
@@ -49,21 +49,40 @@ const useStyles = makeStyles({
         gap: "0.5rem",
         padding: "0.5rem 0.75rem",
         borderRadius: "var(--radius)",
-        border: "2px solid var(--border)",
+        border: "1px solid var(--border)",
         backgroundColor: "var(--card)",
         cursor: "pointer",
         transition: "all 0.2s ease",
         width: "100%",
+        boxShadow: '0 2px 3px -1px var(--shadow), 0 2px 4px -1px var(--shadow)',
 
         ":hover": {
             backgroundColor: "var(--muted)",
         },
     },
+    companyDropdown: {
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
+    },
+    companyDropdownItem: {
+        color: 'var(--foreground)',
+        padding: '0.5rem 0.75rem',
+        fontSize: '0.875rem',
+        cursor: 'pointer',
+        transition: 'background-color 0.2s ease',
+        borderRadius: '0.5rem',
+        ':hover': {
+            backgroundColor: 'var(--muted)',
+        }
+    },
     companyIcon: {
         width: "1.25rem",
         height: "1.25rem",
         borderRadius: "0.25rem",
-        backgroundColor: "var(--primary)",
+        backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         color: "var(--card)",
         display: "flex",
         alignItems: "center",
@@ -120,9 +139,22 @@ const useStyles = makeStyles({
 });
 
 const companies = [
-    { name: "Acme Inc", type: "Enterprise" },
-    { name: "TechCorp", type: "Startup" },
-    { name: "Global Solutions", type: "Enterprise" },
+    { name: "Acme Inc", id: "1" },
+    { name: "TechCorp", id: "2" },
+    { name: "Global Solutions", id: "2" },
+];
+
+const platformPages = [
+    { title: "Home", url: "/", icon: Home },
+    { title: "Tasks", url: "/tasks", icon: CheckSquareIcon },
+    { title: "Team", url: "/team", icon: Users },
+    { title: "Schedule", url: "/schedule", icon: ClockIcon },
+    { title: "Settings", url: "/settings", icon: Settings },
+];
+
+const personalPages = [
+    { title: "Account", url: "/account", icon: User },
+    { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 const TeamlyticsSideBar = () => {
@@ -136,28 +168,29 @@ const TeamlyticsSideBar = () => {
                     <DropdownMenuTrigger asChild>
                         <div className={styles.companySelector}>
                             <div className={styles.companyIcon}>
-                                <Building2 size={14} />
+                                <Building2 size={16} />
                             </div>
+
                             <div className={styles.companyInfo}>
                                 <div className={styles.companyName}>{selectedCompany.name}</div>
-                                <div className={styles.companyType}>{selectedCompany.type}</div>
                             </div>
                             <ChevronsUpDown size={16} />
                         </div>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="w-64">
+                    <DropdownMenuContent className={styles.companyDropdown}>
                         {companies.map((company) => (
                             <DropdownMenuItem
                                 key={company.name}
                                 onClick={() => setSelectedCompany(company)}
+                                className={styles.companyDropdownItem}
                             >
                                 <div className="flex items-center gap-2">
                                     <div className={styles.companyIcon}>
                                         <Building2 size={12} />
                                     </div>
                                     <div>
-                                        <div className="font-medium">{company.name}</div>
-                                        <div className="text-sm text-muted-foreground">{company.type}</div>
+                                        <div className={styles.companyName}>{company.name}</div>
+                                        <div className={styles.companyType}>{company.id}</div>
                                     </div>
                                 </div>
                             </DropdownMenuItem>
@@ -173,41 +206,16 @@ const TeamlyticsSideBar = () => {
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/" className={styles.link}>
-                                        <Home size={16} />
-                                        <span>Home</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/tasks" className={styles.link}>
-                                        <CheckSquareIcon size={16} />
-                                        <span>Tasks</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/team" className={styles.link}>
-                                        <Users size={16} />
-                                        <span>Team</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/schedule" className={styles.link}>
-                                        <ClockIcon size={16} />
-                                        <span>Schedule</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            {platformPages.slice(0, 4).map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild className={styles.menuButton}>
+                                        <NavLink to={item.url} className={styles.link}>
+                                            <item.icon size={16} />
+                                            <span>{item.title}</span>
+                                        </NavLink>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
@@ -218,23 +226,16 @@ const TeamlyticsSideBar = () => {
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/account" className={styles.link}>
-                                        <User size={16} />
-                                        <span>Account</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-
-                            <SidebarMenuItem>
-                                <SidebarMenuButton asChild className={styles.menuButton}>
-                                    <NavLink to="/settings" className={styles.link}>
-                                        <Settings size={16} />
-                                        <span>Settings</span>
-                                    </NavLink>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
+                            {personalPages.map((item) => (
+                                <SidebarMenuItem key={item.title}>
+                                    <SidebarMenuButton asChild className={styles.menuButton}>
+                                        <NavLink to={item.url} className={styles.link}>
+                                            <item.icon size={16} />
+                                            <span>{item.title}</span>
+                                        </NavLink>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            ))}
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
