@@ -74,8 +74,17 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         transition: 'background-color 0.2s ease',
         borderRadius: '0.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
         ':hover': {
             backgroundColor: 'var(--muted)',
+        }
+    },
+    selected: {
+        backgroundColor: 'color-mix(in srgb, var(--primary) 10%, transparent)',
+        ':hover': {
+            backgroundColor: 'color-mix(in srgb, var(--primary) 15%, transparent)',
         }
     },
     companyIcon: {
@@ -141,7 +150,7 @@ const useStyles = makeStyles({
 const companies = [
     { name: "Acme Inc", id: "1" },
     { name: "TechCorp", id: "2" },
-    { name: "Global Solutions", id: "2" },
+    { name: "Global Solutions", id: "3" },
 ];
 
 const platformPages = [
@@ -178,13 +187,14 @@ const TeamlyticsSideBar = () => {
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className={styles.companyDropdown}>
-                        {companies.map((company) => (
-                            <DropdownMenuItem
-                                key={company.name}
-                                onClick={() => setSelectedCompany(company)}
-                                className={styles.companyDropdownItem}
-                            >
-                                <div className="flex items-center gap-2">
+                        {companies.map((company) => {
+                            const isSelected = company.id === selectedCompany.id;
+                            return (
+                                <DropdownMenuItem
+                                    key={company.name}
+                                    onClick={() => setSelectedCompany(company)}
+                                    className={`${styles.companyDropdownItem} ${isSelected ? styles.selected : ''}`}
+                                >
                                     <div className={styles.companyIcon}>
                                         <Building2 size={12} />
                                     </div>
@@ -192,9 +202,9 @@ const TeamlyticsSideBar = () => {
                                         <div className={styles.companyName}>{company.name}</div>
                                         <div className={styles.companyType}>{company.id}</div>
                                     </div>
-                                </div>
-                            </DropdownMenuItem>
-                        ))}
+                                </DropdownMenuItem>
+                            );
+                        })}
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarHeader>
