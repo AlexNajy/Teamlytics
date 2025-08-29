@@ -54,31 +54,61 @@
 }
 
 [data-theme="magenta"] {
+    --background: var(--light-background);
+    --foreground: var(--light-foreground);
+    --card: var(--light-card);
+    --card-foreground: var(--light-card-foreground);
     --primary: oklch(0.65 0.28 330);
     --primary-transparent: oklch(0.825 0.14 330);
     --secondary: oklch(0.6 0.25 25);
     --secondary-transparent: oklch(0.8 0.125 25);
+    --muted: var(--light-muted);
+    --muted-foreground: var(--light-muted-foreground);
+    --border: var(--light-border);
+    --shadow: var(--light-shadow);
 }
 
 [data-theme="magenta"].dark {
+    --background: var(--dark-background);
+    --foreground: var(--dark-foreground);
+    --card: var(--dark-card);
+    --card-foreground: var(--dark-card-foreground);
     --primary: oklch(0.75 0.28 330);
     --primary-transparent: oklch(0.4475 0.14 330);
     --secondary: oklch(0.7 0.25 25);
     --secondary-transparent: oklch(0.4225 0.125 25);
+    --muted: var(--dark-muted);
+    --muted-foreground: var(--dark-muted-foreground);
+    --border: var(--dark-border);
+    --shadow: var(--dark-shadow);
 }
 
 [data-theme="green"] {
+    --background: var(--light-background);
+    --foreground: var(--light-foreground);
+    --card: var(--light-card);
+    --card-foreground: var(--light-card-foreground);
     --primary: oklch(0.6 0.25 150);
     --primary-transparent: oklch(0.8 0.125 150);
     --secondary: oklch(0.65 0.22 90);
     --secondary-transparent: oklch(0.825 0.11 90);
+    --muted: var(--light-muted);
+    --muted-foreground: var(--light-muted-foreground);
+    --border: var(--light-border);
+    --shadow: var(--light-shadow);
 }
 
 [data-theme="green"].dark {
+    --background: var(--dark-background);
+    --foreground: var(--dark-foreground);
+    --card: var(--dark-card);
+    --card-foreground: var(--dark-card-foreground);
     --primary: oklch(0.72 0.25 150);
     --primary-transparent: oklch(0.46 0.125 150);
     --secondary: oklch(0.75 0.22 90);
     --secondary-transparent: oklch(0.485 0.11 90);
+    --muted: var(--dark-muted);
+    --muted-foreground: var(--dark-muted-foreground);
+    --border: var(--dark-border);
+    --shadow: var(--dark-shadow);
 }
-
-
