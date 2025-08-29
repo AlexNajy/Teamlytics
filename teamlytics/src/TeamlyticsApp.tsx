@@ -1,13 +1,13 @@
-import '../App.css';
-import BasePage from "../Components/BasePage";
+import './App.css';
+import BasePage from "./Components/BasePage.tsx";
 import { makeStyles } from "@griffel/react";
 import { Routes, Route } from 'react-router-dom';
 
-import Home from "./Home";
-import Tasks from "./Tasks";
-import Team from "./Team";
-import Schedule from "./Schedule";
-import Settings from "./Settings";
+import Home from "./Pages/Home.tsx";
+import Tasks from "./Pages/Tasks.tsx";
+import Team from "./Pages/Team.tsx";
+import Schedule from "./Pages/Schedule.tsx";
+import Settings from "./Pages/Settings.tsx";
 
 const useClasses = makeStyles({
     background: {
