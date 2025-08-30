@@ -16,6 +16,7 @@ const useClasses = makeStyles({
         top: 0,
         left: 0,
         display: "flex",
+        backgroundColor: "var(--background)"
     },
     mainContentWrapper: {
         flex: 1,
@@ -25,12 +26,11 @@ const useClasses = makeStyles({
     },
     mainContent: {
         flex: 1,
-        backgroundColor: "#f9fafb", // bg-gray-50
         overflow: "auto",
         margin: 0,
     },
     innerContent: {
-        maxWidth: "112rem", // max-w-7xl
+        maxWidth: "114rem",
         marginLeft: "auto",
         marginRight: "auto",
     },

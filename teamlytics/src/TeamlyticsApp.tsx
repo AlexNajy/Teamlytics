@@ -1,0 +1,46 @@
+import './App.css';
+import BasePage from "./Components/BasePage.tsx";
+import { makeStyles } from "@griffel/react";
+import { Routes, Route } from 'react-router-dom';
+
+import Home from "./Pages/Home.tsx";
+import Tasks from "./Pages/Tasks.tsx";
+import Team from "./Pages/Team.tsx";
+import Schedule from "./Pages/Schedule.tsx";
+import Settings from "./Pages/Settings.tsx";
+
+const useClasses = makeStyles({
+    background: {
+        backgroundColor: "var(--background)",
+    },
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "1rem",
+    },
+});
+
+document.documentElement.setAttribute('data-theme', 'blue');
+document.documentElement.classList.toggle('light');
+
+function TeamlyticsApp() {
+    const classes = useClasses();
+
+    return (
+        <div className={classes.background}>
+            <BasePage>
+                <div className={classes.container}>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/tasks" element={<Tasks />} />
+                        <Route path="/team" element={<Team />} />
+                        <Route path="/schedule" element={<Schedule />} />
+                        <Route path="/settings" element={<Settings />} />
+                    </Routes>
+                </div>
+            </BasePage>
+        </div>
+    );
+}
+
+export default TeamlyticsApp;

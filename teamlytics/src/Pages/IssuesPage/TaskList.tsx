@@ -10,38 +10,38 @@ const useStyles = makeStyles({
         gap: '1rem'
     },
     taskCard: {
-        background: 'white',
-        border: '1px solid #d1d5db',
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '1.5rem'
     },
     title: {
         fontSize: '1.125rem',
         fontWeight: '600',
-        color: '#111827',
+        color: 'var(--foreground)',
         textAlign: 'center',
     },
     time: {
         fontSize: '0.875rem',
-        color: '#6b7280',
+        color: 'var(--muted-foreground)',
         textAlign: 'left',
     },
     description: {
-        color: '#4b5563',
+        color: 'var(--foreground)',
         fontSize: '0.875rem',
         lineHeight: '1.5',
         textAlign: 'left',
     },
     assignee: {
-        backgroundColor: '#f3f4f6',
-        color: '#374151',
+        backgroundColor: 'var(--primary-transparent)',
+        color: 'var(--muted-foreground)',
         fontSize: '0.75rem',
         fontWeight: '500'
     },
     sectionTitle: {
         fontSize: '1.5rem',
         fontWeight: '700',
-        color: '#111827',
+        color: 'var(--foreground)',
         marginBottom: '1rem'
     }
 });
