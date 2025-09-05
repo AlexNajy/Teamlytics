@@ -81,6 +81,7 @@ const useClasses = makeStyles({
 const routeNames: Record<string, string> = {
     '/': 'Home',
     '/tasks': 'Tasks',
+    '/add-task': 'Add Task',
     '/team': 'Team',
     '/schedule': 'Schedule',
     '/settings': 'Settings',

@@ -1,21 +1,21 @@
 import { makeStyles } from '@griffel/react';
-import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { Textarea } from "@/Components/ui/textarea";
+import { Button } from "@/Components/ui/button.tsx";
+import { Input } from "@/Components/ui/input.tsx";
+import { Label } from "@/Components/ui/label.tsx";
+import { Textarea } from "@/Components/ui/textarea.tsx";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/Components/ui/select";
+} from "@/Components/ui/select.tsx";
 import {
     Card,
     CardContent,
     CardHeader,
     CardTitle,
-} from "@/Components/ui/card";
+} from "@/Components/ui/card.tsx";
 
 const useStyles = makeStyles({
     card: {

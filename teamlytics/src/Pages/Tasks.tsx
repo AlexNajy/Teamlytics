@@ -1,4 +1,3 @@
-import AddTask from "@/Components/AddTask";
 import { makeStyles } from '@griffel/react';
 import TaskList from "@/Pages/IssuesPage/TaskList.tsx";
 
@@ -53,12 +52,8 @@ const Tasks = () => {
                             Task Management
                         </h2>
                         <p className={styles.subtitle}>
-                            Create and organize your tasks efficiently
+                            View and manage your tasks
                         </p>
-                    </div>
-
-                    <div className={styles.form}>
-                        <AddTask />
                     </div>
 
                     <div className={styles.form}>
