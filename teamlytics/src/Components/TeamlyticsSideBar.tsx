@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     content: {
         backgroundColor: "var(--card)",
         borderRight: "1px solid var(--border)",
-        boxShadow: "0 4px 6px 2px var(--shadow)",
+        boxShadow: "2px 2px 4px 0px var(--shadow)",
     },
     header: {
         padding: "0.75rem",
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         cursor: "pointer",
         transition: "all 0.2s ease",
         width: "100%",
-        boxShadow: '0 2px 3px -1px var(--shadow), 0 2px 4px -1px var(--shadow)',
+        boxShadow: "0px 1px 2px 1px var(--shadow)",
 
         ":hover": {
             backgroundColor: "var(--muted)",

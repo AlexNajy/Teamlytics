@@ -17,7 +17,7 @@ const useClasses = makeStyles({
         paddingRight: "1.5rem",
         paddingTop: "1rem",
         paddingBottom: "1rem",
-        boxShadow: "0 4px 6px var(--shadow)",
+        boxShadow: "0 2px 4px var(--shadow)",
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
         borderBottomLeftRadius: "0rem",
