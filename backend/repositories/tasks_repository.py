@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from http import HTTPStatus
 from typing import List
 
@@ -49,7 +49,7 @@ def get_all_tasks() -> List[CompletedTask]:
             description="Create a role based authentication system for different user types",
             status=TaskStatusEnum.OPEN,
             assignee="Luke",
-            estimated_time="5 days",
+            estimated_time=timedelta(hours=6),
             desired_completion_date=datetime(2024, 7, 1)
         ),
         CompletedTask(
@@ -58,7 +58,7 @@ def get_all_tasks() -> List[CompletedTask]:
             description="Prepare the MVP and pitch it to a mock potential client for feedback",
             status=TaskStatusEnum.BLOCKED,
             assignee="Luke and Alex",
-            estimated_time="2 days",
+            estimated_time=timedelta(hours=6),
             desired_completion_date=datetime(2024, 6, 20)
         ),
         CompletedTask(
@@ -67,7 +67,7 @@ def get_all_tasks() -> List[CompletedTask]:
             description="Complete the minimum viable product for initial release",
             status=TaskStatusEnum.IN_PROGRESS,
             assignee="Luke and Alex",
-            estimated_time="3 days",
+            estimated_time=timedelta(hours=6),
             desired_completion_date=datetime(2024, 6, 25)
         )
 

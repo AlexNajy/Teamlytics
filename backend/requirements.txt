@@ -1,9 +1,15 @@
-fastapi
-uvicorn
-sqlalchemy
-alembic
-psycopg[binary]
-black
-returns
+  fastapi
+  uvicorn
+  sqlalchemy
+  alembic
+  psycopg[binary]
+  pydantic
+  starlette
+  black
+  returns
+  python-dotenv
+  pytest
+  httpx
+
 
 # pip install -r requirements.txt
