@@ -15,7 +15,7 @@ class TaskStatusEnum(str, Enum):
 class Task(BaseModel):
     title: str
     description: str
-    status: TaskStatusEnum = TaskStatusEnum.OPEN
+    status: TaskStatusEnum
     estimated_time: timedelta
     desired_completion_date: datetime
     notes: str | None = None
