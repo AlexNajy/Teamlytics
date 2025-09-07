@@ -1,5 +1,5 @@
 import { makeStyles } from '@griffel/react';
-import TaskList from "@/Pages/IssuesPage/TaskList.tsx";
+import TaskList from "@/Pages/TasksPage/TaskList.tsx";
 
 const useStyles = makeStyles({
     container: {

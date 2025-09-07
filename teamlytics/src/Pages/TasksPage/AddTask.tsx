@@ -25,7 +25,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card.tsx";
-import { createTask } from "@/Pages/IssuesPage/hooks/CreateTask.tsx";
+import { createTask } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -92,7 +92,8 @@ const useStyles = makeStyles({
         borderRadius: '0.5rem',
         padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
-        textAlign: 'left',
+        display: 'flex',
+        justifyContent: 'flex-center',
         cursor: 'pointer',
     },
     textarea: {
@@ -137,6 +138,7 @@ const AddTask = () => {
         description: "",
         notes: "",
     });
+
     const [date, setDate] = useState<Date>();
 
     const handleSubmit = async (e: React.FormEvent) => {
