@@ -5,7 +5,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Home from "./Pages/Home.tsx";
 import Tasks from "./Pages/Tasks.tsx";
-import AddTask from "./Pages/AddTask.tsx";
+import AddTask from "./Pages/IssuesPage/AddTask.tsx";
 import Team from "./Pages/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
