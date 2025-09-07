@@ -18,7 +18,16 @@ import {
 } from "@/Components/ui/card.tsx";
 
 const useStyles = makeStyles({
+    container: {
+        minHeight: '100vh',
+        backgroundColor: 'var(--background)',
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+    },
     card: {
+        width: '100%',
+        maxWidth: '1000px',
         background: 'var(--card)',
         color: 'var(--foreground)',
         borderRadius: '1rem',
@@ -129,73 +138,77 @@ const AddTask = () => {
     const styles = useStyles();
 
     return (
-        <Card className={styles.card}>
-            <CardHeader>
-                <CardTitle>Add New Task</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className={styles.formGrid}>
-                    <div className={styles.formGroup}>
-                        <Label className={styles.label}>Task Title</Label>
-                        <Input
-                            className={styles.inputField}
-                            placeholder="Enter task title..."
-                        />
+        <div className={styles.container}>
+            <Card className={styles.card}>
+                <CardHeader>
+                    <CardTitle>Add New Task</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className={styles.formGrid}>
+                        <div className={styles.formGroup}>
+                            <Label className={styles.label}>Task Title</Label>
+                            <Input
+                                className={styles.inputField}
+                                placeholder="Enter task title..."
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <Label className={styles.label}>Task Type</Label>
+                            <Select>
+                                <SelectTrigger className={styles.selectField}>
+                                    <SelectValue placeholder="Select task type"/>
+                                </SelectTrigger>
+                                <SelectContent className={styles.selectContent}>
+                                    <SelectItem className={styles.selectItem}
+                                                value="development">Development</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="design">Design</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="research">Research</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="meeting">Meeting</SelectItem>
+                                    <SelectItem className={styles.selectItem}
+                                                value="documentation">Documentation</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="testing">Testing</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="other">Other</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <Label className={styles.label}>Estimated Time</Label>
+                            <Select>
+                                <SelectTrigger className={styles.selectField}>
+                                    <SelectValue placeholder="Select estimated time"/>
+                                </SelectTrigger>
+                                <SelectContent className={styles.selectContent}>
+                                    <SelectItem className={styles.selectItem} value="15min">15 minutes</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="30min">30 minutes</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="1hour">1 hour</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="2hours">2 hours</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="4hours">4 hours</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="1day">1 day</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="2days">2 days</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="1week">1 week</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="custom">Custom</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className={styles.formGroupFull}>
+                            <Label className={styles.label}>Description</Label>
+                            <Textarea
+                                className={`${styles.inputField} ${styles.textareaField}`}
+                                placeholder="Enter task description..."
+                                rows={4}
+                            />
+                        </div>
                     </div>
 
-                    <div className={styles.formGroup}>
-                        <Label className={styles.label}>Task Type</Label>
-                        <Select>
-                            <SelectTrigger className={styles.selectField}>
-                                <SelectValue placeholder="Select task type" />
-                            </SelectTrigger>
-                            <SelectContent className={styles.selectContent}>
-                                <SelectItem className={styles.selectItem} value="development">Development</SelectItem>
-                                <SelectItem className={styles.selectItem} value="design">Design</SelectItem>
-                                <SelectItem className={styles.selectItem} value="research">Research</SelectItem>
-                                <SelectItem className={styles.selectItem} value="meeting">Meeting</SelectItem>
-                                <SelectItem className={styles.selectItem} value="documentation">Documentation</SelectItem>
-                                <SelectItem className={styles.selectItem} value="testing">Testing</SelectItem>
-                                <SelectItem className={styles.selectItem} value="other">Other</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <Label className={styles.label}>Estimated Time</Label>
-                        <Select>
-                            <SelectTrigger className={styles.selectField}>
-                                <SelectValue placeholder="Select estimated time" />
-                            </SelectTrigger>
-                            <SelectContent className={styles.selectContent}>
-                                <SelectItem className={styles.selectItem} value="15min">15 minutes</SelectItem>
-                                <SelectItem className={styles.selectItem} value="30min">30 minutes</SelectItem>
-                                <SelectItem className={styles.selectItem} value="1hour">1 hour</SelectItem>
-                                <SelectItem className={styles.selectItem} value="2hours">2 hours</SelectItem>
-                                <SelectItem className={styles.selectItem} value="4hours">4 hours</SelectItem>
-                                <SelectItem className={styles.selectItem} value="1day">1 day</SelectItem>
-                                <SelectItem className={styles.selectItem} value="2days">2 days</SelectItem>
-                                <SelectItem className={styles.selectItem} value="1week">1 week</SelectItem>
-                                <SelectItem className={styles.selectItem} value="custom">Custom</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-
-                    <div className={styles.formGroupFull}>
-                        <Label className={styles.label}>Description</Label>
-                        <Textarea
-                            className={`${styles.inputField} ${styles.textareaField}`}
-                            placeholder="Enter task description..."
-                            rows={4}
-                        />
-                    </div>
-                </div>
-
-                <Button className={styles.addButton}>
-                    Add Task
-                </Button>
-            </CardContent>
-        </Card>
+                    <Button className={styles.addButton}>
+                        Add Task
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
     );
 };
 
