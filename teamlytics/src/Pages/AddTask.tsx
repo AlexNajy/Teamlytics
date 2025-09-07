@@ -1,8 +1,17 @@
 import { makeStyles } from '@griffel/react';
+import { useState } from 'react';
+import { format } from 'date-fns';
+import { Calendar as CalendarIcon } from 'lucide-react';
 import { Button } from "@/Components/ui/button.tsx";
 import { Input } from "@/Components/ui/input.tsx";
 import { Label } from "@/Components/ui/label.tsx";
 import { Textarea } from "@/Components/ui/textarea.tsx";
+import { Calendar } from "@/Components/ui/calendar.tsx";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/Components/ui/popover.tsx";
 import {
     Select,
     SelectContent,
@@ -60,7 +69,7 @@ const useStyles = makeStyles({
         fontWeight: '500',
         color: 'var(--foreground)',
     },
-    inputField: {
+    field: {
         border: '1px solid var(--border)',
         backgroundColor: 'var(--background)',
         color: 'var(--muted-foreground)',
@@ -76,7 +85,7 @@ const useStyles = makeStyles({
             color: 'var(--muted-foreground)',
         }
     },
-    selectField: {
+    selectTrigger: {
         border: '1px solid var(--border)',
         backgroundColor: 'var(--background)',
         color: 'var(--muted-foreground)',
@@ -90,11 +99,29 @@ const useStyles = makeStyles({
             boxShadow: '0 4px 8px 2px var(--shadow)'
         }
     },
-    textareaField: {
+    datePicker: {
+        border: '1px solid var(--border)',
+        backgroundColor: 'var(--background)',
+        color: 'var(--muted-foreground)',
+        borderRadius: '0.5rem',
+        padding: '0.5rem 0.75rem',
+        fontSize: '0.875rem',
+        transition: 'all 0.2s ease',
+        outline: 'none',
+        justifyContent: 'flex-start',
+        textAlign: 'left',
+        fontWeight: '400',
+        height: 'auto',
+        cursor: 'pointer',
+        ':hover': {
+            boxShadow: '0 4px 8px 2px var(--shadow)'
+        }
+    },
+    textarea: {
         resize: 'vertical',
         minHeight: '4rem',
     },
-    addButton: {
+    submitButton: {
         padding: '0.75rem 2rem',
         color: 'var(--card)',
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
@@ -131,11 +158,24 @@ const useStyles = makeStyles({
             backgroundColor: 'var(--primary-transparent)',
             color: 'var(--foreground)',
         }
+    },
+    calenderContent: {
+        backgroundColor: 'var(--background)',
+        color: 'var(--foreground)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
+    },
+    icon: {
+        marginRight: '0.5rem',
+        height: '1rem',
+        width: '1rem'
     }
 });
 
 const AddTask = () => {
     const styles = useStyles();
+    const [date, setDate] = useState<Date>();
 
     return (
         <div className={styles.container}>
@@ -146,64 +186,78 @@ const AddTask = () => {
                 <CardContent>
                     <div className={styles.formGrid}>
                         <div className={styles.formGroup}>
-                            <Label className={styles.label}>Task Title</Label>
+                            <Label className={styles.label}>Title</Label>
                             <Input
-                                className={styles.inputField}
+                                className={styles.field}
                                 placeholder="Enter task title..."
                             />
                         </div>
 
                         <div className={styles.formGroup}>
-                            <Label className={styles.label}>Task Type</Label>
+                            <Label className={styles.label}>Status</Label>
                             <Select>
-                                <SelectTrigger className={styles.selectField}>
-                                    <SelectValue placeholder="Select task type"/>
+                                <SelectTrigger className={styles.selectTrigger}>
+                                    <SelectValue placeholder="Select status"/>
                                 </SelectTrigger>
                                 <SelectContent className={styles.selectContent}>
-                                    <SelectItem className={styles.selectItem}
-                                                value="development">Development</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="design">Design</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="research">Research</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="meeting">Meeting</SelectItem>
-                                    <SelectItem className={styles.selectItem}
-                                                value="documentation">Documentation</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="testing">Testing</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="other">Other</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="open">Open</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="in_progress">In Progress</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="blocked">Blocked</SelectItem>
+                                    <SelectItem className={styles.selectItem} value="completed">Completed</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
 
                         <div className={styles.formGroup}>
                             <Label className={styles.label}>Estimated Time</Label>
-                            <Select>
-                                <SelectTrigger className={styles.selectField}>
-                                    <SelectValue placeholder="Select estimated time"/>
-                                </SelectTrigger>
-                                <SelectContent className={styles.selectContent}>
-                                    <SelectItem className={styles.selectItem} value="15min">15 minutes</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="30min">30 minutes</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="1hour">1 hour</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="2hours">2 hours</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="4hours">4 hours</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="1day">1 day</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="2days">2 days</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="1week">1 week</SelectItem>
-                                    <SelectItem className={styles.selectItem} value="custom">Custom</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <Input
+                                className={styles.field}
+                                placeholder="e.g. 2.5 hours, 15 minutes, 12 hours..."
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <Label className={styles.label}>Desired Completion Date</Label>
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <Button
+                                        variant="outline"
+                                        className={styles.datePicker}
+                                    >
+                                        <CalendarIcon className={styles.icon} />
+                                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                    </Button>
+                                </PopoverTrigger>
+                                <PopoverContent className={styles.selectContent}>
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={setDate}
+                                    />
+                                </PopoverContent>
+                            </Popover>
                         </div>
 
                         <div className={styles.formGroupFull}>
                             <Label className={styles.label}>Description</Label>
                             <Textarea
-                                className={`${styles.inputField} ${styles.textareaField}`}
+                                className={`${styles.field} ${styles.textarea}`}
                                 placeholder="Enter task description..."
                                 rows={4}
                             />
                         </div>
+
+                        <div className={styles.formGroupFull}>
+                            <Label className={styles.label}>Notes (Optional)</Label>
+                            <Textarea
+                                className={`${styles.field} ${styles.textarea}`}
+                                placeholder="Enter additional notes..."
+                                rows={3}
+                            />
+                        </div>
                     </div>
 
-                    <Button className={styles.addButton}>
+                    <Button className={styles.submitButton}>
                         Add Task
                     </Button>
                 </CardContent>
