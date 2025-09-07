@@ -1,2 +1,9 @@
-fastapi>=0.104.0
-uvicorn[standard]>=0.30.0
+fastapi
+uvicorn
+sqlalchemy
+alembic
+psycopg[binary]
+black
+returns
+
+# pip install -r requirements.txt
