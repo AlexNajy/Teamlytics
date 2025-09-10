@@ -1,12 +1,12 @@
-import { makeStyles } from '@griffel/react';
-import { useState } from 'react';
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import { Button } from "@/Components/ui/button.tsx";
-import { Input } from "@/Components/ui/input.tsx";
-import { Label } from "@/Components/ui/label.tsx";
-import { Textarea } from "@/Components/ui/textarea.tsx";
-import { Calendar } from "@/Components/ui/calendar.tsx";
+import {makeStyles} from '@griffel/react';
+import {useState} from 'react';
+import {format} from 'date-fns';
+import {Calendar as CalendarIcon} from 'lucide-react';
+import {Button} from "@/Components/ui/button.tsx";
+import {Input} from "@/Components/ui/input.tsx";
+import {Label} from "@/Components/ui/label.tsx";
+import {Textarea} from "@/Components/ui/textarea.tsx";
+import {Calendar} from "@/Components/ui/calendar.tsx";
 import {
     Popover,
     PopoverContent,
@@ -26,6 +26,8 @@ import {
     CardTitle,
 } from "@/Components/ui/card.tsx";
 import { createTask } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
+import type { TaskStatusEnum } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
+
 
 const useStyles = makeStyles({
     container: {
@@ -133,8 +135,8 @@ const AddTask = () => {
 
     const [form, setForm] = useState({
         title: "",
-        status: "",
-        estimatedTime: "",
+        status: "" as TaskStatusEnum | "",
+        estimatedTime: 0,
         description: "",
         notes: "",
     });
@@ -147,7 +149,7 @@ const AddTask = () => {
         try {
             const payload = {
                 title: form.title,
-                status: form.status,
+                status: form.status as TaskStatusEnum,
                 estimated_time: form.estimatedTime,
                 desired_completion_date: date?.toISOString() ?? null,
                 description: form.description,
@@ -160,7 +162,7 @@ const AddTask = () => {
             setForm({
                 title: "",
                 status: "",
-                estimatedTime: "",
+                estimatedTime: 0,
                 description: "",
                 notes: "",
             });
@@ -187,7 +189,7 @@ const AddTask = () => {
                                     className={styles.field}
                                     placeholder="Enter task title..."
                                     value={form.title}
-                                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                                    onChange={(e) => setForm({...form, title: e.target.value})}
                                 />
                             </div>
 
@@ -197,11 +199,11 @@ const AddTask = () => {
                                 <Select
                                     value={form.status}
                                     onValueChange={(value) =>
-                                        setForm({ ...form, status: value })
+                                        setForm({...form, status: value as TaskStatusEnum})
                                     }
                                 >
                                     <SelectTrigger className={styles.selectTrigger}>
-                                        <SelectValue placeholder="Select status" />
+                                        <SelectValue placeholder="Select status"/>
                                     </SelectTrigger>
                                     <SelectContent className={styles.selectContent}>
                                         <SelectItem className={styles.selectItem} value="open">Open</SelectItem>
@@ -214,13 +216,15 @@ const AddTask = () => {
 
                             {/* estimated time */}
                             <div className={styles.formGroup}>
-                                <Label className={styles.label}>Estimated Time</Label>
+                                <Label className={styles.label}>Estimated Time (minutes)</Label>
                                 <Input
                                     className={styles.field}
-                                    placeholder="e.g. 2.5 hours, 15 minutes..."
-                                    value={form.estimatedTime}
+                                    type="number"
+                                    min="0"
+                                    placeholder="e.g. 120 for 2 hours..."
+                                    value={form.estimatedTime || ''}
                                     onChange={(e) =>
-                                        setForm({ ...form, estimatedTime: e.target.value })
+                                        setForm({...form, estimatedTime: parseInt(e.target.value) || 0})
                                     }
                                 />
                             </div>
@@ -231,7 +235,7 @@ const AddTask = () => {
                                 <Popover>
                                     <PopoverTrigger asChild>
                                         <Button variant="outline" className={styles.datePicker}>
-                                            <CalendarIcon className={styles.icon} />
+                                            <CalendarIcon className={styles.icon}/>
                                             {date ? format(date, "PPP") : <span>Pick a date</span>}
                                         </Button>
                                     </PopoverTrigger>
@@ -254,21 +258,21 @@ const AddTask = () => {
                                     rows={4}
                                     value={form.description}
                                     onChange={(e) =>
-                                        setForm({ ...form, description: e.target.value })
+                                        setForm({...form, description: e.target.value})
                                     }
                                 />
                             </div>
 
                             {/* Notes */}
                             <div className={styles.formGroupFull}>
-                                <Label className={styles.label}>Notes (Optional)</Label>
+                                <Label className={styles.label}>Notes (optional)</Label>
                                 <Textarea
                                     className={`${styles.field} ${styles.textarea}`}
                                     placeholder="Enter additional notes..."
                                     rows={3}
                                     value={form.notes}
                                     onChange={(e) =>
-                                        setForm({ ...form, notes: e.target.value })
+                                        setForm({...form, notes: e.target.value})
                                     }
                                 />
                             </div>
