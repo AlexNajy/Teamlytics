@@ -17,7 +17,7 @@ const useClasses = makeStyles({
         paddingRight: "1.5rem",
         paddingTop: "1rem",
         paddingBottom: "1rem",
-        boxShadow: "0 4px 6px var(--shadow)",
+        boxShadow: "0 2px 4px var(--shadow)",
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
         borderBottomLeftRadius: "0rem",
@@ -53,18 +53,47 @@ const useClasses = makeStyles({
     breadcrumbText: {
         color: "var(--foreground)",
         fontSize: "1.125rem",
-    }
+    },
+    addTaskButton: {
+        display: "flex",
+        alignItems: "center",
+        gap: "0.75rem",
+        padding: "0.1rem 0.75rem",
+        borderRadius: "var(--radius)",
+        border: "1px solid var(--border)",
+        backgroundColor: "var(--card)",
+        color: "var(--foreground)",
+        cursor: "pointer",
+        transition: "all 0.2s ease",
+        boxShadow: "0px 1px 2px 1px var(--shadow)",
+
+        ":hover": {
+            backgroundColor: "var(--muted)",
+        },
+    },
+    leftSection: {
+        display: "flex",
+        alignItems: "baseline",
+        gap: "1rem",
+        flex: 1,
+    },
 });
 
 const routeNames: Record<string, string> = {
     '/': 'Home',
     '/tasks': 'Tasks',
+    '/add-task': 'Add Task',
     '/team': 'Team',
     '/schedule': 'Schedule',
     '/settings': 'Settings',
 };
 
-const TeamlyticsHeader = () => {
+interface TeamlyticsHeaderProps {
+    showAddTaskButton?: boolean;
+    onAddTaskClick?: () => void;
+}
+
+const TeamlyticsHeader = ({ showAddTaskButton = false, onAddTaskClick }: TeamlyticsHeaderProps) => {
     const classes = useClasses();
     const location = useLocation();
     const currentPage = routeNames[location.pathname] || 'Unknown';
@@ -73,23 +102,34 @@ const TeamlyticsHeader = () => {
     return (
         <header className={classes.header}>
             <div className={classes.container}>
+                <div className={classes.leftSection}>
+                    <SidebarTrigger className={classes.sidebarTrigger} />
 
-                <SidebarTrigger className={classes.sidebarTrigger} />
+                    <h1 className={classes.title}>
+                        Teamlytics
+                    </h1>
 
-                <h1 className={classes.title}>
-                    Teamlytics
-                </h1>
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            <BreadcrumbSeparator className={classes.breadcrumbSeparator} />
+                            <BreadcrumbItem>
+                                <BreadcrumbPage className={classes.breadcrumbText}>
+                                    {currentPage}
+                                </BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                    </Breadcrumb>
+                </div>
 
-                <Breadcrumb>
-                    <BreadcrumbList>
-                        <BreadcrumbSeparator className={classes.breadcrumbSeparator} />
-                        <BreadcrumbItem>
-                            <BreadcrumbPage className={classes.breadcrumbText}>
-                                {currentPage}
-                            </BreadcrumbPage>
-                        </BreadcrumbItem>
-                    </BreadcrumbList>
-                </Breadcrumb>
+                {showAddTaskButton && (
+                    <button
+                        className={classes.addTaskButton}
+                        onClick={onAddTaskClick}
+                    >
+                        <span>+</span>
+                        Add Task
+                    </button>
+                )}
             </div>
         </header>
     );

@@ -5,6 +5,8 @@ import { SidebarProvider } from "@/Components/ui/sidebar";
 
 interface BasePageProps {
     children: React.ReactNode;
+    showAddTaskButton?: boolean;
+    onAddTaskClick?: () => void;
 }
 
 const useClasses = makeStyles({
@@ -36,7 +38,7 @@ const useClasses = makeStyles({
     },
 });
 
-const BasePage = ({ children }: BasePageProps) => {
+const BasePage = ({ children, showAddTaskButton = false, onAddTaskClick }: BasePageProps) => {
     const classes = useClasses();
 
     return (
@@ -45,7 +47,10 @@ const BasePage = ({ children }: BasePageProps) => {
                 <TeamlyticsSideBar />
 
                 <div className={classes.mainContentWrapper}>
-                    <TeamlyticsHeader />
+                    <TeamlyticsHeader
+                        showAddTaskButton={showAddTaskButton}
+                        onAddTaskClick={onAddTaskClick}
+                    />
 
                     <main className={classes.mainContent}>
                         <div className={classes.innerContent}>{children}</div>
