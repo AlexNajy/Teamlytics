@@ -1,7 +1,7 @@
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
 import { Badge } from "@/Components/ui/badge";
-import useTasks, {type Task} from "@/Pages/IssuesPage/hooks/ListIssues.tsx";
+import useTasks, {type Task} from "@/Pages/TasksPage/hooks/ListTasks.tsx";
 
 const useStyles = makeStyles({
     container: {
