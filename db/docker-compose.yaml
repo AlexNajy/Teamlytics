@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    ports:
+      - "3000:5432"
+    environment:
+      POSTGRES_USER: default_teamlytics_user
+      POSTGRES_PASSWORD: default_teamlytics_password
+      POSTGRES_DB: teamlytics
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}
+
+
+  #In db directory, run: docker compose up -d
+  #Run psql -h localhost -p 3000 -U default_teamlytics_user -d teamlytics
+
+  #To upgrade to current version, run the following in backend directory: alembic upgrade head
+  #restart container
+
