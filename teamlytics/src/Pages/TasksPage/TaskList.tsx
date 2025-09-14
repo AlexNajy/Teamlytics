@@ -5,9 +5,27 @@ import useTasks, {type Task} from "@/Pages/TasksPage/hooks/ListTasks.tsx";
 
 const useStyles = makeStyles({
     container: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '1rem',
+        width: '100%',
+    },
+    column: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem'
+        gap: '1rem',
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        padding: '1rem',
+        minHeight: '300px'
+    },
+    columnTitle: {
+        fontSize: '1.125rem',
+        fontWeight: '600',
+        color: 'var(--foreground)',
+        textAlign: 'center',
+        marginBottom: '1rem',
     },
     taskCard: {
         background: 'var(--card)',
@@ -46,6 +64,13 @@ const useStyles = makeStyles({
     }
 });
 
+const STATUS_COLUMNS: { [key: string]: string } = {
+    open: "Open",
+    in_progress: "In Progress",
+    blocked: "Blocked",
+    completed: "Completed"
+};
+
 const TaskList = () => {
     const styles = useStyles();
     const fetchedTasks = useTasks()
@@ -61,18 +86,27 @@ const TaskList = () => {
     })
 
     return (
-        <div className={styles.container}>
+        <div>
             <h3 className={styles.sectionTitle}>Current Tasks</h3>
 
-            {tasks.map((task) => (
-                <Card key={task.id} className={styles.taskCard}>
-                    <h4 className={styles.title} > {task.title}</h4>
-                    <div className={styles.time} > {task.estimatedTime}</div>
-                    <p className={styles.description} > {task.description}</p>
-                    <p className={styles.description} > {task.status}</p>
-                    <Badge className={styles.assignee} > {task.assignee}</Badge>
-                </Card>
-            ))}
+            <div className={styles.container}>
+                {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
+                    <div key={statusKey} className={styles.column}>
+                        <div className={styles.columnTitle}>{statusLabel}</div>
+
+                        {tasks
+                            .filter(task => task.status === statusKey)
+                            .map(task => (
+                                <Card key={task.id} className={styles.taskCard}>
+                                    <h4 className={styles.title}>{task.title}</h4>
+                                    <div className={styles.time}>{task.estimatedTime}</div>
+                                    <p className={styles.description}>{task.description}</p>
+                                    <Badge className={styles.assignee}>{task.assignee}</Badge>
+                                </Card>
+                            ))}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
