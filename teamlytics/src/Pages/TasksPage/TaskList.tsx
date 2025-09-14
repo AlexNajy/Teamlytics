@@ -18,7 +18,8 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '1rem',
-        minHeight: '300px'
+        minHeight: '300px',
+        boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
     columnTitle: {
         fontSize: '1.125rem',
@@ -30,14 +31,16 @@ const useStyles = makeStyles({
     taskCard: {
         background: 'var(--card)',
         border: '1px solid var(--border)',
+        boxShadow: "0px 2px 4px 2px var(--shadow)",
         borderRadius: '0.5rem',
-        padding: '1.5rem'
+        gap: '0.5rem',
+        padding: '1rem'
     },
     title: {
         fontSize: '1.125rem',
         fontWeight: '600',
         color: 'var(--foreground)',
-        textAlign: 'center',
+        textAlign: 'left',
     },
     time: {
         fontSize: '0.875rem',
@@ -91,8 +94,8 @@ const TaskList = () => {
                             .map(task => (
                                 <Card key={task.id} className={styles.taskCard}>
                                     <h4 className={styles.title}>{task.title}</h4>
-                                    <div className={styles.time}>{task.estimatedTime}</div>
-                                    <p className={styles.description}>{task.description}</p>
+                                    <div className={styles.time}>{task.estimatedTime || 'No estimate'}</div>
+                                    <p className={styles.description}></p>
                                     <Badge className={styles.assignee}>{task.assignee}</Badge>
                                 </Card>
                             ))}

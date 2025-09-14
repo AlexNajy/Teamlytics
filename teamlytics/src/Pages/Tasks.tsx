@@ -7,7 +7,7 @@ const useStyles = makeStyles({
         background: 'var(--background)',
     },
     contentWrapper: {
-        maxWidth: '64rem',
+        maxWidth: '95%',
         margin: '0 auto'
     },
     titleSection: {
@@ -22,13 +22,6 @@ const useStyles = makeStyles({
         color: 'var(--foreground)',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
-    },
-    subtitle: {
-        fontSize: '1.25rem',
-        color: 'var(--muted-foreground)',
-        maxWidth: '32rem',
-        margin: '0 auto 2rem',
-        lineHeight: '1.75'
     },
     form: {
         marginBottom: '3rem'
@@ -46,9 +39,6 @@ const Tasks = () => {
                         <h2 className={styles.title}>
                             Task Management
                         </h2>
-                        <p className={styles.subtitle}>
-                            View and manage your tasks
-                        </p>
                     </div>
 
                     <div className={styles.form}>
