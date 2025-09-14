@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
-import { Badge } from "@/Components/ui/badge";
 import useTasks, {type Task} from "@/Pages/TasksPage/hooks/ListTasks.tsx";
 
 const useStyles = makeStyles({
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '1rem',
-        minHeight: '300px',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
     columnTitle: {
@@ -33,31 +32,47 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
         borderRadius: '0.5rem',
-        gap: '0.5rem',
-        padding: '1rem'
+        padding: '1rem',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease-in-out',
+        overflow: 'hidden',
+    },
+    taskCardHovered: {
+        boxShadow: "0px 4px 8px 4px var(--shadow)",
+        //transform: 'translateY(-2px)',
     },
     title: {
         fontSize: '1.125rem',
         fontWeight: '600',
         color: 'var(--foreground)',
         textAlign: 'left',
+        marginBottom: '0.5rem',
     },
     time: {
         fontSize: '0.875rem',
         color: 'var(--muted-foreground)',
         textAlign: 'left',
+        marginBottom: '0.5rem',
     },
     description: {
         color: 'var(--foreground)',
         fontSize: '0.875rem',
         lineHeight: '1.5',
         textAlign: 'left',
+        maxHeight: '0',
+        opacity: '0',
+        overflow: 'hidden',
+        transition: 'all 0.3s ease-in-out',
+        borderTopWidth: '0px',
+        borderTopStyle: 'solid',
+        borderTopColor: 'var(--border)',
     },
-    assignee: {
-        backgroundColor: 'var(--primary-transparent)',
-        color: 'var(--muted-foreground)',
-        fontSize: '0.75rem',
-        fontWeight: '500'
+    descriptionExpanded: {
+        maxHeight: '200px',
+        opacity: '1',
+        paddingTop: '0.5rem',
+        borderTopWidth: '1px',
+        marginTop: '0.5rem',
     }
 });
 
@@ -66,6 +81,25 @@ const STATUS_COLUMNS: { [key: string]: string } = {
     in_progress: "In Progress",
     blocked: "Blocked",
     completed: "Completed"
+};
+
+const TaskCard = ({ task }: { task: any }) => {
+    const styles = useStyles();
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <Card
+            className={`${styles.taskCard} ${isHovered ? styles.taskCardHovered : ''}`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            <h4 className={styles.title}>{task.title}</h4>
+            <div className={styles.time}>{task.estimatedTime || 'No estimate'}</div>
+            <div className={`${styles.description} ${isHovered ? styles.descriptionExpanded : ''}`}>
+                {task.description || 'No description available'}
+            </div>
+        </Card>
+    );
 };
 
 const TaskList = () => {
@@ -77,7 +111,6 @@ const TaskList = () => {
             title: issue.title,
             description: issue.description,
             status: issue.status,
-            assignee: issue.assignee,
             estimatedTime: issue.estimatedTime
         }
     })
@@ -92,12 +125,7 @@ const TaskList = () => {
                         {tasks
                             .filter(task => task.status === statusKey)
                             .map(task => (
-                                <Card key={task.id} className={styles.taskCard}>
-                                    <h4 className={styles.title}>{task.title}</h4>
-                                    <div className={styles.time}>{task.estimatedTime || 'No estimate'}</div>
-                                    <p className={styles.description}></p>
-                                    <Badge className={styles.assignee}>{task.assignee}</Badge>
-                                </Card>
+                                <TaskCard key={task.id} task={task} />
                             ))}
                     </div>
                 ))}
