@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     container: {
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '1rem',
+        gap: '0.5rem',
         width: '100%',
     },
     column: {
@@ -37,23 +37,22 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         transition: 'all 0.3s ease-in-out',
         overflow: 'hidden',
+        gap: '1rem',
     },
     taskCardHovered: {
         boxShadow: "0px 4px 8px 4px var(--shadow)",
         //transform: 'translateY(-2px)',
     },
     title: {
-        fontSize: '1.125rem',
+        fontSize: '1rem',
         fontWeight: '600',
         color: 'var(--foreground)',
         textAlign: 'left',
-        marginBottom: '0.5rem',
     },
     time: {
         fontSize: '0.875rem',
         color: 'var(--muted-foreground)',
         textAlign: 'left',
-        marginBottom: '0.5rem',
     },
     description: {
         color: 'var(--foreground)',
