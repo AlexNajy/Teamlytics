@@ -55,12 +55,6 @@ const useStyles = makeStyles({
         color: 'var(--muted-foreground)',
         fontSize: '0.75rem',
         fontWeight: '500'
-    },
-    sectionTitle: {
-        fontSize: '1.5rem',
-        fontWeight: '700',
-        color: 'var(--foreground)',
-        marginBottom: '1rem'
     }
 });
 
@@ -87,8 +81,6 @@ const TaskList = () => {
 
     return (
         <div>
-            <h3 className={styles.sectionTitle}>Current Tasks</h3>
-
             <div className={styles.container}>
                 {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
                     <div key={statusKey} className={styles.column}>

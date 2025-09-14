@@ -6,10 +6,6 @@ const useStyles = makeStyles({
         minHeight: '100vh',
         background: 'var(--background)',
     },
-    main: {
-        flex: '1',
-        padding: '0 1.5rem 2rem'
-    },
     contentWrapper: {
         maxWidth: '64rem',
         margin: '0 auto'
@@ -44,7 +40,6 @@ const Tasks = () => {
 
     return (
         <div className={styles.container}>
-            <main className={styles.main}>
                 <div className={styles.contentWrapper}>
 
                     <div className={styles.titleSection}>
@@ -60,7 +55,6 @@ const Tasks = () => {
                         <TaskList />
                     </div>
                 </div>
-            </main>
         </div>
     );
 };
