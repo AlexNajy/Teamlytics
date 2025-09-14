@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
-import useTasks, {type Task} from "@/Pages/TasksPage/hooks/ListTasks.tsx";
+import useTasks from "@/Pages/TasksPage/hooks/ListTasks.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '1rem',
+        minHeight: '300px',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
     columnTitle: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
         borderRadius: '0.5rem',
         padding: '1rem',
         cursor: 'pointer',
-        transition: 'all 0.2s ease-in-out',
+        transition: 'all 0.3s ease-in-out',
         overflow: 'hidden',
     },
     taskCardHovered: {
@@ -63,9 +64,11 @@ const useStyles = makeStyles({
         opacity: '0',
         overflow: 'hidden',
         transition: 'all 0.3s ease-in-out',
+        paddingTop: '0',
         borderTopWidth: '0px',
         borderTopStyle: 'solid',
         borderTopColor: 'var(--border)',
+        marginTop: '0',
     },
     descriptionExpanded: {
         maxHeight: '200px',
@@ -83,6 +86,24 @@ const STATUS_COLUMNS: { [key: string]: string } = {
     completed: "Completed"
 };
 
+const formatDuration = (duration: string | null | undefined): string => {
+    if (!duration) return 'No estimate';
+
+    const hoursMatch = duration.match(/PT(\d+)H/);
+    if (hoursMatch) {
+        return `${hoursMatch[1]} hours`;
+    }
+    const minutesMatch = duration.match(/PT(\d+)M/);
+    if (minutesMatch) {
+        return `${minutesMatch[1]} minutes`;
+    }
+    const hoursMinutesMatch = duration.match(/PT(\d+)H(\d+)M/);
+    if (hoursMinutesMatch) {
+        return `${hoursMinutesMatch[1]}h ${hoursMinutesMatch[2]}m`;
+    }
+    return duration;
+};
+
 const TaskCard = ({ task }: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
@@ -94,7 +115,7 @@ const TaskCard = ({ task }: { task: any }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <h4 className={styles.title}>{task.title}</h4>
-            <div className={styles.time}>{task.estimatedTime || 'No estimate'}</div>
+            <div className={styles.time}>{formatDuration(task.estimatedTime)}</div>
             <div className={`${styles.description} ${isHovered ? styles.descriptionExpanded : ''}`}>
                 {task.description || 'No description available'}
             </div>
@@ -105,13 +126,14 @@ const TaskCard = ({ task }: { task: any }) => {
 const TaskList = () => {
     const styles = useStyles();
     const fetchedTasks = useTasks()
-    const tasks = fetchedTasks.tasks.map((issue: Task) => {
+    // Convert the object to array and map the fields
+    const tasks = Object.values(fetchedTasks.tasks).map((issue: any) => {
         return {
             id: issue.id,
             title: issue.title,
             description: issue.description,
             status: issue.status,
-            estimatedTime: issue.estimatedTime
+            estimatedTime: issue.estimated_time
         }
     })
 
