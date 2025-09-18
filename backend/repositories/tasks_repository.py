@@ -48,8 +48,8 @@ def get_all_tasks() -> List[CompletedTask]:
             title=" Update user authentication system",
             description="Create a role based authentication system for different user types",
             status=TaskStatusEnum.OPEN,
-            assignee="Luke",
-            estimated_time=timedelta(hours=6),
+            assignee="Charlie",
+            estimated_time=timedelta(hours=2, minutes=30),
             desired_completion_date=datetime(2024, 7, 1)
         ),
         CompletedTask(
@@ -57,8 +57,8 @@ def get_all_tasks() -> List[CompletedTask]:
             title="Demo to mock client",
             description="Prepare the MVP and pitch it to a mock potential client for feedback",
             status=TaskStatusEnum.BLOCKED,
-            assignee="Luke and Alex",
-            estimated_time=timedelta(hours=6),
+            assignee="Alex",
+            estimated_time=timedelta(hours=3),
             desired_completion_date=datetime(2024, 6, 20)
         ),
         CompletedTask(
@@ -66,9 +66,19 @@ def get_all_tasks() -> List[CompletedTask]:
             title="Finish MVP",
             description="Complete the minimum viable product for initial release",
             status=TaskStatusEnum.IN_PROGRESS,
-            assignee="Luke and Alex",
-            estimated_time=timedelta(hours=6),
+            assignee="Arshya",
+            estimated_time=timedelta(hours = 48),
+            desired_completion_date=datetime(2024, 6, 25)
+        ),
+        CompletedTask(
+            id=4,
+            title="Make Coffee",
+            description="Grab a coffee for the CFO from the Nespresso machine in the kitchen",
+            status=TaskStatusEnum.IN_PROGRESS,
+            assignee="Luke",
+            estimated_time=timedelta(minutes=5),
             desired_completion_date=datetime(2024, 6, 25)
         )
+
 
     ]

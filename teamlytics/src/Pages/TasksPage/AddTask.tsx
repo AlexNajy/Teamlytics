@@ -2,6 +2,7 @@ import {makeStyles} from '@griffel/react';
 import {useState} from 'react';
 import {format} from 'date-fns';
 import {Calendar as CalendarIcon} from 'lucide-react';
+import {useNavigate} from 'react-router-dom';
 import {Button} from "@/Components/ui/button.tsx";
 import {Input} from "@/Components/ui/input.tsx";
 import {Label} from "@/Components/ui/label.tsx";
@@ -36,6 +37,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
+        padding: '1rem',
     },
     card: {
         width: '100%',
@@ -102,6 +104,11 @@ const useStyles = makeStyles({
         resize: 'vertical',
         minHeight: '4rem',
     },
+    buttonContainer: {
+        display: 'flex',
+        gap: '1rem',
+        justifyContent: 'flex-end',
+    },
     submitButton: {
         padding: '0.75rem 2rem',
         color: 'var(--card)',
@@ -132,6 +139,7 @@ const useStyles = makeStyles({
 
 const AddTask = () => {
     const styles = useStyles();
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         title: "",
@@ -142,9 +150,11 @@ const AddTask = () => {
     });
 
     const [date, setDate] = useState<Date>();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         try {
             const payload = {
@@ -167,8 +177,12 @@ const AddTask = () => {
                 notes: "",
             });
             setDate(undefined);
+
+            navigate('/tasks');
         } catch (err) {
             console.error("Error creating task", err);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -190,6 +204,7 @@ const AddTask = () => {
                                     placeholder="Enter task title..."
                                     value={form.title}
                                     onChange={(e) => setForm({...form, title: e.target.value})}
+                                    required
                                 />
                             </div>
 
@@ -201,6 +216,7 @@ const AddTask = () => {
                                     onValueChange={(value) =>
                                         setForm({...form, status: value as TaskStatusEnum})
                                     }
+                                    required
                                 >
                                     <SelectTrigger className={styles.selectTrigger}>
                                         <SelectValue placeholder="Select status"/>
@@ -249,7 +265,7 @@ const AddTask = () => {
                                 </Popover>
                             </div>
 
-                            {/* notes */}
+                            {/* description */}
                             <div className={styles.formGroupFull}>
                                 <Label className={styles.label}>Description</Label>
                                 <Textarea
@@ -260,6 +276,7 @@ const AddTask = () => {
                                     onChange={(e) =>
                                         setForm({...form, description: e.target.value})
                                     }
+                                    required
                                 />
                             </div>
 
@@ -278,12 +295,14 @@ const AddTask = () => {
                             </div>
 
                         </div>
-                        <Button
-                            className={styles.submitButton}
-                            type="submit"
-                        >
-                            Add Task
-                        </Button>
+
+                            <Button
+                                className={styles.submitButton}
+                                type="submit"
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? 'Creating...' : 'Add Task'}
+                            </Button>
                     </form>
                 </CardContent>
             </Card>
