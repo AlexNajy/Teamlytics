@@ -226,16 +226,21 @@ const AddTask = () => {
 
                             {/* estimated time */}
                             <div className={styles.formGroup}>
-                                <Label className={styles.label}>Estimated Time (minutes)</Label>
+                                <Label className={styles.label}>Estimated Time (hours)</Label>
                                 <Input
                                     className={styles.field}
                                     type="number"
                                     min="0"
-                                    placeholder="e.g. 120 for 2 hours..."
+                                    step="0.1"
+                                    placeholder="e.g. 2.5 for 2 hours and 30 minutes..."
                                     value={form.estimatedTime || ''}
-                                    onChange={(e) =>
-                                        setForm({...form, estimatedTime: parseInt(e.target.value) || 0})
-                                    }
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        setForm({
+                                            ...form,
+                                            estimatedTime: value === '' ? 0 : parseFloat(value)
+                                        });
+                                    }}
                                 />
                             </div>
 
@@ -290,13 +295,13 @@ const AddTask = () => {
 
                         </div>
 
-                            <Button
-                                className={styles.submitButton}
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? 'Creating...' : 'Add Task'}
-                            </Button>
+                        <Button
+                            className={styles.submitButton}
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Creating...' : 'Add Task'}
+                        </Button>
                     </form>
                 </CardContent>
             </Card>
