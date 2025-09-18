@@ -26,8 +26,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card.tsx";
-import { createTask } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
-import type { TaskStatusEnum } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
+import {createTask, TaskStatusEnum} from "@/Pages/TasksPage/hooks/CreateTask.tsx";
 
 
 const useStyles = makeStyles({
@@ -104,11 +103,6 @@ const useStyles = makeStyles({
         resize: 'vertical',
         minHeight: '4rem',
     },
-    buttonContainer: {
-        display: 'flex',
-        gap: '1rem',
-        justifyContent: 'flex-end',
-    },
     submitButton: {
         padding: '0.75rem 2rem',
         color: 'var(--card)',
@@ -143,7 +137,7 @@ const AddTask = () => {
 
     const [form, setForm] = useState({
         title: "",
-        status: "" as TaskStatusEnum | "",
+        status: TaskStatusEnum.Open,
         estimatedTime: 0,
         description: "",
         notes: "",
@@ -171,7 +165,7 @@ const AddTask = () => {
 
             setForm({
                 title: "",
-                status: "",
+                status: TaskStatusEnum.Open,
                 estimatedTime: 0,
                 description: "",
                 notes: "",
@@ -222,10 +216,10 @@ const AddTask = () => {
                                         <SelectValue placeholder="Select status"/>
                                     </SelectTrigger>
                                     <SelectContent className={styles.selectContent}>
-                                        <SelectItem className={styles.selectItem} value="open">Open</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="in_progress">In Progress</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="blocked">Blocked</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="completed">Completed</SelectItem>
+                                        <SelectItem className={styles.selectItem} value={TaskStatusEnum.Open}>Open</SelectItem>
+                                        <SelectItem className={styles.selectItem} value={TaskStatusEnum.InProgress}>In Progress</SelectItem>
+                                        <SelectItem className={styles.selectItem} value={TaskStatusEnum.Blocked}>Blocked</SelectItem>
+                                        <SelectItem className={styles.selectItem} value={TaskStatusEnum.Completed}>Completed</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>

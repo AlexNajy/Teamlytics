@@ -1,8 +1,15 @@
-import type {components} from "@/api-types.ts";
+// import type {components} from "@/api-types.ts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export type TaskStatusEnum = components["schemas"]["TaskStatusEnum"];
+// export type TaskStatusEnum = components["schemas"]["TaskStatusEnum"];
+
+export enum TaskStatusEnum {
+    Open = 'OPEN',
+    InProgress = 'IN_PROGRESS',
+    Blocked = 'BLOCKED',
+    Completed = 'COMPLETED'
+}
 
 export type CreateTaskPayload = {
     title: string;
