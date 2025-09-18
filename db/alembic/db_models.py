@@ -20,6 +20,8 @@ class Task(Base):
 
     task_title = Column(String(255), nullable=False)
 
+    task_description = Column(String, nullable=False)
+
     task_status = Column(Enum(TaskStatusEnum), nullable=False, default=TaskStatusEnum.OPEN)
 
     total_job_time = Column(Interval, nullable=False)
@@ -33,4 +35,4 @@ class Task(Base):
     timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
 
     def __repr__(self):
-        return f"<Task(id={self.id}, title='{self.task_title}', assignee='{self.assignee}')>"
+        return f"<Task(id={self.id}, description = '{self.task_description}', title='{self.task_title}', assignee='{self.assignee}')>"
