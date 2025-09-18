@@ -10,7 +10,7 @@ class TaskStatusEnum(enum.Enum):
     IN_PROGRESS = "IN_PROGRESS"
     BLOCKED = "BLOCKED"
     COMPLETED = "COMPLETED"
-class Task(Base):
+class TaskORM(Base):
     """
     Task model for storing work tasks in the Teamlytics system
     """

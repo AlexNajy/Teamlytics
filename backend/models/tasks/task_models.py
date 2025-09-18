@@ -14,13 +14,12 @@ class TaskStatusEnum(str, Enum):
 
 class Task(BaseModel):
     title: str
-    status: TaskStatusEnum
-    estimated_time: timedelta
     description: str
-
-
+    status: TaskStatusEnum
+    estimated_time: float
     desired_completion_date: datetime
     notes: str | None = None
+    assignee: str | None = None
 
 class CompletedTask(BaseModel):
     id: int
@@ -31,6 +30,7 @@ class CompletedTask(BaseModel):
     estimated_time: timedelta
     desired_completion_date: datetime
     notes: str | None = None
+    timestamp: datetime
 
 class TaskFailure(BaseModel):
     reason: str

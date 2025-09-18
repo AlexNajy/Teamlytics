@@ -1,9 +1,12 @@
 from http import HTTPStatus
-from typing import List, Union
-from fastapi import APIRouter, HTTPException
-from returns.result import Result, Success
+from typing import List
+from fastapi import APIRouter, HTTPException, Depends
+from returns.result import Success
+from sqlalchemy.orm.session import Session
+
 from models.tasks.task_models import CompletedTask, TaskFailure, Task
 from repositories.tasks_repository import get_all_tasks, create_task
+from database import get_db
 
 tasks_router = APIRouter()
 
@@ -13,10 +16,9 @@ async def get_tasks() -> List[CompletedTask]:
     return get_all_tasks()
 
 
-@tasks_router.post("/tasks", response_model=CompletedTask, status_code=HTTPStatus.CREATED,
-                   responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
-async def create_single_task(task: Task) -> CompletedTask:
-    result = create_task(task)
+@tasks_router.post("/tasks", response_model=CompletedTask, status_code=HTTPStatus.CREATED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
+async def create_single_task(task: Task, db: Session = Depends(get_db)) -> CompletedTask:
+    result = create_task(db, task)
     if isinstance(result, Success):
         return result.unwrap()
     else:
