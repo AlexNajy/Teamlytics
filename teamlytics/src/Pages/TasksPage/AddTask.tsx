@@ -31,7 +31,6 @@ import {createTask, TaskStatusEnum} from "@/Pages/TasksPage/hooks/CreateTask.tsx
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100vh',
         backgroundColor: 'var(--background)',
         display: 'flex',
         justifyContent: 'center',
@@ -39,7 +38,6 @@ const useStyles = makeStyles({
     },
     card: {
         width: '100%',
-        maxWidth: '1000px',
         background: 'var(--card)',
         color: 'var(--foreground)',
         borderRadius: '1rem',
@@ -132,6 +130,10 @@ const useStyles = makeStyles({
         padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
         cursor: 'pointer',
+        transition: "all 0.2s ease",
+        ':hover': {
+            backgroundColor: 'var(--muted)',
+        },
     },
     icon: {
         marginRight: '0.5rem',
@@ -280,7 +282,7 @@ const AddTask = () => {
                                 <Textarea
                                     className={`${styles.field} ${styles.textarea}`}
                                     placeholder="Enter task description..."
-                                    rows={4}
+                                    rows={3}
                                     value={form.description}
                                     onChange={(e) =>
                                         setForm({...form, description: e.target.value})
@@ -295,7 +297,7 @@ const AddTask = () => {
                                 <Textarea
                                     className={`${styles.field} ${styles.textarea}`}
                                     placeholder="Enter additional notes..."
-                                    rows={3}
+                                    rows={2}
                                     value={form.notes}
                                     onChange={(e) =>
                                         setForm({...form, notes: e.target.value})
