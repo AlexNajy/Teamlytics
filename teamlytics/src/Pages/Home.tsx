@@ -2,7 +2,6 @@ import { makeStyles } from '@griffel/react';
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100vh',
         backgroundColor: 'var(--background)',
     },
     main: {

@@ -33,10 +33,9 @@ const useStyles = makeStyles({
     container: {
         minHeight: '100vh',
         backgroundColor: 'var(--background)',
-        alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
-        padding: '1rem',
+        padding: '5rem',
     },
     card: {
         width: '100%',
@@ -111,6 +110,16 @@ const useStyles = makeStyles({
         fontWeight: '500',
         cursor: 'pointer',
         transition: 'all 0.2s ease',
+        opacity: '0.9',
+        ':hover': {
+            color: 'var(--muted)',
+            opacity: '1',
+            boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
+        },
+        ':disabled': {
+            opacity: '0.5',
+            cursor: 'not-allowed'
+        }
     },
     selectContent: {
         backgroundColor: 'var(--background)',

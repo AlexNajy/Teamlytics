@@ -3,7 +3,6 @@ import TaskList from "@/Pages/TasksPage/TaskList.tsx";
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100vh',
         background: 'var(--background)',
     },
     contentWrapper: {
