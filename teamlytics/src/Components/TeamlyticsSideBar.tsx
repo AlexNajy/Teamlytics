@@ -31,7 +31,7 @@ import {
 
 const useStyles = makeStyles({
     sidebar: {
-        borderRight: "none !important",
+        borderRight: "none",
     },
     content: {
         backgroundColor: "var(--card)",

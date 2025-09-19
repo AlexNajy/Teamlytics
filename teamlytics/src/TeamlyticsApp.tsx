@@ -1,7 +1,7 @@
 import './App.css';
 import BasePage from "./Components/BasePage.tsx";
-import { makeStyles } from "@griffel/react";
-import { Routes, Route, useLocation } from 'react-router-dom';
+import {makeStyles} from "@griffel/react";
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import Home from "./Pages/Home.tsx";
 import Tasks from "./Pages/Tasks.tsx";
@@ -22,16 +22,17 @@ const useClasses = makeStyles({
 });
 
 document.documentElement.setAttribute('data-theme', 'root');
-document.documentElement.classList.toggle('light');
+document.documentElement.classList.toggle('dark');
 
 function TeamlyticsApp() {
     const classes = useClasses();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const isTasksPage = location.pathname === '/tasks';
 
     const handleAddTaskClick = () => {
-        window.location.href = '/add-task';
+        navigate('/add-task');
     };
 
     return (
@@ -42,12 +43,12 @@ function TeamlyticsApp() {
             >
                 <div className={classes.container}>
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/tasks" element={<Tasks />} />
-                        <Route path="/add-task" element={<AddTask />} />
-                        <Route path="/team" element={<Team />} />
-                        <Route path="/schedule" element={<Schedule />} />
-                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/tasks" element={<Tasks/>}/>
+                        <Route path="/add-task" element={<AddTask/>}/>
+                        <Route path="/team" element={<Team/>}/>
+                        <Route path="/schedule" element={<Schedule/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
                     </Routes>
                 </div>
             </BasePage>

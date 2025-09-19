@@ -1,6 +1,6 @@
-import { SidebarTrigger } from "@/Components/ui/sidebar";
-import { makeStyles } from '@griffel/react';
-import { useLocation } from 'react-router-dom';
+import {SidebarTrigger} from "@/Components/ui/sidebar";
+import {makeStyles} from '@griffel/react';
+import {useLocation} from 'react-router-dom';
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -12,6 +12,7 @@ import {
 const useClasses = makeStyles({
     header: {
         width: "100%",
+        height: "4rem",
         backgroundColor: 'var(--card)',
         paddingLeft: "1.5rem",
         paddingRight: "1.5rem",
@@ -20,20 +21,15 @@ const useClasses = makeStyles({
         boxShadow: "0 2px 4px var(--shadow)",
         borderBottom: '1px solid var(--border)',
         flexShrink: 0,
-        borderBottomLeftRadius: "0rem",
-        borderBottomRightRadius: "0rem",
         zIndex: 1,
-
-    },
-    container: {
         display: "flex",
-        alignItems: "baseline",
+        alignItems: "center",
         gap: "1rem",
     },
     title: {
         fontSize: "1.25rem",
         fontWeight: "bold",
-        color:"transparent",
+        color: "transparent",
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
@@ -50,15 +46,14 @@ const useClasses = makeStyles({
     breadcrumbSeparator: {
         color: "var(--muted-foreground)",
     },
-    breadcrumbText: {
+    text: {
         color: "var(--foreground)",
         fontSize: "1.125rem",
     },
-    addTaskButton: {
+    button: {
         display: "flex",
-        alignItems: "center",
         gap: "0.75rem",
-        padding: "0.1rem 0.75rem",
+        padding: "0.25rem 1rem",
         borderRadius: "var(--radius)",
         border: "1px solid var(--border)",
         backgroundColor: "var(--card)",
@@ -93,7 +88,7 @@ interface TeamlyticsHeaderProps {
     onAddTaskClick?: () => void;
 }
 
-const TeamlyticsHeader = ({ showAddTaskButton = false, onAddTaskClick }: TeamlyticsHeaderProps) => {
+const TeamlyticsHeader = ({showAddTaskButton = false, onAddTaskClick}: TeamlyticsHeaderProps) => {
     const classes = useClasses();
     const location = useLocation();
     const currentPage = routeNames[location.pathname] || 'Unknown';
@@ -101,36 +96,34 @@ const TeamlyticsHeader = ({ showAddTaskButton = false, onAddTaskClick }: Teamlyt
 
     return (
         <header className={classes.header}>
-            <div className={classes.container}>
-                <div className={classes.leftSection}>
-                    <SidebarTrigger className={classes.sidebarTrigger} />
+            <div className={classes.leftSection}>
+                <SidebarTrigger className={classes.sidebarTrigger}/>
 
-                    <h1 className={classes.title}>
-                        Teamlytics
-                    </h1>
+                <h1 className={classes.title}>
+                    Teamlytics
+                </h1>
 
-                    <Breadcrumb>
-                        <BreadcrumbList>
-                            <BreadcrumbSeparator className={classes.breadcrumbSeparator} />
-                            <BreadcrumbItem>
-                                <BreadcrumbPage className={classes.breadcrumbText}>
-                                    {currentPage}
-                                </BreadcrumbPage>
-                            </BreadcrumbItem>
-                        </BreadcrumbList>
-                    </Breadcrumb>
-                </div>
-
-                {showAddTaskButton && (
-                    <button
-                        className={classes.addTaskButton}
-                        onClick={onAddTaskClick}
-                    >
-                        <span>+</span>
-                        Add Task
-                    </button>
-                )}
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbSeparator className={classes.breadcrumbSeparator}/>
+                        <BreadcrumbItem>
+                            <BreadcrumbPage className={classes.text}>
+                                {currentPage}
+                            </BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
             </div>
+
+            {showAddTaskButton && (
+                <button
+                    className={classes.button}
+                    onClick={onAddTaskClick}
+                >
+                    <span>+</span>
+                    Add Task
+                </button>
+            )}
         </header>
     );
 };
