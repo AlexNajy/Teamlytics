@@ -10,50 +10,51 @@ interface BasePageProps {
 }
 
 const useClasses = makeStyles({
-    container: {
-        minHeight: "100vh",
+    root: {
         height: "100vh",
         width: "100vw",
         position: "fixed",
         top: 0,
         left: 0,
         display: "flex",
-        backgroundColor: "var(--background)"
+        backgroundColor: "var(--background)",
     },
-    mainContentWrapper: {
+    content: {
         flex: 1,
         display: "flex",
         flexDirection: "column",
         height: "100%",
     },
-    mainContent: {
+    main: {
         flex: 1,
         overflow: "auto",
         margin: 0,
     },
-    innerContent: {
-        maxWidth: "114rem",
+    inner: {
+        maxWidth: "100%",
         marginLeft: "auto",
         marginRight: "auto",
     },
 });
 
+
+// includes header and sidebar on top of an empty page
 const BasePage = ({ children, showAddTaskButton = false, onAddTaskClick }: BasePageProps) => {
     const classes = useClasses();
 
     return (
         <SidebarProvider>
-            <div className={classes.container}>
+            <div className={classes.root}>
                 <TeamlyticsSideBar />
 
-                <div className={classes.mainContentWrapper}>
+                <div className={classes.content}>
                     <TeamlyticsHeader
                         showAddTaskButton={showAddTaskButton}
                         onAddTaskClick={onAddTaskClick}
                     />
 
-                    <main className={classes.mainContent}>
-                        <div className={classes.innerContent}>{children}</div>
+                    <main className={classes.main}>
+                        <div className={classes.inner}>{children}</div>
                     </main>
                 </div>
             </div>

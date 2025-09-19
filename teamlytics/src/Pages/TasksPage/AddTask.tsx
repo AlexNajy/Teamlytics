@@ -233,6 +233,7 @@ const AddTask = () => {
                                     min="0"
                                     step="0.1"
                                     placeholder="e.g. 2.5 for 2 hours and 30 minutes..."
+                                    required
                                     value={form.estimatedTime || ''}
                                     onChange={(e) => {
                                         const value = e.target.value;
@@ -298,9 +299,8 @@ const AddTask = () => {
                         <Button
                             className={styles.submitButton}
                             type="submit"
-                            disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Creating...' : 'Add Task'}
+                            {isSubmitting ? '...' : 'Add Task'}
                         </Button>
                     </form>
                 </CardContent>
