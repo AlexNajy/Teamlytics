@@ -85,24 +85,6 @@ const STATUS_COLUMNS: { [key: string]: string } = {
     completed: "Completed"
 };
 
-const formatDuration = (duration: string | null | undefined): string => {
-    if (!duration) return 'No estimate';
-
-    const hoursMatch = duration.match(/PT(\d+)H/);
-    if (hoursMatch) {
-        return `${hoursMatch[1]} hours`;
-    }
-    const minutesMatch = duration.match(/PT(\d+)M/);
-    if (minutesMatch) {
-        return `${minutesMatch[1]} minutes`;
-    }
-    const hoursMinutesMatch = duration.match(/PT(\d+)H(\d+)M/);
-    if (hoursMinutesMatch) {
-        return `${hoursMinutesMatch[1]}h ${hoursMinutesMatch[2]}m`;
-    }
-    return duration;
-};
-
 const TaskCard = ({ task }: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
@@ -114,7 +96,7 @@ const TaskCard = ({ task }: { task: any }) => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <h4 className={styles.title}>{task.title}</h4>
-            <div className={styles.time}>{formatDuration(task.estimatedTime)}</div>
+            <div className={styles.time}>(task.estimatedTime)</div>
             <div className={`${styles.description} ${isHovered ? styles.descriptionExpanded : ''}`}>
                 {task.description || 'No description available'}
             </div>
