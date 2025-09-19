@@ -11,12 +11,19 @@ from database import get_db
 tasks_router = APIRouter()
 
 
-@tasks_router.get("/tasks")
-async def get_tasks() -> List[CompletedTask]:
-    return get_all_tasks()
+@tasks_router.get("/tasks", response_model=List[CompletedTask], status_code=HTTPStatus.ACCEPTED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
+async def get_tasks(db: Session = Depends(get_db)) -> List[CompletedTask]:
+    result = get_all_tasks(db=db)
 
+    if isinstance(result, Success):
+        return result.unwrap()
+    else:
+        raise HTTPException(
+            status_code=result.failure().status,
+            detail=result.failure().reason
+        )
 
-@tasks_router.post("/tasks", response_model=CompletedTask, status_code=HTTPStatus.CREATED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
+@tasks_router.post("/tasks", response_model=CompletedTask, status_code=HTTPStatus.CREATED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}, HTTPStatus.BAD_REQUEST: {"model": TaskFailure}})
 async def create_single_task(task: Task, db: Session = Depends(get_db)) -> CompletedTask:
     result = create_task(db, task)
     if isinstance(result, Success):
