@@ -1,4 +1,4 @@
-import { makeStyles } from '@griffel/react';
+import {makeStyles} from '@griffel/react';
 
 const useStyles = makeStyles({
     container: {
@@ -6,39 +6,33 @@ const useStyles = makeStyles({
     },
     main: {
         flex: '1',
-        padding: '0 1.5rem 2rem'
-    },
-    contentWrapper: {
-        maxWidth: '64rem',
-        margin: '0 auto'
+        padding: '1rem 5rem 2rem'
     },
     heroSection: {
         textAlign: 'center',
         marginBottom: '3rem',
         paddingTop: '4rem'
     },
-    heroTitle: {
+    title: {
         fontSize: 'clamp(2.25rem, 5vw, 3rem)',
         fontWeight: 'bold',
-        marginBottom: '1.5rem',
+        marginBottom: '3rem',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         opacity: 'transparent',
         color: 'var(--foreground)',
     },
-    heroDescription: {
+    subTitle: {
         fontSize: '1.25rem',
         color: 'var(--muted-foreground)',
         maxWidth: '32rem',
         margin: '0 auto 2rem',
     },
-    inputSection: {
+    inputContainer: {
+        position: 'relative',
         marginBottom: '3rem'
     },
-    inputContainer: {
-        position: 'relative'
-    },
-    inputWrapper: {
+    input: {
         position: 'relative',
         background: 'var(--card)',
         borderRadius: '1rem',
@@ -110,35 +104,31 @@ const AIHomepage = () => {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <div className={styles.contentWrapper}>
-                    {/* Hero Section */}
-                    <div className={styles.heroSection}>
-                        <h2 className={styles.heroTitle}>
-                            Welcome to Teamlytics AI
-                        </h2>
-                        <p className={styles.heroDescription}>
-                            Your intelligent assistant for managing your workspace
-                        </p>
-                    </div>
+                {/* Hero Section */}
+                <div className={styles.heroSection}>
+                    <h2 className={styles.title}>
+                        Welcome to Teamlytics AI
+                    </h2>
+                    <p className={styles.subTitle}>
+                        Your intelligent assistant for managing your workspace
+                    </p>
+                </div>
 
-                    {/* Chat Input */}
-                    <div className={styles.inputSection}>
-                        <div className={styles.inputContainer}>
-                            <div className={styles.inputWrapper}>
+                {/* Chat Input */}
+                <div className={styles.inputContainer}>
+                    <div className={styles.input}>
                                 <textarea
                                     placeholder="Message Teamlytics AI..."
-                                    rows={4}
+                                    rows={3}
                                     className={styles.textarea}
                                 />
-                                <div className={styles.inputFooter}>
-                                    <div className={styles.subtext}>
-                                        Place buttons and important notice here
-                                    </div>
-                                    <button className={styles.sendButton}>
-                                        Send
-                                    </button>
-                                </div>
+                        <div className={styles.inputFooter}>
+                            <div className={styles.subtext}>
+                                Place buttons and important notice here. inputFooter/subtext
                             </div>
+                            <button className={styles.sendButton}>
+                                Send
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -146,11 +136,9 @@ const AIHomepage = () => {
 
             {/* Footer */}
             <footer className={styles.footer}>
-                <div className={styles.contentWrapper}>
-                    <p className={styles.subtext}>
-                        Teamlytics AI can make mistakes. Consider checking important information. Footer.
-                    </p>
-                </div>
+                <p className={styles.subtext}>
+                    Teamlytics AI can make mistakes. Consider checking important information. footer/subtext.
+                </p>
             </footer>
         </div>
     );
