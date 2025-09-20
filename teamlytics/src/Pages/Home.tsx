@@ -132,7 +132,7 @@ const AIHomepage = () => {
                                 />
                                 <div className={styles.inputFooter}>
                                     <div className={styles.subtext}>
-                                        Press Enter to send, Shift+Enter for new line
+                                        Place buttons and important notice here
                                     </div>
                                     <button className={styles.sendButton}>
                                         Send
@@ -148,7 +148,7 @@ const AIHomepage = () => {
             <footer className={styles.footer}>
                 <div className={styles.contentWrapper}>
                     <p className={styles.subtext}>
-                        Teamlytics AI can make mistakes. Consider checking important information.
+                        Teamlytics AI can make mistakes. Consider checking important information. Footer.
                     </p>
                 </div>
             </footer>

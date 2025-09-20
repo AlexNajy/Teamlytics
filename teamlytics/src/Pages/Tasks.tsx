@@ -7,20 +7,8 @@ const useStyles = makeStyles({
     },
     contentWrapper: {
         maxWidth: '95%',
-        margin: '0 auto'
-    },
-    titleSection: {
-        textAlign: 'center',
-        marginBottom: '3rem',
-        paddingTop: '4rem'
-    },
-    title: {
-        fontSize: 'clamp(2.25rem, 5vw, 3rem)',
-        fontWeight: 'bold',
-        marginBottom: '1.5rem',
-        color: 'var(--foreground)',
-        backgroundClip: 'text',
-        WebkitBackgroundClip: 'text',
+        margin: '0 auto',
+        paddingTop: "2rem",
     },
     form: {
         marginBottom: '3rem'
@@ -33,13 +21,6 @@ const Tasks = () => {
     return (
         <div className={styles.container}>
                 <div className={styles.contentWrapper}>
-
-                    <div className={styles.titleSection}>
-                        <h2 className={styles.title}>
-                            Task Management
-                        </h2>
-                    </div>
-
                     <div className={styles.form}>
                         <TaskList />
                     </div>

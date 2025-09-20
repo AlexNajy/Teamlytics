@@ -79,10 +79,10 @@ const useStyles = makeStyles({
 });
 
 const STATUS_COLUMNS: { [key: string]: string } = {
-    open: "Open",
-    in_progress: "In Progress",
-    blocked: "Blocked",
-    completed: "Completed"
+    OPEN: "Open",
+    IN_PROGRESS: "In Progress",
+    BLOCKED: "Blocked",
+    COMPLETED: "Completed"
 };
 
 const TaskCard = ({ task }: { task: any }) => {
@@ -108,13 +108,13 @@ const TaskList = () => {
     const styles = useStyles();
     const fetchedTasks = useTasks()
     // Convert the object to array and map the fields
-    const tasks = Object.values(fetchedTasks.tasks).map((issue: any) => {
+    const tasks = Object.values(fetchedTasks.tasks).map((task: any) => {
         return {
-            id: issue.id,
-            title: issue.title,
-            description: issue.description,
-            status: issue.status,
-            estimatedTime: issue.estimated_time
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            estimatedTime: task.estimated_time
         }
     })
 
