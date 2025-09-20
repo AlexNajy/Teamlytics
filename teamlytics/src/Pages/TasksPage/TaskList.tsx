@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
 import useTasks from "@/Pages/TasksPage/hooks/ListTasks.tsx";
+import { Duration } from "luxon";
+
 
 const useStyles = makeStyles({
     container: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
     },
@@ -35,13 +37,13 @@ const useStyles = makeStyles({
         borderRadius: '0.5rem',
         padding: '1rem',
         cursor: 'pointer',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
         overflow: 'hidden',
         gap: '1rem',
-    },
-    taskCardHovered: {
-        boxShadow: "0px 4px 8px 4px var(--shadow)",
-        //transform: 'translateY(-2px)',
+
+        ":hover": {
+            boxShadow: "0px 4px 8px 4px var(--shadow)",
+        }
     },
     title: {
         fontSize: '1rem',
@@ -62,14 +64,14 @@ const useStyles = makeStyles({
         maxHeight: '0',
         opacity: '0',
         overflow: 'hidden',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
         paddingTop: '0',
-        borderTopWidth: '0px',
+        borderTopWidth: '1px',
         borderTopStyle: 'solid',
         borderTopColor: 'var(--border)',
         marginTop: '0',
     },
-    descriptionExpanded: {
+    cardExpanded: {
         maxHeight: '200px',
         opacity: '1',
         paddingTop: '0.5rem',
@@ -89,15 +91,18 @@ const TaskCard = ({ task }: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
 
+    const duration = Duration.fromISO(task.estimatedTime);
+    const formattedTime = duration.toFormat("h'h' m'm'");
+
     return (
         <Card
-            className={`${styles.taskCard} ${isHovered ? styles.taskCardHovered : ''}`}
+            className={styles.taskCard}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
             <h4 className={styles.title}>{task.title}</h4>
-            <div className={styles.time}>(task.estimatedTime)</div>
-            <div className={`${styles.description} ${isHovered ? styles.descriptionExpanded : ''}`}>
+            <div className={styles.time}>{formattedTime}</div>
+            <div className={`${styles.description} ${isHovered ? styles.cardExpanded : ''}`}>
                 {task.description || 'No description available'}
             </div>
         </Card>
@@ -107,7 +112,7 @@ const TaskCard = ({ task }: { task: any }) => {
 const TaskList = () => {
     const styles = useStyles();
     const fetchedTasks = useTasks()
-    // Convert the object to array and map the fields
+
     const tasks = Object.values(fetchedTasks.tasks).map((task: any) => {
         return {
             id: task.id,
