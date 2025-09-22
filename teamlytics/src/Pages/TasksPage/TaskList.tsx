@@ -92,7 +92,13 @@ const TaskCard = ({ task }: { task: any }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const duration = Duration.fromISO(task.estimatedTime);
-    const formattedTime = duration.toFormat("h'h' m'm'");
+
+    const timeParts = [];
+    if (duration.days) timeParts.push(`${duration.days}d`);
+    if (duration.hours) timeParts.push(`${duration.hours}h`);
+    if (duration.minutes) timeParts.push(`${duration.minutes}m`);
+
+    const formattedTime = timeParts.join(" ") || '0m';
 
     return (
         <Card
