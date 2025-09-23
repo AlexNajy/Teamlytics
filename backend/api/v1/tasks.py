@@ -4,9 +4,9 @@ from fastapi import APIRouter, HTTPException, Depends
 from returns.result import Success
 from sqlalchemy.orm.session import Session
 
-from models.tasks.task_models import CompletedTask, TaskFailure, Task
-from repositories.tasks_repository import get_all_tasks, create_task
-from database import get_db
+from backend.database import get_db
+from backend.models.tasks.task_models import CompletedTask, TaskFailure, Task
+from backend.repositories.tasks_repository import get_all_tasks, create_task
 
 tasks_router = APIRouter()
 

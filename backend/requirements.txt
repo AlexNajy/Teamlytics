@@ -1,15 +1,6 @@
-  fastapi
-  uvicorn
-  sqlalchemy
-  alembic
-  psycopg[binary]
-  pydantic
-  starlette
-  black
-  returns
-  python-dotenv
-  pytest
-  httpx
-
-
-# pip install -r requirements.txt
+fastapi==0.117.1
+pydantic==2.11.9
+python-dotenv==1.1.1
+returns==0.26.0
+SQLAlchemy==2.0.43
+starlette==0.48.0

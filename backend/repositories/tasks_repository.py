@@ -1,15 +1,12 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from http import HTTPStatus
 from typing import List
 
 from returns.result import Result, Failure, Success
 from sqlalchemy.orm.session import Session
 
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+from backend.models.tasks.task_models import Task, CompletedTask, TaskFailure
 from db.alembic.db_models import TaskORM
-from models.tasks.task_models import CompletedTask, TaskStatusEnum, Task, TaskFailure
 
 
 def create_task(db: Session, task: Task) -> Result[CompletedTask, TaskFailure]:
