@@ -13,12 +13,7 @@ import Settings from "./Pages/Settings.tsx";
 const useClasses = makeStyles({
     background: {
         backgroundColor: "var(--background)",
-    },
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "1rem",
-    },
+    }
 });
 
 document.documentElement.setAttribute('data-theme', 'root');
@@ -41,16 +36,14 @@ function TeamlyticsApp() {
                 showAddTaskButton={isTasksPage}
                 onAddTaskClick={handleAddTaskClick}
             >
-                <div className={classes.container}>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/tasks" element={<Tasks/>}/>
-                        <Route path="/add-task" element={<AddTask/>}/>
-                        <Route path="/team" element={<Team/>}/>
-                        <Route path="/schedule" element={<Schedule/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                    </Routes>
-                </div>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/tasks" element={<Tasks/>}/>
+                    <Route path="/add-task" element={<AddTask/>}/>
+                    <Route path="/team" element={<Team/>}/>
+                    <Route path="/schedule" element={<Schedule/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                </Routes>
             </BasePage>
         </div>
     );

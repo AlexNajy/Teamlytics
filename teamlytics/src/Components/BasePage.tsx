@@ -29,11 +29,6 @@ const useClasses = makeStyles({
         overflow: "auto",
         margin: 0,
     },
-    inner: {
-        maxWidth: "100%",
-        marginLeft: "auto",
-        marginRight: "auto",
-    },
 });
 
 
@@ -53,7 +48,7 @@ const BasePage = ({ children, showAddTaskButton = false, onAddTaskClick }: BaseP
                     />
 
                     <main className={classes.main}>
-                        <div className={classes.inner}>{children}</div>
+                       {children}
                     </main>
                 </div>
             </div>

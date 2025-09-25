@@ -8,7 +8,7 @@ const useStyles = makeStyles({
         flex: '1',
         padding: '1rem 5rem 2rem'
     },
-    heroSection: {
+    titleSection: {
         textAlign: 'center',
         marginBottom: '3rem',
         paddingTop: '4rem'
@@ -105,7 +105,7 @@ const AIHomepage = () => {
         <div className={styles.container}>
             <main className={styles.main}>
                 {/* Hero Section */}
-                <div className={styles.heroSection}>
+                <div className={styles.titleSection}>
                     <h2 className={styles.title}>
                         Welcome to Teamlytics AI
                     </h2>
