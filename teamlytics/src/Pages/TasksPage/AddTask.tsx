@@ -242,7 +242,7 @@ const AddTask = () => {
                                     className={styles.field}
                                     type="number"
                                     min="0"
-                                    step="0.1"
+                                    step="0.25"
                                     placeholder="e.g. 2.5 for 2 hours and 30 minutes..."
                                     required
                                     value={form.estimatedTime || ''}

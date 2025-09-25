@@ -11,6 +11,7 @@ const useStyles = makeStyles({
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
+        minHeight: '85vh',
     },
     column: {
         display: 'flex',
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
         background: 'var(--card)',
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
-        padding: '1rem',
+        padding: '0.5rem',
         minHeight: '300px',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
@@ -28,7 +29,6 @@ const useStyles = makeStyles({
         fontWeight: '600',
         color: 'var(--foreground)',
         textAlign: 'center',
-        marginBottom: '1rem',
     },
     taskCard: {
         background: 'var(--card)',

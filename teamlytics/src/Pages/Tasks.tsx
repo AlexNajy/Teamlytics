@@ -1,17 +1,12 @@
-import { makeStyles } from '@griffel/react';
+import {makeStyles} from '@griffel/react';
 import TaskList from "@/Pages/TasksPage/TaskList.tsx";
 
 const useStyles = makeStyles({
     container: {
         background: 'var(--background)',
-    },
-    contentWrapper: {
-        maxWidth: '95%',
-        margin: '0 auto',
-        paddingTop: "2rem",
-    },
-    form: {
-        marginBottom: '3rem'
+        height: '90vh',
+        padding: "0.5rem",
+        marginBottom: '3rem',
     },
 });
 
@@ -20,11 +15,7 @@ const Tasks = () => {
 
     return (
         <div className={styles.container}>
-                <div className={styles.contentWrapper}>
-                    <div className={styles.form}>
-                        <TaskList />
-                    </div>
-                </div>
+            <TaskList/>
         </div>
     );
 };
