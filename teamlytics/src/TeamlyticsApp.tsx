@@ -13,6 +13,7 @@ import Settings from "./Pages/Settings.tsx";
 const useClasses = makeStyles({
     background: {
         backgroundColor: "var(--background)",
+        position: "fixed"
     }
 });
 

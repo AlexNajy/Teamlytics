@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { makeStyles } from '@griffel/react';
 import { Card } from "@/Components/ui/card";
-import useTasks from "@/Pages/TasksPage/hooks/ListTasks.tsx";
+import useTasks from "@/Pages/TasksPage/hooks/FetchTasks.tsx";
 import { Duration } from "luxon";
 
 
@@ -20,7 +20,6 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '0.5rem',
-        minHeight: '300px',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
     columnTitle: {
@@ -35,10 +34,11 @@ const useStyles = makeStyles({
         boxShadow: "0px 2px 4px 2px var(--shadow)",
         borderRadius: '0.5rem',
         padding: '1rem',
+        paddingBottom: '0.5rem',
         cursor: 'pointer',
         transition: 'all 0.2s ease-in-out',
         overflow: 'hidden',
-        gap: '1rem',
+        gap: '0.5rem',
 
         ":hover": {
             boxShadow: "0px 4px 8px 4px var(--shadow)",

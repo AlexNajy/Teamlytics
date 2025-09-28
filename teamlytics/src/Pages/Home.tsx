@@ -39,7 +39,7 @@ const useStyles = makeStyles({
         boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
         border: '1px solid var(--border)',
         overflow: 'hidden',
-        transition: 'box-shadow 0.3s ease',
+        transition: 'box-shadow 0.2s ease',
         ':hover': {
             boxShadow: '0 25px 25px -5px var(--shadow), 0 10px 10px -5px var(--shadow)'
         }
@@ -98,7 +98,7 @@ const useStyles = makeStyles({
     }
 });
 
-const AIHomepage = () => {
+const Home = () => {
     const styles = useStyles();
 
     return (
@@ -144,4 +144,4 @@ const AIHomepage = () => {
     );
 };
 
-export default AIHomepage;
+export default Home;

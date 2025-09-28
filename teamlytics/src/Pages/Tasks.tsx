@@ -3,10 +3,9 @@ import TaskList from "@/Pages/TasksPage/TaskList.tsx";
 
 const useStyles = makeStyles({
     container: {
+        width: "100%",
         background: 'var(--background)',
-        height: '90vh',
         padding: "0.5rem",
-        marginBottom: '3rem',
     },
 });
 

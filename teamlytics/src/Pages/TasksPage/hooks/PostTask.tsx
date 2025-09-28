@@ -20,7 +20,7 @@ export type CreateTaskPayload = {
     notes?: string | null;
 };
 
-export async function createTask(payload: CreateTaskPayload) {
+export async function postTask(payload: CreateTaskPayload) {
     const res = await fetch(`${BACKEND_URL}/tasks`, {
         method: "POST",
         headers: {

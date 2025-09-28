@@ -26,7 +26,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card.tsx";
-import {createTask, TaskStatusEnum} from "@/Pages/TasksPage/hooks/CreateTask.tsx";
+import {postTask, TaskStatusEnum} from "@/Pages/TasksPage/hooks/PostTask.tsx";
 
 
 const useStyles = makeStyles({
@@ -171,7 +171,7 @@ const AddTask = () => {
                 notes: form.notes || null,
             };
 
-            const created = await createTask(payload);
+            const created = await postTask(payload);
             console.log("Task created:", created);
 
             setForm({
