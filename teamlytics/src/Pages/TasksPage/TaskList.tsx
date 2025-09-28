@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { makeStyles } from '@griffel/react';
-import { Card } from "@/Components/ui/card";
+import {useState} from 'react';
+import {makeStyles} from '@griffel/react';
+import {Card} from "@/Components/ui/card";
 import useTasks from "@/Pages/TasksPage/hooks/FetchTasks.tsx";
-import { Duration } from "luxon";
+import {Duration} from "luxon";
 
 
 const useStyles = makeStyles({
@@ -11,6 +11,7 @@ const useStyles = makeStyles({
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
+
     },
     column: {
         display: 'flex',
@@ -76,7 +77,7 @@ const useStyles = makeStyles({
         paddingTop: '0.5rem',
         borderTopWidth: '1px',
         marginTop: '0.5rem',
-    }
+    },
 });
 
 const STATUS_COLUMNS: { [key: string]: string } = {
@@ -86,7 +87,7 @@ const STATUS_COLUMNS: { [key: string]: string } = {
     COMPLETED: "Completed"
 };
 
-const TaskCard = ({ task }: { task: any }) => {
+const TaskCard = ({task}: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
 
@@ -134,11 +135,10 @@ const TaskList = () => {
                 {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
                     <div key={statusKey} className={styles.column}>
                         <div className={styles.columnTitle}>{statusLabel}</div>
-
                         {tasks
                             .filter(task => task.status === statusKey)
                             .map(task => (
-                                <TaskCard key={task.id} task={task} />
+                                <TaskCard key={task.id} task={task}/>
                             ))}
                     </div>
                 ))}

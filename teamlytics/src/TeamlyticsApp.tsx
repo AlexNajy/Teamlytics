@@ -4,9 +4,9 @@ import {makeStyles} from "@griffel/react";
 import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import Home from "./Pages/Home.tsx";
-import Tasks from "./Pages/Tasks.tsx";
+import Tasks from "./Pages/TasksPage/Tasks.tsx";
 import AddTask from "@/Pages/TasksPage/AddTask.tsx";
-import Team from "./Pages/Team.tsx";
+import Team from "./Pages/TeamPage/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
 

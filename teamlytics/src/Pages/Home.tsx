@@ -104,7 +104,6 @@ const Home = () => {
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                {/* Hero Section */}
                 <div className={styles.titleSection}>
                     <h2 className={styles.title}>
                         Welcome to Teamlytics AI
@@ -114,7 +113,6 @@ const Home = () => {
                     </p>
                 </div>
 
-                {/* Chat Input */}
                 <div className={styles.inputContainer}>
                     <div className={styles.input}>
                                 <textarea
@@ -134,7 +132,6 @@ const Home = () => {
                 </div>
             </main>
 
-            {/* Footer */}
             <footer className={styles.footer}>
                 <p className={styles.subtext}>
                     Teamlytics AI can make mistakes. Consider checking important information. footer/subtext.
