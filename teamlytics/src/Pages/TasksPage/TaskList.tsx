@@ -1,8 +1,10 @@
 import {useState} from 'react';
 import {makeStyles} from '@griffel/react';
 import {Card} from "@/Components/ui/card";
+//import {Button} from "@/Components/ui/button.tsx";
 import useTasks from "@/Pages/TasksPage/hooks/FetchTasks.tsx";
 import {Duration} from "luxon";
+import {Trash} from "lucide-react";
 
 
 const useStyles = makeStyles({
@@ -51,6 +53,11 @@ const useStyles = makeStyles({
         color: 'var(--foreground)',
         textAlign: 'left',
     },
+    topRow: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     time: {
         fontSize: '0.875rem',
         color: 'var(--muted-foreground)',
@@ -78,6 +85,15 @@ const useStyles = makeStyles({
         borderTopWidth: '1px',
         marginTop: '0.5rem',
     },
+    deleteButton: {
+        color: "var(--muted-foreground)",
+        padding: "0.5rem",
+        borderRadius: "0.375rem",
+        ":hover": {
+            backgroundColor: "var(--muted)",
+        },
+    },
+
 });
 
 const STATUS_COLUMNS: { [key: string]: string } = {
@@ -106,11 +122,18 @@ const TaskCard = ({task}: { task: any }) => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <h4 className={styles.title}>{task.title}</h4>
+            <div className={styles.topRow}>
+                <h4 className={styles.title}>{task.title}</h4>
+                <button className={styles.deleteButton}>
+                    <Trash size={16}> </Trash>
+                </button>
+            </div>
             <div className={styles.time}>{formattedTime}</div>
             <div className={`${styles.description} ${isHovered ? styles.cardExpanded : ''}`}>
                 {task.description || 'No description available'}
             </div>
+
+
         </Card>
     );
 };
