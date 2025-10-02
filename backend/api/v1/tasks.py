@@ -5,8 +5,8 @@ from returns.result import Success
 from sqlalchemy.orm.session import Session
 
 from backend.database import get_db
-from backend.models.tasks.task_models import CompletedTask, TaskFailure, Task
-from backend.repositories.tasks_repository import get_all_tasks, create_task
+from backend.models.tasks.task_models import CompletedTask, TaskFailure, Task, TaskId
+from backend.repositories.tasks_repository import get_all_tasks, create_task, delete_task
 
 tasks_router = APIRouter()
 
@@ -32,4 +32,15 @@ async def create_single_task(task: Task, db: Session = Depends(get_db)) -> Compl
         raise HTTPException(
             status_code=result.failure().status,
             detail=f"Unable to create task: Could not insert task into database. Error: {result} ",
+        )
+
+@tasks_router.delete("/tasks/{task_id}", status_code=HTTPStatus.NO_CONTENT, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
+async def delete_single_task(task_id: int, db: Session = Depends(get_db)) -> None:
+    result = delete_task(db, task_id)
+    if isinstance(result, Success):
+        return
+    else:
+        raise HTTPException(
+            status_code=result.failure().status,
+            detail=f"Unable to delete task: Could not delete task from database. Error: {result} ",
         )
