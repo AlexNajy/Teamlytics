@@ -34,28 +34,44 @@ def main():
         out_path.write_text(json.dumps(schema, indent=2), encoding="utf-8")
     else:
         try:
-            import yaml  # PyYAML
+            import yaml
         except ImportError:
             print("PyYAML is required for YAML output. Install with: pip install pyyaml", file=sys.stderr)
             sys.exit(1)
         out_path.write_text(yaml.safe_dump(schema, sort_keys=False), encoding="utf-8")
 
     print(f"Wrote {out_path}")
+    print("Generating TypeScript SDK with runtime enums...")
 
-    print("Generating TypeScript types...")
-    types_out = Path("/Users/lukeduncan/TeamlyticsMono/teamlytics/src/types/api.ts")
-    types_out.parent.mkdir(parents=True, exist_ok=True)
+    sdk_out = Path("/Users/lukeduncan/TeamlyticsMono/teamlytics/src/sdk")
+    sdk_out.parent.mkdir(parents=True, exist_ok=True)
+
+    cmd = [
+        "npx", "@openapitools/openapi-generator-cli", "generate",
+        "-i", str(out_path),
+        "-g", "typescript-fetch",
+        "-o", str(sdk_out),
+        "--additional-properties",
+        ",".join([
+            "stringEnums=true",
+            "typescriptThreePlus=true",
+            "useSingleRequestParameter=true",
+            "enumPropertyNaming=original",
+            "modelPropertyNaming=original",
+            "withoutPrefixEnums=true"
+        ])
+    ]
 
     try:
         result = subprocess.run(
-            ["npx", "openapi-typescript", str(out_path), "-o", str(types_out)],
+            cmd,
             check=True,
             capture_output=True,
             text=True
         )
-        print(f"Generated TypeScript types at {types_out}")
+        print(f"Generated SDK at {sdk_out}")
     except subprocess.CalledProcessError as e:
-        print(f"Failed to generate TypeScript types: {e.stderr}", file=sys.stderr)
+        print(f"Failed to generate SDK: {e.stderr}", file=sys.stderr)
         sys.exit(1)
     except FileNotFoundError:
         print("npx not found. Make sure Node.js is installed.", file=sys.stderr)
