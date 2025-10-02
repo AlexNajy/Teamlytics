@@ -9,6 +9,26 @@ from backend.models.tasks.task_models import Task, CompletedTask, TaskFailure
 from db.alembic.db_models import TaskORM
 
 
+def delete_task(db: Session, task_id: int) -> Result[None, TaskFailure]:
+    try:
+        task = db.query(TaskORM).filter(task_id == TaskORM.id).first()
+        if not task:
+            return Failure(TaskFailure(
+                reason=f"Task with id {task_id} not found.",
+                status=HTTPStatus.NOT_FOUND
+            ))
+
+        db.delete(task)
+        db.commit()
+        return Success(None)
+
+    except Exception as e:
+        db.rollback()
+        return Failure(TaskFailure(
+            reason="Unable to delete task: Could not delete task from database. Error: " + str(e),
+            status=HTTPStatus.INTERNAL_SERVER_ERROR
+        ))
+
 def create_task(db: Session, task: Task) -> Result[CompletedTask, TaskFailure]:
     try:
 

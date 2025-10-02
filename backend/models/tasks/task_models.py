@@ -21,6 +21,10 @@ class Task(BaseModel):
     notes: str | None = None
     assignee: str | None = None
 
+
+class TaskId(BaseModel):
+    id: int
+
 class CompletedTask(BaseModel):
     id: int
     title: str

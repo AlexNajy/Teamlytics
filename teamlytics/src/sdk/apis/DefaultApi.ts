@@ -35,6 +35,10 @@ export interface CreateSingleTaskApiV1TasksPostRequest {
     task: Task;
 }
 
+export interface DeleteSingleTaskApiV1TasksTaskIdDeleteRequest {
+    taskId: number;
+}
+
 /**
  * 
  */
@@ -77,6 +81,42 @@ export class DefaultApi extends runtime.BaseAPI {
     async createSingleTaskApiV1TasksPost(requestParameters: CreateSingleTaskApiV1TasksPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CompletedTask> {
         const response = await this.createSingleTaskApiV1TasksPostRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Delete Single Task
+     */
+    async deleteSingleTaskApiV1TasksTaskIdDeleteRaw(requestParameters: DeleteSingleTaskApiV1TasksTaskIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['taskId'] == null) {
+            throw new runtime.RequiredError(
+                'taskId',
+                'Required parameter "taskId" was null or undefined when calling deleteSingleTaskApiV1TasksTaskIdDelete().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/api/v1/tasks/{task_id}`;
+        urlPath = urlPath.replace(`{${"task_id"}}`, encodeURIComponent(String(requestParameters['taskId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete Single Task
+     */
+    async deleteSingleTaskApiV1TasksTaskIdDelete(requestParameters: DeleteSingleTaskApiV1TasksTaskIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSingleTaskApiV1TasksTaskIdDeleteRaw(requestParameters, initOverrides);
     }
 
     /**
