@@ -19,6 +19,7 @@ import {PopoverTrigger} from "@/Components/ui/popover.tsx";
 import { Calendar } from '@/Components/ui/calendar';
 import { CalendarIcon } from 'lucide-react';
 import {format} from "date-fns";
+import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
 
 
 // const useStyles = makeStyles({
@@ -136,6 +137,7 @@ import {format} from "date-fns";
 
 const AddTask = () => {
     // const styles = useStyles();
+    const createTask = useCreateTask()
 
     const defaultTask: Task = {
         title: "",
@@ -182,7 +184,8 @@ const AddTask = () => {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+        createTask.createTask(values).then(r =>
+        console.log("Completed Task Returned:", r))
     }
 
 
