@@ -135,6 +135,21 @@ import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
 //     }
 // });
 
+export function niceStatuses(status: TaskStatusEnum): string {
+    switch (status) {
+        case TaskStatusEnum.OPEN:
+            return 'Open'
+        case TaskStatusEnum.IN_PROGRESS:
+            return 'In Progress'
+        case TaskStatusEnum.COMPLETED:
+            return 'Completed'
+        case TaskStatusEnum.BLOCKED:
+            return 'Blocked'
+        default:
+            return status;
+    }
+}
+
 const AddTask = () => {
     // const styles = useStyles();
     const createTask = useCreateTask()
@@ -150,21 +165,6 @@ const AddTask = () => {
     }
 
     const TEMP_ASSIGNEES = ["Santi", "Luke", "Alex", "Arshya"]
-
-    function niceStatuses(status: TaskStatusEnum): string {
-        switch (status) {
-            case TaskStatusEnum.OPEN:
-                return 'Open'
-            case TaskStatusEnum.IN_PROGRESS:
-                return 'In Progress'
-            case TaskStatusEnum.COMPLETED:
-                return 'Completed'
-            case TaskStatusEnum.BLOCKED:
-                return 'Blocked'
-            default:
-                return status;
-        }
-    }
 
     const formSchema = z.object({
         title: z.string(),

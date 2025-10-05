@@ -2,9 +2,10 @@ import {useState} from 'react';
 import {makeStyles} from '@griffel/react';
 import {Card} from "@/Components/ui/card";
 //import {Button} from "@/Components/ui/button.tsx";
-import useTasks from "@/Pages/TasksPage/hooks/FetchTasks.tsx";
+import useTasks from "@/Pages/TasksPage/hooks/GetTasks.tsx";
 import {Duration} from "luxon";
 import {Trash} from "lucide-react";
+import {useDeleteTask} from "@/Pages/TasksPage/hooks/DeleteTask.tsx";
 
 
 const useStyles = makeStyles({
@@ -106,6 +107,7 @@ const STATUS_COLUMNS: { [key: string]: string } = {
 const TaskCard = ({task}: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
+    const deleteTask = useDeleteTask();
 
     const duration = Duration.fromISO(task.estimatedTime);
 
@@ -124,7 +126,10 @@ const TaskCard = ({task}: { task: any }) => {
         >
             <div className={styles.topRow}>
                 <h4 className={styles.title}>{task.title}</h4>
-                <button className={styles.deleteButton}>
+                <button
+                    className={styles.deleteButton}
+                    onClick={() => deleteTask.deleteTask(task.id)}
+                >
                     <Trash size={16}> </Trash>
                 </button>
             </div>
