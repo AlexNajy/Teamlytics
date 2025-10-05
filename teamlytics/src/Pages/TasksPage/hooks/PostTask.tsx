@@ -1,26 +1,38 @@
-import {TaskStatusEnum} from "@/sdk";
+import {type CompletedTask, type Task} from "@/sdk";
+import {useState} from "react";
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export type CreateTaskPayload = {
-    title: string;
-    status: TaskStatusEnum;
-    estimated_time: number;
-    desired_completion_date: string | null;
-    description: string;
-    notes?: string | null;
-};
+export function useCreateTask() {
 
-export async function postTask(payload: CreateTaskPayload) {
-    const res = await fetch(`${BACKEND_URL}/tasks`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-    });
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [error, setError] = useState<Error | null>(null)
 
-    if (!res.ok) {
-        throw new Error(`Failed to create task: ${res.status}`);
+    const createTask = async (task: Task): Promise<CompletedTask> => {
+        setIsLoading(true)
+        setError(null)
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/tasks`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task)
+            })
+            if (!response.ok) {
+                throw new Error(`Failed to create task: ${response.statusText}`)
+            }
+
+            return await response.json()
+
+        } catch (err) {
+            const error = err instanceof Error ? err : new Error("Unknown error")
+            setError(error)
+            throw error
+        } finally {
+            setIsLoading(false)
+        }
     }
-    return res.json();
+    return {createTask, isLoading, error}
 }
