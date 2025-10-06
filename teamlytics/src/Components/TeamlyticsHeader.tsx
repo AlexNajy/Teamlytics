@@ -49,6 +49,7 @@ const useClasses = makeStyles({
     text: {
         color: "var(--foreground)",
         fontSize: "1.125rem",
+        fontWeight: "normal",
     },
     button: {
         display: "flex",
