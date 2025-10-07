@@ -9,6 +9,7 @@ import AddTask from "@/Pages/TasksPage/AddTask.tsx";
 import Team from "./Pages/TeamPage/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
+import {Toaster} from "sonner";
 
 const useClasses = makeStyles({
     background: {
@@ -46,7 +47,9 @@ function TeamlyticsApp() {
                     <Route path="/settings" element={<Settings/>}/>
                 </Routes>
             </BasePage>
+            <Toaster position="top-center"/>
         </div>
+
     );
 }
 

@@ -52,7 +52,7 @@ const useStyles = makeStyles({
         color: 'var(--card-foreground)',
         backgroundColor: 'transparent',
         '::placeholder': {
-            color: 'var(--muted-foreground)'
+            color: 'var(--placeholder)'
         },
         ':focus': {
             outline: 'none',

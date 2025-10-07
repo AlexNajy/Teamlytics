@@ -22,6 +22,7 @@ import {format} from "date-fns";
 import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
 import {makeStyles} from "@griffel/react";
 import {useNavigate} from 'react-router-dom';
+import {toast} from "sonner"
 
 
 const useStyles = makeStyles({
@@ -36,7 +37,6 @@ const useStyles = makeStyles({
     form: {
         width: '100%',
         background: 'var(--card)',
-        color: 'var(--foreground)',
         borderRadius: '1rem',
         boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
         border: '1px solid var(--border)',
@@ -78,7 +78,7 @@ const useStyles = makeStyles({
         fontSize: '0.875rem',
         transition: 'all 0.2s ease',
         '::placeholder': {
-            color: 'var(--muted-foreground)',
+            color: 'var(--placeholder)',
         },
     },
     selectTrigger: {
@@ -139,6 +139,19 @@ const useStyles = makeStyles({
             backgroundColor: 'var(--muted)',
         },
     },
+    toast: {
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        fontSize: '0.875rem',
+        padding: '1rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
+    },
 });
 
 export function niceStatuses(status: TaskStatusEnum): string {
@@ -194,6 +207,12 @@ const AddTask = () => {
         createTask.createTask(values).then(r =>
             console.log("Completed Task Returned:", r))
         navigate("/tasks");
+
+        toast("Task created", {
+            description: `${values.title}`,
+            className: styles.toast,
+        });
+
     }
 
 
@@ -210,11 +229,13 @@ const AddTask = () => {
                                 <FormControl>
                                     <Input placeholder={"This is a title..."} {...field}
                                            required
+                                           maxLength={100}
+                                           autoComplete="off"
                                            className={`${styles.field} 
                                            border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}/>
                                 </FormControl>
                                 <FormDescription className={styles.subText}>
-                                    A short, descriptive title for the task
+                                    A short, descriptive title for the task (Max. 100 Characters)
                                 </FormDescription>
                                 <FormMessage/>
                             </FormItem>
@@ -226,11 +247,13 @@ const AddTask = () => {
                                 <FormControl>
                                     <Input placeholder={"This is a description..."} {...field}
                                            required
+                                           autoComplete="off"
+                                           maxLength={500}
                                            className={`${styles.field} 
                                            border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}/>
                                 </FormControl>
                                 <FormDescription className={styles.subText}>
-                                    A detailed description of the task
+                                    A detailed description of the task (Max. 500 Characters)
                                 </FormDescription>
                                 <FormMessage/>
                             </FormItem>
@@ -340,15 +363,17 @@ const AddTask = () => {
                     </div>
                     <FormField name={"notes"} render={({field}) => (
                         <FormItem className={styles.formItem}>
-                            <FormLabel className={styles.label}>Notes</FormLabel>
+                            <FormLabel className={styles.label}>Notes (Optional)</FormLabel>
                             <FormControl>
                                 <Input placeholder={"Additional notes..."} {...field}
                                        className={`${styles.field} 
                                        border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}
+                                       autoComplete="off"
+                                       maxLength={500}
                                        value={field.value || undefined}/>
                             </FormControl>
                             <FormDescription className={styles.subText}>
-                                Any additional notes or comments about the task
+                                Any additional comments about the task (Max. 500 Characters)
                             </FormDescription>
                             <FormMessage/>
                         </FormItem>
