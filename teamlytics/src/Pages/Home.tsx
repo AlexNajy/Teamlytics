@@ -1,4 +1,5 @@
 import {makeStyles} from '@griffel/react';
+import {Button} from "@/Components/ui/button.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -67,17 +68,15 @@ const useStyles = makeStyles({
         borderTop: '1px solid var(--border)'
     },
     sendButton: {
-        padding: '0.5rem 1.5rem',
-        background: 'var(--primary)',
+        padding: '0.75rem 2rem',
         color: 'var(--card)',
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
-        boxShadow: '0 1px 2px 0 var(--shadow)',
+        transition: 'all 0.2s ease',
         opacity: '0.9',
         ':hover': {
-            backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
             color: 'var(--muted)',
             opacity: '1',
             boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
@@ -124,9 +123,9 @@ const Home = () => {
                             <div className={styles.subtext}>
                                 Place buttons and important notice here. inputFooter/subtext
                             </div>
-                            <button className={styles.sendButton}>
+                            <Button className={styles.sendButton}>
                                 Send
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>

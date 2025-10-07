@@ -21,6 +21,7 @@ import {CalendarIcon} from 'lucide-react';
 import {format} from "date-fns";
 import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
 import {makeStyles} from "@griffel/react";
+import {useNavigate} from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -158,6 +159,7 @@ export function niceStatuses(status: TaskStatusEnum): string {
 const AddTask = () => {
     const styles = useStyles();
     const createTask = useCreateTask()
+    const navigate = useNavigate();
 
     const defaultTask: Task = {
         title: "",
@@ -191,6 +193,7 @@ const AddTask = () => {
     function onSubmit(values: z.infer<typeof formSchema>) {
         createTask.createTask(values).then(r =>
             console.log("Completed Task Returned:", r))
+        navigate("/tasks");
     }
 
 
@@ -319,7 +322,8 @@ const AddTask = () => {
                                         </SelectTrigger>
                                         <SelectContent className={styles.selectContent}>
                                             {TEMP_ASSIGNEES.map((assignee) => (
-                                                <SelectItem key={assignee} value={assignee} className={styles.selectItem}>
+                                                <SelectItem key={assignee} value={assignee}
+                                                            className={styles.selectItem}>
                                                     {assignee}
                                                 </SelectItem>
                                             ))}
