@@ -1,5 +1,5 @@
 import {makeStyles} from '@griffel/react';
-import {Card} from "@/Components/ui/card";
+import {Card} from "@/components/ui/card";
 
 const useStyles = makeStyles({
     container: {

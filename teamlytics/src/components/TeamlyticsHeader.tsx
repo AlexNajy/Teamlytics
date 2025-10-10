@@ -1,4 +1,4 @@
-import {SidebarTrigger} from "@/Components/ui/sidebar";
+import {SidebarTrigger} from "@/components/ui/sidebar";
 import {makeStyles} from '@griffel/react';
 import {useLocation} from 'react-router-dom';
 import {
@@ -7,7 +7,7 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-} from "@/Components/ui/breadcrumb";
+} from "@/components/ui/breadcrumb";
 
 const useClasses = makeStyles({
     header: {

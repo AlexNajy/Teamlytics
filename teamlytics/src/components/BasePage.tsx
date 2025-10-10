@@ -1,7 +1,7 @@
 import { makeStyles } from "@griffel/react";
 import TeamlyticsHeader from "./TeamlyticsHeader";
 import TeamlyticsSideBar from "./TeamlyticsSideBar";
-import { SidebarProvider } from "@/Components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 interface BasePageProps {
     children: React.ReactNode;
