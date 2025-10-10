@@ -2,10 +2,10 @@ import {useState} from 'react';
 import {makeStyles} from '@griffel/react';
 import {Card} from "@/Components/ui/card";
 import {Button} from "@/Components/ui/button.tsx";
-import useTasks from "@/Pages/TasksPage/hooks/GetTasks.tsx";
 import {Duration} from "luxon";
 import {Trash} from "lucide-react";
 import {useDeleteTask} from "@/Pages/TasksPage/hooks/DeleteTask.tsx";
+import {useGetTasks} from "@/Pages/TasksPage/hooks/GetTasks.tsx";
 
 
 const useStyles = makeStyles({
@@ -129,7 +129,7 @@ const TaskCard = ({task}: { task: any }) => {
                 <h4 className={styles.title}>{task.title}</h4>
                 <Button
                     className={styles.deleteButton}
-                    onClick={() => deleteTask.deleteTask(task.id)}
+                    onClick={() => deleteTask.mutate(task.id)}
                 >
                     <Trash size={16}> </Trash>
                 </Button>
@@ -146,9 +146,15 @@ const TaskCard = ({task}: { task: any }) => {
 
 const TaskList = () => {
     const styles = useStyles();
-    const fetchedTasks = useTasks()
+    const task = useGetTasks()
+    if (task.data === undefined) {
+        // Alex I think we should make a loading component.
+        // It should be a reusable page that replaces the content area with a loading page
+        // For now ->
+        return <div>Loading...</div>
+    }
 
-    const tasks = Object.values(fetchedTasks.tasks).map((task: any) => {
+    const tasks = task.data.map((task: any) => {
         return {
             id: task.id,
             title: task.title,
