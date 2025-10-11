@@ -1,100 +1,100 @@
-import {makeStyles} from '@griffel/react';
-import {useState} from 'react';
-import {format} from 'date-fns';
-import {Calendar as CalendarIcon} from 'lucide-react';
-import {useNavigate} from 'react-router-dom';
-import {Button} from "@/Components/ui/button.tsx";
+import {z} from "zod";
+import {type Task, TaskStatusEnum} from "@/sdk";
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage
+} from "@/Components/ui/form.tsx";
 import {Input} from "@/Components/ui/input.tsx";
-import {Label} from "@/Components/ui/label.tsx";
-import {Textarea} from "@/Components/ui/textarea.tsx";
-import {Calendar} from "@/Components/ui/calendar.tsx";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/Components/ui/popover.tsx";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/Components/ui/select.tsx";
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/Components/ui/card.tsx";
-import { createTask } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
-import type { TaskStatusEnum } from "@/Pages/TasksPage/hooks/CreateTask.tsx";
+import {Button} from "@/Components/ui/button.tsx";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/Components/ui/select.tsx";
+import {Popover, PopoverContent} from '@/Components/ui/popover';
+import {PopoverTrigger} from "@/Components/ui/popover.tsx";
+import {Calendar} from '@/Components/ui/calendar';
+import {CalendarIcon} from 'lucide-react';
+import {format} from "date-fns";
+import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
+import {makeStyles} from "@griffel/react";
+import {useNavigate} from 'react-router-dom';
+import {toast} from "sonner"
 
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100vh',
         backgroundColor: 'var(--background)',
-        alignItems: 'center',
         display: 'flex',
         justifyContent: 'center',
-        padding: '1rem',
+        alignItems: 'center',
+        height: '100%',
+        padding: '10rem',
     },
-    card: {
+    form: {
         width: '100%',
-        maxWidth: '1000px',
         background: 'var(--card)',
-        color: 'var(--foreground)',
         borderRadius: '1rem',
         boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
         border: '1px solid var(--border)',
+        padding: '1rem',
     },
-    formGrid: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '1.5rem',
-        marginBottom: '1.5rem'
-    },
-    formGroup: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem'
-    },
-    formGroupFull: {
-        display: 'flex',
-        flexDirection: 'column',
+    formItem: {
+        padding: '0.5rem 0.75rem',
         gap: '0.5rem',
-        gridColumn: '1 / -1'
+    },
+    column: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    grid: {
+        display: 'grid',
+        gridTemplateColumns: '2fr 2fr',
+    },
+    Title: {
+        fontSize: '1.125rem',
+        fontWeight: '600',
+        color: 'var(--foreground)',
     },
     label: {
         fontSize: '0.875rem',
-        fontWeight: '500',
+        fontWeight: '600',
         color: 'var(--foreground)',
+    },
+    subText: {
+        fontSize: '0.875rem',
+        fontWeight: '450',
+        color: 'var(--muted-foreground)',
+        textAlign: 'left',
     },
     field: {
         border: '1px solid var(--border)',
-        backgroundColor: 'var(--background)',
-        color: 'var(--muted-foreground)',
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
         borderRadius: '0.5rem',
-        padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
         transition: 'all 0.2s ease',
-        outline: 'none',
+        '::placeholder': {
+            color: 'var(--placeholder)',
+        },
     },
     selectTrigger: {
         border: '1px solid var(--border)',
-        backgroundColor: 'var(--background)',
-        color: 'var(--muted-foreground)',
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
         borderRadius: '0.5rem',
         padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
         cursor: 'pointer',
     },
-    datePicker: {
+    calender: {
         border: '1px solid var(--border)',
-        backgroundColor: 'var(--background)',
-        color: 'var(--muted-foreground)',
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
         borderRadius: '0.5rem',
-        padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
         display: 'flex',
         justifyContent: 'flex-center',
@@ -104,11 +104,6 @@ const useStyles = makeStyles({
         resize: 'vertical',
         minHeight: '4rem',
     },
-    buttonContainer: {
-        display: 'flex',
-        gap: '1rem',
-        justifyContent: 'flex-end',
-    },
     submitButton: {
         padding: '0.75rem 2rem',
         color: 'var(--card)',
@@ -117,9 +112,19 @@ const useStyles = makeStyles({
         fontWeight: '500',
         cursor: 'pointer',
         transition: 'all 0.2s ease',
+        opacity: '0.9',
+        ':hover': {
+            color: 'var(--muted)',
+            opacity: '1',
+            boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
+        },
+        ':disabled': {
+            opacity: '0.5',
+            cursor: 'not-allowed'
+        }
     },
     selectContent: {
-        backgroundColor: 'var(--background)',
+        backgroundColor: 'var(--card)',
         color: 'var(--foreground)',
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
@@ -129,185 +134,261 @@ const useStyles = makeStyles({
         padding: '0.5rem 0.75rem',
         fontSize: '0.875rem',
         cursor: 'pointer',
+        transition: "all 0.2s ease",
+        ':hover': {
+            backgroundColor: 'var(--muted)',
+        },
     },
-    icon: {
-        marginRight: '0.5rem',
-        height: '1rem',
-        width: '1rem'
-    }
+    toast: {
+        backgroundColor: 'var(--card)',
+        color: 'var(--foreground)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        fontSize: '0.875rem',
+        padding: '1rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
+    },
 });
+
+export function niceStatuses(status: TaskStatusEnum): string {
+    switch (status) {
+        case TaskStatusEnum.OPEN:
+            return 'Open'
+        case TaskStatusEnum.IN_PROGRESS:
+            return 'In Progress'
+        case TaskStatusEnum.COMPLETED:
+            return 'Completed'
+        case TaskStatusEnum.BLOCKED:
+            return 'Blocked'
+        default:
+            return status;
+    }
+}
 
 const AddTask = () => {
     const styles = useStyles();
+    const createTask = useCreateTask()
     const navigate = useNavigate();
 
-    const [form, setForm] = useState({
+    const defaultTask: Task = {
         title: "",
-        status: "" as TaskStatusEnum | "",
-        estimatedTime: 0,
         description: "",
-        notes: "",
-    });
+        status: TaskStatusEnum.OPEN,
+        estimated_time: 0,
+        desired_completion_date: new Date(),
+        notes: null,
+        assignee: null,
+    }
 
-    const [date, setDate] = useState<Date>();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const TEMP_ASSIGNEES = ["Santi", "Luke", "Alex", "Arshya", "None"]
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+    const formSchema = z.object({
+        title: z.string(),
+        description: z.string(),
+        status: z.enum(TaskStatusEnum),
+        estimated_time: z.number(),
+        desired_completion_date: z.date(),
+        notes: z.string().nullable(),
+        assignee: z.string().nullable(),
+    })
 
-        try {
-            const payload = {
-                title: form.title,
-                status: form.status as TaskStatusEnum,
-                estimated_time: form.estimatedTime,
-                desired_completion_date: date?.toISOString() ?? null,
-                description: form.description,
-                notes: form.notes || null,
-            };
-
-            const created = await createTask(payload);
-            console.log("Task created:", created);
-
-            setForm({
-                title: "",
-                status: "",
-                estimatedTime: 0,
-                description: "",
-                notes: "",
-            });
-            setDate(undefined);
-
-            navigate('/tasks');
-        } catch (err) {
-            console.error("Error creating task", err);
-        } finally {
-            setIsSubmitting(false);
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            ...defaultTask
         }
-    };
+    })
+
+    function onSubmit(values: z.infer<typeof formSchema>) {
+        createTask.createTask(values).then(r =>
+            console.log("Completed Task Returned:", r))
+        navigate("/tasks");
+
+        toast("Task created", {
+            description: `${values.title}`,
+            className: styles.toast,
+        });
+
+    }
+
 
     return (
         <div className={styles.container}>
-            <Card className={styles.card}>
-                <CardHeader>
-                    <CardTitle>Add New Task</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit}>
-                        <div className={styles.formGrid}>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
+                    <div className={styles.Title}> Add a Task</div>
 
-                            {/* title */}
-                            <div className={styles.formGroup}>
-                                <Label className={styles.label}>Title</Label>
-                                <Input
-                                    className={styles.field}
-                                    placeholder="Enter task title..."
-                                    value={form.title}
-                                    onChange={(e) => setForm({...form, title: e.target.value})}
-                                    required
-                                />
-                            </div>
+                    <div className={styles.column}>
+                        <FormField name={"title"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Title</FormLabel>
+                                <FormControl>
+                                    <Input placeholder={"This is a title..."} {...field}
+                                           required
+                                           maxLength={100}
+                                           autoComplete="off"
+                                           className={`${styles.field} 
+                                           border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}/>
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    A short, descriptive title for the task (Max. 100 Characters)
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                        <FormField name={"description"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Description</FormLabel>
+                                <FormControl>
+                                    <Input placeholder={"This is a description..."} {...field}
+                                           required
+                                           autoComplete="off"
+                                           maxLength={500}
+                                           className={`${styles.field} 
+                                           border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}/>
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    A detailed description of the task (Max. 500 Characters)
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                    </div>
+                    <div className={styles.grid}>
+                        <FormField name={"estimated_time"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Estimated Time</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className={styles.field}
+                                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                        type="number"
+                                        min="0"
+                                        step="0.25"
+                                        required
+                                        value={field.value}
+                                    />
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    Time to complete the task in hours (e.g. 1.5 for 1 hour and 30 minutes)
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                        <FormField name={"desired_completion_date"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Desired Completion Date</FormLabel>
+                                <FormControl>
+                                    <Popover>
+                                        <PopoverTrigger asChild className={styles.selectTrigger}>
+                                            <Button
+                                                variant="outline"
+                                                data-empty={!field.value}
+                                                className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                                            >
+                                                <CalendarIcon/>
+                                                {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                            </Button>
+                                        </PopoverTrigger>
+                                        <PopoverContent className={styles.calender}>
+                                            <Calendar mode="single" selected={field.value} onSelect={field.onChange}/>
+                                        </PopoverContent>
+                                    </Popover>
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    Desired date for task completion
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                        <FormField name={"status"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Status</FormLabel>
+                                <FormControl>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <SelectTrigger className={`${styles.selectTrigger} 
+                                       border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}>
+                                            <SelectValue placeholder="Select status"/>
+                                        </SelectTrigger>
+                                        <SelectContent className={styles.selectContent}>
+                                            {Object.values(TaskStatusEnum).map((status) => (
+                                                <SelectItem key={status} value={status} className={styles.selectItem}>
+                                                    {niceStatuses(status)}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    Current status of the task
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                        <FormField name={"assignee"} render={({field}) => (
+                            <FormItem className={styles.formItem}>
+                                <FormLabel className={styles.label}>Assignee</FormLabel>
+                                <FormControl>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
+                                        <SelectTrigger className={`${styles.selectTrigger} 
+                                       border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}>
+                                            <SelectValue placeholder="Select assignee"/>
+                                        </SelectTrigger>
+                                        <SelectContent className={styles.selectContent}>
+                                            {TEMP_ASSIGNEES.map((assignee) => (
+                                                <SelectItem key={assignee} value={assignee}
+                                                            className={styles.selectItem}>
+                                                    {assignee}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
+                                <FormDescription className={styles.subText}>
+                                    Person responsible for the task
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                        />
+                    </div>
+                    <FormField name={"notes"} render={({field}) => (
+                        <FormItem className={styles.formItem}>
+                            <FormLabel className={styles.label}>Notes (Optional)</FormLabel>
+                            <FormControl>
+                                <Input placeholder={"Additional notes..."} {...field}
+                                       className={`${styles.field} 
+                                       border-0 focus:border-0 focus-visible:ring-0 focus-visible:outline-none`}
+                                       autoComplete="off"
+                                       maxLength={500}
+                                       value={field.value || undefined}/>
+                            </FormControl>
+                            <FormDescription className={styles.subText}>
+                                Any additional comments about the task (Max. 500 Characters)
+                            </FormDescription>
+                            <FormMessage/>
+                        </FormItem>
+                    )}
+                    />
 
-                            {/* status */}
-                            <div className={styles.formGroup}>
-                                <Label className={styles.label}>Status</Label>
-                                <Select
-                                    value={form.status}
-                                    onValueChange={(value) =>
-                                        setForm({...form, status: value as TaskStatusEnum})
-                                    }
-                                    required
-                                >
-                                    <SelectTrigger className={styles.selectTrigger}>
-                                        <SelectValue placeholder="Select status"/>
-                                    </SelectTrigger>
-                                    <SelectContent className={styles.selectContent}>
-                                        <SelectItem className={styles.selectItem} value="open">Open</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="in_progress">In Progress</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="blocked">Blocked</SelectItem>
-                                        <SelectItem className={styles.selectItem} value="completed">Completed</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            {/* estimated time */}
-                            <div className={styles.formGroup}>
-                                <Label className={styles.label}>Estimated Time (minutes)</Label>
-                                <Input
-                                    className={styles.field}
-                                    type="number"
-                                    min="0"
-                                    placeholder="e.g. 120 for 2 hours..."
-                                    value={form.estimatedTime || ''}
-                                    onChange={(e) =>
-                                        setForm({...form, estimatedTime: parseInt(e.target.value) || 0})
-                                    }
-                                />
-                            </div>
-
-                            {/* desired completion date */}
-                            <div className={styles.formGroup}>
-                                <Label className={styles.label}>Desired Completion Date</Label>
-                                <Popover>
-                                    <PopoverTrigger asChild>
-                                        <Button variant="outline" className={styles.datePicker}>
-                                            <CalendarIcon className={styles.icon}/>
-                                            {date ? format(date, "PPP") : <span>Pick a date</span>}
-                                        </Button>
-                                    </PopoverTrigger>
-                                    <PopoverContent className={styles.selectContent}>
-                                        <Calendar
-                                            mode="single"
-                                            selected={date}
-                                            onSelect={setDate}
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-
-                            {/* description */}
-                            <div className={styles.formGroupFull}>
-                                <Label className={styles.label}>Description</Label>
-                                <Textarea
-                                    className={`${styles.field} ${styles.textarea}`}
-                                    placeholder="Enter task description..."
-                                    rows={4}
-                                    value={form.description}
-                                    onChange={(e) =>
-                                        setForm({...form, description: e.target.value})
-                                    }
-                                    required
-                                />
-                            </div>
-
-                            {/* Notes */}
-                            <div className={styles.formGroupFull}>
-                                <Label className={styles.label}>Notes (optional)</Label>
-                                <Textarea
-                                    className={`${styles.field} ${styles.textarea}`}
-                                    placeholder="Enter additional notes..."
-                                    rows={3}
-                                    value={form.notes}
-                                    onChange={(e) =>
-                                        setForm({...form, notes: e.target.value})
-                                    }
-                                />
-                            </div>
-
-                        </div>
-
-                            <Button
-                                className={styles.submitButton}
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                {isSubmitting ? 'Creating...' : 'Add Task'}
-                            </Button>
-                    </form>
-                </CardContent>
-            </Card>
+                    <Button type={"submit"} className={styles.submitButton}>
+                        Submit
+                    </Button>
+                </form>
+            </Form>
         </div>
-    );
+    )
+
+
 };
 
 export default AddTask;

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from api.v1.tasks import tasks_router
+from .api.v1.tasks import tasks_router
 
 load_dotenv()
 frontend_port = os.getenv("FRONTEND_PORT")

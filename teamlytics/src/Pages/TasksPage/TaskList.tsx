@@ -1,14 +1,20 @@
-import { useState } from 'react';
-import { makeStyles } from '@griffel/react';
-import { Card } from "@/Components/ui/card";
-import useTasks from "@/Pages/TasksPage/hooks/ListTasks.tsx";
+import {useState} from 'react';
+import {makeStyles} from '@griffel/react';
+import {Card} from "@/Components/ui/card";
+import {Button} from "@/Components/ui/button.tsx";
+import {Duration} from "luxon";
+import {Trash} from "lucide-react";
+import {useDeleteTask} from "@/Pages/TasksPage/hooks/DeleteTask.tsx";
+import {useGetTasks} from "@/Pages/TasksPage/hooks/GetTasks.tsx";
+
 
 const useStyles = makeStyles({
     container: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
+        gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
+
     },
     column: {
         display: 'flex',
@@ -17,8 +23,7 @@ const useStyles = makeStyles({
         background: 'var(--card)',
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
-        padding: '1rem',
-        minHeight: '300px',
+        padding: '1rem 0.5rem',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
     },
     columnTitle: {
@@ -26,7 +31,6 @@ const useStyles = makeStyles({
         fontWeight: '600',
         color: 'var(--foreground)',
         textAlign: 'center',
-        marginBottom: '1rem',
     },
     taskCard: {
         background: 'var(--card)',
@@ -34,20 +38,26 @@ const useStyles = makeStyles({
         boxShadow: "0px 2px 4px 2px var(--shadow)",
         borderRadius: '0.5rem',
         padding: '1rem',
+        paddingBottom: '0.5rem',
         cursor: 'pointer',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
         overflow: 'hidden',
-        gap: '1rem',
-    },
-    taskCardHovered: {
-        boxShadow: "0px 4px 8px 4px var(--shadow)",
-        //transform: 'translateY(-2px)',
+        gap: '0.5rem',
+
+        ":hover": {
+            boxShadow: "0px 4px 8px 4px var(--shadow)",
+        }
     },
     title: {
         fontSize: '1rem',
         fontWeight: '600',
         color: 'var(--foreground)',
         textAlign: 'left',
+    },
+    topRow: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     time: {
         fontSize: '0.875rem',
@@ -62,77 +72,95 @@ const useStyles = makeStyles({
         maxHeight: '0',
         opacity: '0',
         overflow: 'hidden',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.2s ease-in-out',
         paddingTop: '0',
-        borderTopWidth: '0px',
+        borderTopWidth: '1px',
         borderTopStyle: 'solid',
         borderTopColor: 'var(--border)',
         marginTop: '0',
     },
-    descriptionExpanded: {
+    cardExpanded: {
         maxHeight: '200px',
         opacity: '1',
         paddingTop: '0.5rem',
         borderTopWidth: '1px',
         marginTop: '0.5rem',
-    }
+    },
+    deleteButton: {
+        color: "var(--muted-foreground)",
+        padding: "0.5rem",
+        borderRadius: "0.375rem",
+        boxShadow: "none",
+        ":hover": {
+            backgroundColor: "var(--muted)",
+        },
+    },
+
 });
 
 const STATUS_COLUMNS: { [key: string]: string } = {
-    open: "Open",
-    in_progress: "In Progress",
-    blocked: "Blocked",
-    completed: "Completed"
+    OPEN: "Open",
+    IN_PROGRESS: "In Progress",
+    BLOCKED: "Blocked",
+    COMPLETED: "Completed"
 };
 
-const formatDuration = (duration: string | null | undefined): string => {
-    if (!duration) return 'No estimate';
-
-    const hoursMatch = duration.match(/PT(\d+)H/);
-    if (hoursMatch) {
-        return `${hoursMatch[1]} hours`;
-    }
-    const minutesMatch = duration.match(/PT(\d+)M/);
-    if (minutesMatch) {
-        return `${minutesMatch[1]} minutes`;
-    }
-    const hoursMinutesMatch = duration.match(/PT(\d+)H(\d+)M/);
-    if (hoursMinutesMatch) {
-        return `${hoursMinutesMatch[1]}h ${hoursMinutesMatch[2]}m`;
-    }
-    return duration;
-};
-
-const TaskCard = ({ task }: { task: any }) => {
+const TaskCard = ({task}: { task: any }) => {
     const styles = useStyles();
     const [isHovered, setIsHovered] = useState(false);
+    const deleteTask = useDeleteTask();
+
+    const duration = Duration.fromISO(task.estimatedTime);
+
+    const timeParts = [];
+    if (duration.days) timeParts.push(`${duration.days}d`);
+    if (duration.hours) timeParts.push(`${duration.hours}h`);
+    if (duration.minutes) timeParts.push(`${duration.minutes}m`);
+
+    const formattedTime = timeParts.join(" ") || '0m';
 
     return (
         <Card
-            className={`${styles.taskCard} ${isHovered ? styles.taskCardHovered : ''}`}
-            onMouseEnter={() => setIsHovered(true)}
+            className={styles.taskCard}
+            onMouseDown={() => setIsHovered(prev => !prev)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <h4 className={styles.title}>{task.title}</h4>
-            <div className={styles.time}>{formatDuration(task.estimatedTime)}</div>
-            <div className={`${styles.description} ${isHovered ? styles.descriptionExpanded : ''}`}>
+            <div className={styles.topRow}>
+                <h4 className={styles.title}>{task.title}</h4>
+                <Button
+                    className={styles.deleteButton}
+                    onClick={() => deleteTask.mutate(task.id)}
+                >
+                    <Trash size={16}> </Trash>
+                </Button>
+            </div>
+            <div className={styles.time}>{formattedTime}</div>
+            <div className={`${styles.description} ${isHovered ? styles.cardExpanded : ''}`}>
                 {task.description || 'No description available'}
             </div>
+
+
         </Card>
     );
 };
 
 const TaskList = () => {
     const styles = useStyles();
-    const fetchedTasks = useTasks()
-    // Convert the object to array and map the fields
-    const tasks = Object.values(fetchedTasks.tasks).map((issue: any) => {
+    const task = useGetTasks()
+    if (task.data === undefined) {
+        // Alex I think we should make a loading component.
+        // It should be a reusable page that replaces the content area with a loading page
+        // For now ->
+        return <div>Loading...</div>
+    }
+
+    const tasks = task.data.map((task: any) => {
         return {
-            id: issue.id,
-            title: issue.title,
-            description: issue.description,
-            status: issue.status,
-            estimatedTime: issue.estimated_time
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            estimatedTime: task.estimated_time
         }
     })
 
@@ -142,11 +170,10 @@ const TaskList = () => {
                 {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
                     <div key={statusKey} className={styles.column}>
                         <div className={styles.columnTitle}>{statusLabel}</div>
-
                         {tasks
                             .filter(task => task.status === statusKey)
                             .map(task => (
-                                <TaskCard key={task.id} task={task} />
+                                <TaskCard key={task.id} task={task}/>
                             ))}
                     </div>
                 ))}

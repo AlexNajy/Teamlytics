@@ -1,52 +1,46 @@
-import { makeStyles } from '@griffel/react';
+import {makeStyles} from '@griffel/react';
+import {Button} from "@/Components/ui/button.tsx";
 
 const useStyles = makeStyles({
     container: {
-        minHeight: '100vh',
         backgroundColor: 'var(--background)',
     },
     main: {
         flex: '1',
-        padding: '0 1.5rem 2rem'
+        padding: '1rem 5rem 2rem'
     },
-    contentWrapper: {
-        maxWidth: '64rem',
-        margin: '0 auto'
-    },
-    heroSection: {
+    titleSection: {
         textAlign: 'center',
         marginBottom: '3rem',
         paddingTop: '4rem'
     },
-    heroTitle: {
+    title: {
         fontSize: 'clamp(2.25rem, 5vw, 3rem)',
         fontWeight: 'bold',
-        marginBottom: '1.5rem',
+        marginBottom: '3rem',
         backgroundClip: 'text',
         WebkitBackgroundClip: 'text',
         opacity: 'transparent',
         color: 'var(--foreground)',
     },
-    heroDescription: {
+    subTitle: {
         fontSize: '1.25rem',
         color: 'var(--muted-foreground)',
         maxWidth: '32rem',
         margin: '0 auto 2rem',
     },
-    inputSection: {
+    inputContainer: {
+        position: 'relative',
         marginBottom: '3rem'
     },
-    inputContainer: {
-        position: 'relative'
-    },
-    inputWrapper: {
+    input: {
         position: 'relative',
         background: 'var(--card)',
         borderRadius: '1rem',
         boxShadow: '0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow)',
         border: '1px solid var(--border)',
         overflow: 'hidden',
-        transition: 'box-shadow 0.3s ease',
+        transition: 'box-shadow 0.2s ease',
         ':hover': {
             boxShadow: '0 25px 25px -5px var(--shadow), 0 10px 10px -5px var(--shadow)'
         }
@@ -58,7 +52,7 @@ const useStyles = makeStyles({
         color: 'var(--card-foreground)',
         backgroundColor: 'transparent',
         '::placeholder': {
-            color: 'var(--muted-foreground)'
+            color: 'var(--placeholder)'
         },
         ':focus': {
             outline: 'none',
@@ -74,17 +68,15 @@ const useStyles = makeStyles({
         borderTop: '1px solid var(--border)'
     },
     sendButton: {
-        padding: '0.5rem 1.5rem',
-        background: 'var(--primary)',
+        padding: '0.75rem 2rem',
         color: 'var(--card)',
         backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
         borderRadius: '0.5rem',
         fontWeight: '500',
         cursor: 'pointer',
-        boxShadow: '0 1px 2px 0 var(--shadow)',
+        transition: 'all 0.2s ease',
         opacity: '0.9',
         ':hover': {
-            backgroundImage: 'linear-gradient(135deg, var(--primary), var(--secondary))',
             color: 'var(--muted)',
             opacity: '1',
             boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
@@ -105,56 +97,47 @@ const useStyles = makeStyles({
     }
 });
 
-const AIHomepage = () => {
+const Home = () => {
     const styles = useStyles();
 
     return (
         <div className={styles.container}>
             <main className={styles.main}>
-                <div className={styles.contentWrapper}>
-                    {/* Hero Section */}
-                    <div className={styles.heroSection}>
-                        <h2 className={styles.heroTitle}>
-                            Welcome to Teamlytics AI
-                        </h2>
-                        <p className={styles.heroDescription}>
-                            Your intelligent assistant for managing your workspace
-                        </p>
-                    </div>
+                <div className={styles.titleSection}>
+                    <h2 className={styles.title}>
+                        Welcome to Teamlytics AI
+                    </h2>
+                    <p className={styles.subTitle}>
+                        Your intelligent assistant for managing your workspace
+                    </p>
+                </div>
 
-                    {/* Chat Input */}
-                    <div className={styles.inputSection}>
-                        <div className={styles.inputContainer}>
-                            <div className={styles.inputWrapper}>
+                <div className={styles.inputContainer}>
+                    <div className={styles.input}>
                                 <textarea
                                     placeholder="Message Teamlytics AI..."
-                                    rows={4}
+                                    rows={3}
                                     className={styles.textarea}
                                 />
-                                <div className={styles.inputFooter}>
-                                    <div className={styles.subtext}>
-                                        Press Enter to send, Shift+Enter for new line
-                                    </div>
-                                    <button className={styles.sendButton}>
-                                        Send
-                                    </button>
-                                </div>
+                        <div className={styles.inputFooter}>
+                            <div className={styles.subtext}>
+                                Place buttons and important notice here. inputFooter/subtext
                             </div>
+                            <Button className={styles.sendButton}>
+                                Send
+                            </Button>
                         </div>
                     </div>
                 </div>
             </main>
 
-            {/* Footer */}
             <footer className={styles.footer}>
-                <div className={styles.contentWrapper}>
-                    <p className={styles.subtext}>
-                        Teamlytics AI can make mistakes. Consider checking important information.
-                    </p>
-                </div>
+                <p className={styles.subtext}>
+                    Teamlytics AI can make mistakes. Consider checking important information. footer/subtext.
+                </p>
             </footer>
         </div>
     );
 };
 
-export default AIHomepage;
+export default Home;

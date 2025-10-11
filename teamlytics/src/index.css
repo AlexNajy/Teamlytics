@@ -14,15 +14,17 @@
     --light-muted-foreground: oklch(0.556 0 0);
     --light-border: oklch(0.922 0 0);
     --light-shadow: rgba(0, 0, 0, 0.05);
+    --light-placeholder: oklch(0.7 0 0);
 
     --dark-background: oklch(0.244 0.006 271.171);
-    --dark-foreground: oklch(0.985 0 0);
+    --dark-foreground: oklch(0.95 0 0);
     --dark-card: oklch(0.296 0.006 258.355);
-    --dark-card-foreground: oklch(0.985 0 0);
-    --dark-muted: oklch(0.269 0 0);
+    --dark-card-foreground: oklch(0.95 0 0);
+    --dark-muted: oklch(0.387 0.01 271.139);
     --dark-muted-foreground: oklch(0.708 0 0);
     --dark-border: oklch(0 0 0 / 0.1);
     --dark-shadow: rgba(0, 0, 0, 0.1);
+    --dark-placeholder: oklch(0.50 0 0);
 
     --background: var(--light-background);
     --foreground: var(--light-foreground);
@@ -36,6 +38,7 @@
     --muted-foreground: var(--light-muted-foreground);
     --border: var(--light-border);
     --shadow: var(--light-shadow);
+    --placeholder: var(--light-placeholder);
 }
 
 .dark {
@@ -51,6 +54,7 @@
     --muted-foreground: var(--dark-muted-foreground);
     --border: var(--dark-border);
     --shadow: var(--dark-shadow);
+    --placeholder: var(--dark-placeholder);
 }
 
 [data-theme="magenta"] {
@@ -66,6 +70,7 @@
     --muted-foreground: var(--light-muted-foreground);
     --border: var(--light-border);
     --shadow: var(--light-shadow);
+    --placeholder: var(--light-placeholder);
 }
 
 [data-theme="magenta"].dark {
@@ -81,6 +86,7 @@
     --muted-foreground: var(--dark-muted-foreground);
     --border: var(--dark-border);
     --shadow: var(--dark-shadow);
+    --placeholder: var(--dark-placeholder);
 }
 
 [data-theme="green"] {
@@ -96,6 +102,7 @@
     --muted-foreground: var(--light-muted-foreground);
     --border: var(--light-border);
     --shadow: var(--light-shadow);
+    --placeholder: var(--light-placeholder);
 }
 
 [data-theme="green"].dark {
@@ -111,4 +118,5 @@
     --muted-foreground: var(--dark-muted-foreground);
     --border: var(--dark-border);
     --shadow: var(--dark-shadow);
+    --placeholder: var(--dark-placeholder);
 }

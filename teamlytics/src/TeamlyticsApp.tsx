@@ -1,37 +1,35 @@
 import './App.css';
 import BasePage from "./Components/BasePage.tsx";
-import { makeStyles } from "@griffel/react";
-import { Routes, Route, useLocation } from 'react-router-dom';
+import {makeStyles} from "@griffel/react";
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 
 import Home from "./Pages/Home.tsx";
-import Tasks from "./Pages/Tasks.tsx";
+import Tasks from "./Pages/TasksPage/Tasks.tsx";
 import AddTask from "@/Pages/TasksPage/AddTask.tsx";
-import Team from "./Pages/Team.tsx";
+import Team from "./Pages/TeamPage/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
+import {Toaster} from "sonner";
 
 const useClasses = makeStyles({
     background: {
         backgroundColor: "var(--background)",
-    },
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "1rem",
-    },
+        position: "fixed"
+    }
 });
 
 document.documentElement.setAttribute('data-theme', 'root');
-document.documentElement.classList.toggle('light');
+document.documentElement.classList.toggle('white');
 
 function TeamlyticsApp() {
     const classes = useClasses();
     const location = useLocation();
+    const navigate = useNavigate();
 
     const isTasksPage = location.pathname === '/tasks';
 
     const handleAddTaskClick = () => {
-        window.location.href = '/add-task';
+        navigate('/add-task');
     };
 
     return (
@@ -40,18 +38,18 @@ function TeamlyticsApp() {
                 showAddTaskButton={isTasksPage}
                 onAddTaskClick={handleAddTaskClick}
             >
-                <div className={classes.container}>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/tasks" element={<Tasks />} />
-                        <Route path="/add-task" element={<AddTask />} />
-                        <Route path="/team" element={<Team />} />
-                        <Route path="/schedule" element={<Schedule />} />
-                        <Route path="/settings" element={<Settings />} />
-                    </Routes>
-                </div>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/tasks" element={<Tasks/>}/>
+                    <Route path="/add-task" element={<AddTask/>}/>
+                    <Route path="/team" element={<Team/>}/>
+                    <Route path="/schedule" element={<Schedule/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                </Routes>
             </BasePage>
+            <Toaster position="top-center"/>
         </div>
+
     );
 }
 

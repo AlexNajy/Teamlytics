@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # Database URL - using your existing superuser
-DATABASE_URL = "postgresql+psycopg://lukeduncan@localhost:5432/teamlytics"
+DATABASE_URL = "postgresql+psycopg://default_teamlytics_user:default_teamlytics_password@localhost:3000/teamlytics"
 
 # Create engine
 engine = create_engine(DATABASE_URL, future=True)
