@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, Integer, String, DateTime, Interval, Enum
+from sqlalchemy import Column, Integer, String, DateTime, Interval, Enum, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime, timezone
 
@@ -36,3 +36,29 @@ class TaskORM(Base):
 
     def __repr__(self):
         return f"<Task(id={self.id}, description = '{self.task_description}', title='{self.task_title}', assignee='{self.assignee}')>"
+
+
+class UserORM(Base):
+    """
+    User model for storing users in the Teamlytics system
+    """
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, nullable=False)
+
+    role = Column(String(50), nullable=False)
+
+    first_name = Column(String(100), nullable=False)
+
+    last_name = Column(String(100), nullable=False)
+
+    context_field = Column(String(100), nullable=True)
+
+    current_task = Column(Integer, nullable=True)
+
+    queued_task = Column(JSON, nullable=True, default=list)
+
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
+
+    def __repr__(self):
+        return f"<User(id={self.id}, name = '{self.first_name} {self.last_name}', role='{self.role}')>"

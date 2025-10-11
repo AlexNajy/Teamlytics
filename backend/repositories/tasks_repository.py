@@ -1,6 +1,5 @@
 from datetime import timedelta
 from http import HTTPStatus
-from typing import List
 
 from returns.result import Result, Failure, Success
 from sqlalchemy.orm.session import Session
@@ -67,7 +66,7 @@ def create_task(db: Session, task: Task) -> Result[CompletedTask, TaskFailure]:
     ))
 
 
-def get_all_tasks(db: Session) -> Result[List[CompletedTask], TaskFailure]:
+def get_all_tasks(db: Session) -> Result[list[CompletedTask], TaskFailure]:
     try:
         tasks = db.query(TaskORM).all()
         completed_tasks = []

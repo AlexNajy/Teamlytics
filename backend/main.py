@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from .api.v1.tasks import tasks_router
+from .api.v1.users import teams_router
 
 load_dotenv()
 frontend_port = os.getenv("FRONTEND_PORT")
@@ -18,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(tasks_router, prefix="/api/v1")
+app.include_router(teams_router, prefix="/api/v1")
 
 @app.get("/")
 async def root():

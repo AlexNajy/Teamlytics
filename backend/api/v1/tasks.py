@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import List
 from fastapi import APIRouter, HTTPException, Depends
 from returns.result import Success
 from sqlalchemy.orm.session import Session
@@ -11,8 +10,8 @@ from backend.repositories.tasks_repository import get_all_tasks, create_task, de
 tasks_router = APIRouter()
 
 
-@tasks_router.get("/tasks", response_model=List[CompletedTask], status_code=HTTPStatus.ACCEPTED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
-async def get_tasks(db: Session = Depends(get_db)) -> List[CompletedTask]:
+@tasks_router.get("/tasks", response_model=list[CompletedTask], status_code=HTTPStatus.ACCEPTED, responses={HTTPStatus.INTERNAL_SERVER_ERROR: {"model": TaskFailure}})
+async def get_tasks(db: Session = Depends(get_db)) -> list[CompletedTask]:
     result = get_all_tasks(db=db)
 
     if isinstance(result, Success):
