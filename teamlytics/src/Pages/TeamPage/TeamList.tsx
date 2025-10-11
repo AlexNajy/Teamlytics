@@ -7,8 +7,10 @@ const useStyles = makeStyles({
     container: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'flex-start',
         gap: '1rem',
         width: '100%',
+        height: '50vh',
     },
     listPanel: {
         flex: 1,
@@ -86,6 +88,12 @@ const TeamList = () => {
             name: "Alex Najy",
             role: "Frontend Developer",
             contextField: "Is good at everything"
+        },
+        {
+            id: 4,
+            name: "Arshya Ghasemi",
+            role: "Engineer",
+            contextField: "Will leave after every month to China"
         }
     ];
 
@@ -130,7 +138,11 @@ const TeamList = () => {
                     ))}
                 </div>
                 <div className={styles.detailPanel}>
-                    {selectedEmployee && <FullView selectedEmployee={selectedEmployee}/>}
+                    {selectedEmployee ? (
+                        <FullView selectedEmployee={selectedEmployee} />
+                    ) : (
+                        <div>Select an employee</div>
+                    )}
                 </div>
             </div>
         </div>

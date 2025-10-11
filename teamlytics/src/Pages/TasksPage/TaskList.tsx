@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
-
+        //alignItems: 'flex-start', makes heights vary
     },
     column: {
         display: 'flex',

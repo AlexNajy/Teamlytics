@@ -148,9 +148,9 @@ const useStyles = makeStyles({
 });
 
 const companies = [
-    { name: "Acme Inc", id: "1" },
-    { name: "TechCorp", id: "2" },
-    { name: "Global Solutions", id: "3" },
+    { name: "Development", id: "1" },
+    { name: "HR", id: "2" },
+    { name: "R&D", id: "3" },
 ];
 
 const platformPages = [
