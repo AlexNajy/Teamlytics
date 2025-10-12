@@ -141,7 +141,7 @@ const TeamList = () => {
                     {selectedEmployee ? (
                         <FullView selectedEmployee={selectedEmployee} />
                     ) : (
-                        <div>Select an employee</div>
+                        <div className={styles.title}>Select an employee</div>
                     )}
                 </div>
             </div>
