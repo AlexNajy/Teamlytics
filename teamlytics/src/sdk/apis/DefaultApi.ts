@@ -16,27 +16,41 @@
 import * as runtime from '../runtime';
 import type {
   CompletedTask,
+  CompletedUser,
   HTTPValidationError,
   Task,
   TaskFailure,
+  User,
 } from '../models/index';
 import {
     CompletedTaskFromJSON,
     CompletedTaskToJSON,
+    CompletedUserFromJSON,
+    CompletedUserToJSON,
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
     TaskFromJSON,
     TaskToJSON,
     TaskFailureFromJSON,
     TaskFailureToJSON,
+    UserFromJSON,
+    UserToJSON,
 } from '../models/index';
 
 export interface CreateSingleTaskApiV1TasksPostRequest {
     task: Task;
 }
 
+export interface CreateSingleUserApiV1UsersPostRequest {
+    user: User;
+}
+
 export interface DeleteSingleTaskApiV1TasksTaskIdDeleteRequest {
     taskId: number;
+}
+
+export interface DeleteSingleUserApiV1UsersUserIdDeleteRequest {
+    userId: number;
 }
 
 /**
@@ -84,6 +98,45 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Create Single User
+     */
+    async createSingleUserApiV1UsersPostRaw(requestParameters: CreateSingleUserApiV1UsersPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CompletedUser>> {
+        if (requestParameters['user'] == null) {
+            throw new runtime.RequiredError(
+                'user',
+                'Required parameter "user" was null or undefined when calling createSingleUserApiV1UsersPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+
+        let urlPath = `/api/v1/users`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserToJSON(requestParameters['user']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CompletedUserFromJSON(jsonValue));
+    }
+
+    /**
+     * Create Single User
+     */
+    async createSingleUserApiV1UsersPost(requestParameters: CreateSingleUserApiV1UsersPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CompletedUser> {
+        const response = await this.createSingleUserApiV1UsersPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Delete Single Task
      */
     async deleteSingleTaskApiV1TasksTaskIdDeleteRaw(requestParameters: DeleteSingleTaskApiV1TasksTaskIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -120,6 +173,42 @@ export class DefaultApi extends runtime.BaseAPI {
     }
 
     /**
+     * Delete Single User
+     */
+    async deleteSingleUserApiV1UsersUserIdDeleteRaw(requestParameters: DeleteSingleUserApiV1UsersUserIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling deleteSingleUserApiV1UsersUserIdDelete().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/api/v1/users/{user_id}`;
+        urlPath = urlPath.replace(`{${"user_id"}}`, encodeURIComponent(String(requestParameters['userId'])));
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete Single User
+     */
+    async deleteSingleUserApiV1UsersUserIdDelete(requestParameters: DeleteSingleUserApiV1UsersUserIdDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteSingleUserApiV1UsersUserIdDeleteRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Get Tasks
      */
     async getTasksApiV1TasksGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CompletedTask>>> {
@@ -145,6 +234,35 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getTasksApiV1TasksGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CompletedTask>> {
         const response = await this.getTasksApiV1TasksGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Tasks
+     */
+    async getTasksApiV1UsersGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<CompletedUser>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+
+        let urlPath = `/api/v1/users`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(CompletedUserFromJSON));
+    }
+
+    /**
+     * Get Tasks
+     */
+    async getTasksApiV1UsersGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<CompletedUser>> {
+        const response = await this.getTasksApiV1UsersGetRaw(initOverrides);
         return await response.value();
     }
 

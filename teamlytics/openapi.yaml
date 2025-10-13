@@ -83,6 +83,80 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/users:
+    get:
+      summary: Get Tasks
+      operationId: get_tasks_api_v1_users_get
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CompletedUser'
+                type: array
+                title: Response Get Tasks Api V1 Users Get
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedUser'
+    post:
+      summary: Create Single User
+      operationId: create_single_user_api_v1_users_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedUser'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedUser'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/users/{user_id}:
+    delete:
+      summary: Delete Single User
+      operationId: delete_single_user_api_v1_users__user_id__delete
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: User Id
+      responses:
+        '204':
+          description: Successful Response
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompletedUser'
+          description: Internal Server Error
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /:
     get:
       summary: Root
@@ -149,6 +223,47 @@ components:
       - desired_completion_date
       - timestamp
       title: CompletedTask
+    CompletedUser:
+      properties:
+        id:
+          type: integer
+          title: Id
+        role:
+          type: string
+          title: Role
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        context_field:
+          type: string
+          title: Context Field
+        current_task:
+          anyOf:
+          - $ref: '#/components/schemas/TaskId'
+          - type: 'null'
+        queued_task:
+          items:
+            $ref: '#/components/schemas/TaskId'
+          type: array
+          title: Queued Task
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+      type: object
+      required:
+      - id
+      - role
+      - first_name
+      - last_name
+      - context_field
+      - current_task
+      - queued_task
+      - timestamp
+      title: CompletedUser
     HTTPStatus:
       type: integer
       enum:
@@ -282,6 +397,15 @@ components:
       - reason
       - status
       title: TaskFailure
+    TaskId:
+      properties:
+        id:
+          type: integer
+          title: Id
+      type: object
+      required:
+      - id
+      title: TaskId
     TaskStatusEnum:
       type: string
       enum:
@@ -290,6 +414,28 @@ components:
       - BLOCKED
       - COMPLETED
       title: TaskStatusEnum
+    User:
+      properties:
+        role:
+          type: string
+          title: Role
+        first_name:
+          type: string
+          title: First Name
+        last_name:
+          type: string
+          title: Last Name
+        context_field:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Field
+      type: object
+      required:
+      - role
+      - first_name
+      - last_name
+      title: User
     ValidationError:
       properties:
         loc:
