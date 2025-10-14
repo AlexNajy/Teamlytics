@@ -10,7 +10,6 @@ const useStyles = makeStyles({
         alignItems: 'flex-start',
         gap: '1rem',
         width: '100%',
-        height: '50vh',
     },
     listPanel: {
         flex: 1,
