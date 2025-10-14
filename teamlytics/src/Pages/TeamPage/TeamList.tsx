@@ -1,12 +1,29 @@
 import {makeStyles} from '@griffel/react';
-import {Card} from "@/Components/ui/card";
+import {Card} from "@/components/ui/card";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import {useState} from "react";
 
 const useStyles = makeStyles({
     container: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         gap: '1rem',
         width: '100%',
+    },
+    listPanel: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.75rem',
+    },
+    detailPanel: {
+        flex: 2,
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
+        borderRadius: '0.5rem',
+        padding: '1rem',
+        boxShadow: "0px 4px 8px 4px var(--shadow)",
     },
     employeeCard: {
         background: 'var(--card)',
@@ -20,83 +37,112 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         alignItems: 'center',
         gap: '1rem',
-
         ":hover": {
             boxShadow: "0px 4px 8px 4px var(--shadow)",
         }
     },
-    avatar: {
-        width: '48px',
-        height: '48px',
-        borderRadius: '50%',
+    header: {
         display: 'flex',
-        fontSize: '1.25rem',
-        fontWeight: '600',
-        backgroundColor: 'var(--primary-transparent)',
-        flexShrink: '0',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        gap: '0.5rem',
+        padding: '1rem',
     },
-    name: {
+    avatarLarge: {
+        width: '4rem',
+        height: '4rem',
+    },
+    title: {
         fontSize: '1rem',
         fontWeight: '600',
         color: 'var(--foreground)',
-        minWidth: '120px',
     },
-    role: {
+    subtext: {
         fontSize: '0.875rem',
         color: 'var(--muted-foreground)',
     },
-    currentTask: {
-        fontSize: '0.875rem',
-        color: 'var(--foreground)',
-        flex: '1',
-    },
 });
-
-const EmployeeCard = ({employee}: { employee: any }) => {
-    const styles = useStyles();
-
-    return (
-        <Card className={styles.employeeCard}>
-            <div className={styles.avatar}>
-            </div>
-            <div className={styles.name}>{employee.name}</div>
-            <div className={styles.role}>{employee.role}</div>
-            <div className={styles.currentTask}>{employee.currentTask}</div>
-        </Card>
-    );
-};
 
 const TeamList = () => {
     const styles = useStyles();
+    const [selectedEmployee, setSelectedEmployee] = useState<any | null>(null);
 
-    // Hardcoded employee data
     const employees = [
         {
             id: 1,
             name: "Santiago Fernandez",
             role: "Venture Capitalist",
-            currentTask: "Leveraging financial risk"
+            contextField: "Can't speak English"
         },
         {
             id: 2,
             name: "Luke Duncan",
             role: "Backend Developer",
-            currentTask: "Make the backend better"
+            contextField: "Has no chipping game"
         },
         {
             id: 3,
             name: "Alex Najy",
             role: "Frontend Developer",
-            currentTask: "Designing mobile responsive layouts"
+            contextField: "Is good at everything"
+        },
+        {
+            id: 4,
+            name: "Arshya Ghasemi",
+            role: "Engineer",
+            contextField: "Will leave after every month to China"
         }
     ];
+
+    const FullView = ({selectedEmployee}: { selectedEmployee: any }) => {
+        const styles = useStyles();
+
+        return (
+            <div className={styles.header}>
+                <Avatar className={styles.avatarLarge}>
+                    <AvatarImage
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className={styles.title}>{selectedEmployee.name}</div>
+                <div className={styles.subtext}>{selectedEmployee.role}</div>
+            </div>
+        );
+    };
+
+    const EmployeeCard = ({employee}: { employee: any }) => {
+        const styles = useStyles();
+
+        return (
+            <Card className={styles.employeeCard} onClick={() => setSelectedEmployee(employee)}>
+                <Avatar>
+                    <AvatarImage
+                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div className={styles.title}>{employee.name}</div>
+                <div className={styles.subtext}>{employee.role}</div>
+            </Card>
+        );
+    };
 
     return (
         <div>
             <div className={styles.container}>
-                {employees.map(employee => (
-                    <EmployeeCard key={employee.id} employee={employee}/>
-                ))}
+                <div className={styles.listPanel}>
+                    {employees.map(employee => (
+                        <EmployeeCard key={employee.id} employee={employee}/>
+                    ))}
+                </div>
+                <div className={styles.detailPanel}>
+                    {selectedEmployee ? (
+                        <FullView selectedEmployee={selectedEmployee} />
+                    ) : (
+                        <div className={styles.title}>Select an employee</div>
+                    )}
+                </div>
             </div>
         </div>
     );

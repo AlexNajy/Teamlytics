@@ -8,7 +8,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "@/Components/ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
     Home,
     Users,
@@ -27,7 +27,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 const useStyles = makeStyles({
     sidebar: {
@@ -148,9 +148,9 @@ const useStyles = makeStyles({
 });
 
 const companies = [
-    { name: "Acme Inc", id: "1" },
-    { name: "TechCorp", id: "2" },
-    { name: "Global Solutions", id: "3" },
+    { name: "Development", id: "1" },
+    { name: "HR", id: "2" },
+    { name: "R&D", id: "3" },
 ];
 
 const platformPages = [

@@ -10,13 +10,13 @@ import {
     FormItem,
     FormLabel,
     FormMessage
-} from "@/Components/ui/form.tsx";
-import {Input} from "@/Components/ui/input.tsx";
-import {Button} from "@/Components/ui/button.tsx";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/Components/ui/select.tsx";
-import {Popover, PopoverContent} from '@/Components/ui/popover';
-import {PopoverTrigger} from "@/Components/ui/popover.tsx";
-import {Calendar} from '@/Components/ui/calendar';
+} from "@/components/ui/form.tsx";
+import {Input} from "@/components/ui/input.tsx";
+import {Button} from "@/components/ui/button.tsx";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
+import {Popover, PopoverContent} from '@/components/ui/popover';
+import {PopoverTrigger} from "@/components/ui/popover.tsx";
+import {Calendar} from '@/components/ui/calendar';
 import {CalendarIcon} from 'lucide-react';
 import {format} from "date-fns";
 import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";

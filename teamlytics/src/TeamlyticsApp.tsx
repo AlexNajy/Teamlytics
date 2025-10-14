@@ -1,5 +1,5 @@
 import './App.css';
-import BasePage from "./Components/BasePage.tsx";
+import BasePage from "@/components/BasePage.tsx";
 import {makeStyles} from "@griffel/react";
 import {Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 

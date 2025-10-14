@@ -1,5 +1,5 @@
 import {makeStyles} from '@griffel/react';
-import {Button} from "@/Components/ui/button.tsx";
+import {Button} from "@/components/ui/button.tsx";
 
 const useStyles = makeStyles({
     container: {

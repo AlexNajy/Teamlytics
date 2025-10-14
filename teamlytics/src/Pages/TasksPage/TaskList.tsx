@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {makeStyles} from '@griffel/react';
-import {Card} from "@/Components/ui/card";
-import {Button} from "@/Components/ui/button.tsx";
+import {Card} from "@/components/ui/card";
+import {Button} from "@/components/ui/button.tsx";
 import {Duration} from "luxon";
 import {Trash} from "lucide-react";
 import {useDeleteTask} from "@/Pages/TasksPage/hooks/DeleteTask.tsx";
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
-
+        //alignItems: 'flex-start', makes heights vary
     },
     column: {
         display: 'flex',
