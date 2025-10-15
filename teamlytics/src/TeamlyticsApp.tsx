@@ -27,16 +27,31 @@ function TeamlyticsApp() {
     const navigate = useNavigate();
 
     const isTasksPage = location.pathname === '/tasks';
+    const isTeamPage = location.pathname === '/team';
 
-    const handleAddTaskClick = () => {
-        navigate('/add-task');
-    };
+    console.log('Current path:', location.pathname);
+    console.log('isTasksPage:', isTasksPage);
+    console.log('isTeamPage:', isTeamPage);
+
+
+    let addButtonLabel: string | undefined;
+    let handleAddClick: (() => void) | undefined;
+
+    if (isTasksPage) {
+        addButtonLabel = "Add Task";
+        handleAddClick = () => navigate('/add-task');
+    } else if (isTeamPage) {
+        addButtonLabel = "Add User";
+        handleAddClick = () => navigate('/add-user');
+    }
+
+    console.log('addButtonLabel:', addButtonLabel);
 
     return (
         <div className={classes.background}>
             <BasePage
-                showAddTaskButton={isTasksPage}
-                onAddTaskClick={handleAddTaskClick}
+                addButtonLabel={addButtonLabel}
+                onAddButtonClick={handleAddClick}
             >
                 <Routes>
                     <Route path="/" element={<Home/>}/>
