@@ -9,24 +9,9 @@ const useStyles = makeStyles({
         display: "flex",
         flexDirection: "column",
     },
-    header: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        gap: '0.5rem',
-        padding: '1rem',
-    },
-    title: {
-        fontSize: '1rem',
-        fontWeight: '600',
-        color: 'var(--foreground)',
-    },
-    subtext: {
-        fontSize: '0.875rem',
-        color: 'var(--muted-foreground)',
-    },
+    header: {},
+    title: {},
+    subtext: {},
 })
 
 
