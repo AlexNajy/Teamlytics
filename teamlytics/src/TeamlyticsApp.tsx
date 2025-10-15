@@ -10,6 +10,7 @@ import Team from "./Pages/TeamPage/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
 import {Toaster} from "sonner";
+import AddUser from "@/Pages/TeamPage/AddUser.tsx";
 
 const useClasses = makeStyles({
     background: {
@@ -57,6 +58,7 @@ function TeamlyticsApp() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/tasks" element={<Tasks/>}/>
                     <Route path="/add-task" element={<AddTask/>}/>
+                    <Route path="/add-user" element={<AddUser/>}/>
                     <Route path="/team" element={<Team/>}/>
                     <Route path="/schedule" element={<Schedule/>}/>
                     <Route path="/settings" element={<Settings/>}/>
