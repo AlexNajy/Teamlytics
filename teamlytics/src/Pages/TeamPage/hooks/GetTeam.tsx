@@ -1,9 +1,10 @@
 import {useQuery} from "@tanstack/react-query";
+import type {CompletedUser} from "@/sdk";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-async function fetchTeam(): Promise<any[]> {
-    const response = await fetch(`${BACKEND_URL}/team`, {
+async function fetchTeam(): Promise<CompletedUser[]> {
+    const response = await fetch(`${BACKEND_URL}/users`, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -14,7 +15,7 @@ async function fetchTeam(): Promise<any[]> {
         return response.json()
 }
 export function useGetTeam() {
-    return useQuery<any[]>({
+    return useQuery<CompletedUser[]>({
         queryKey: ["team"],
         queryFn: fetchTeam,
     })

@@ -2,6 +2,7 @@ import {makeStyles} from '@griffel/react';
 import {Card} from "@/components/ui/card";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import {useState} from "react";
+import {useGetTeam} from "@/Pages/TeamPage/hooks/GetTeam.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
         padding: '1rem',
         boxShadow: "0px 4px 8px 4px var(--shadow)",
     },
-    employeeCard: {
+    userCard: {
         background: 'var(--card)',
         border: '1px solid var(--border)',
         boxShadow: "0px 2px 4px 2px var(--shadow)",
@@ -67,9 +68,23 @@ const useStyles = makeStyles({
 
 const TeamList = () => {
     const styles = useStyles();
-    const [selectedEmployee, setSelectedEmployee] = useState<any | null>(null);
+    const [selectedUser, setSelectedUser] = useState<any | null>(null);
+    const user = useGetTeam()
+    if (user.data === undefined) {
+        return <div>Loading...</div>
+    }
 
-    const employees = [
+    const users = user.data.map((user: any) => {
+        return {
+            id: user.id,
+            role: user.role,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            context_field: user.context_field,
+        }
+    })
+
+    const backupUsers = [
         {
             id: 1,
             name: "Santiago Fernandez",
@@ -96,7 +111,7 @@ const TeamList = () => {
         }
     ];
 
-    const FullView = ({selectedEmployee}: { selectedEmployee: any }) => {
+    const FullView = ({selectedUser}: { selectedUser: any }) => {
         const styles = useStyles();
 
         return (
@@ -106,24 +121,24 @@ const TeamList = () => {
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className={styles.title}>{selectedEmployee.name}</div>
-                <div className={styles.subtext}>{selectedEmployee.role}</div>
+                <div className={styles.title}>{selectedUser.name}</div>
+                <div className={styles.subtext}>{selectedUser.role}</div>
             </div>
         );
     };
 
-    const EmployeeCard = ({employee}: { employee: any }) => {
+    const UserCard = ({user}: { user: any }) => {
         const styles = useStyles();
 
         return (
-            <Card className={styles.employeeCard} onClick={() => setSelectedEmployee(employee)}>
+            <Card className={styles.userCard} onClick={() => setSelectedUser(user)}>
                 <Avatar>
                     <AvatarImage
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className={styles.title}>{employee.name}</div>
-                <div className={styles.subtext}>{employee.role}</div>
+                <div className={styles.title}>{user.name}</div>
+                <div className={styles.subtext}>{user.role}</div>
             </Card>
         );
     };
@@ -132,15 +147,15 @@ const TeamList = () => {
         <div>
             <div className={styles.container}>
                 <div className={styles.listPanel}>
-                    {employees.map(employee => (
-                        <EmployeeCard key={employee.id} employee={employee}/>
+                    {users.map(user => (
+                        <UserCard key={user.id} user={user}/>
                     ))}
                 </div>
                 <div className={styles.detailPanel}>
-                    {selectedEmployee ? (
-                        <FullView selectedEmployee={selectedEmployee} />
+                    {selectedUser ? (
+                        <FullView selectedUser={selectedUser} />
                     ) : (
-                        <div className={styles.title}>Select an employee</div>
+                        <div className={styles.title}>Select a user</div>
                     )}
                 </div>
             </div>
