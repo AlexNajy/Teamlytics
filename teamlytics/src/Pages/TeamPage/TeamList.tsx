@@ -84,33 +84,6 @@ const TeamList = () => {
         }
     })
 
-    const backupUsers = [
-        {
-            id: 1,
-            name: "Santiago Fernandez",
-            role: "Venture Capitalist",
-            contextField: "Can't speak English"
-        },
-        {
-            id: 2,
-            name: "Luke Duncan",
-            role: "Backend Developer",
-            contextField: "Has no chipping game"
-        },
-        {
-            id: 3,
-            name: "Alex Najy",
-            role: "Frontend Developer",
-            contextField: "Is good at everything"
-        },
-        {
-            id: 4,
-            name: "Arshya Ghasemi",
-            role: "Engineer",
-            contextField: "Will leave after every month to China"
-        }
-    ];
-
     const FullView = ({selectedUser}: { selectedUser: any }) => {
         const styles = useStyles();
 
@@ -121,7 +94,7 @@ const TeamList = () => {
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className={styles.title}>{selectedUser.name}</div>
+                <div className={styles.title}>{selectedUser.first_name} {selectedUser.last_name}</div>
                 <div className={styles.subtext}>{selectedUser.role}</div>
             </div>
         );
@@ -137,7 +110,7 @@ const TeamList = () => {
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <div className={styles.title}>{user.name}</div>
+                <div className={styles.title}>{user.first_name} {user.last_name}</div>
                 <div className={styles.subtext}>{user.role}</div>
             </Card>
         );
