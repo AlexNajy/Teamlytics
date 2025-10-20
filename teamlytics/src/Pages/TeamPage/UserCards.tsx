@@ -1,44 +1,72 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import type {User} from "@/sdk";
-import {Avatar} from "@/components/ui/avatar.tsx";
-import {AvatarFallback, AvatarImage} from "@radix-ui/react-avatar";
-import {makeStyles} from "@griffel/react";
+import {makeStyles} from '@griffel/react';
+import {Card} from "@/components/ui/card";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 
 const useStyles = makeStyles({
     userCard: {
-        display: "flex",
-        flexDirection: "column",
+        background: 'var(--card)',
+        border: '1px solid var(--border)',
+        boxShadow: "0px 2px 4px 2px var(--shadow)",
+        borderRadius: '0.5rem',
+        padding: '1rem',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease-in-out',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: '1rem',
+        ":hover": {
+            boxShadow: "0px 4px 8px 4px var(--shadow)",
+        }
     },
-    header: {},
-    title: {},
-    subtext: {},
-})
+    title: {
+        fontSize: '1rem',
+        fontWeight: '600',
+        color: 'var(--foreground)',
+    },
+    subtext: {
+        fontSize: '0.875rem',
+        color: 'var(--muted-foreground)',
+    },
+});
 
+interface User {
+    id: string | number;
+    role: string;
+    first_name: string;
+    last_name: string;
+    context_field?: any;
+}
 
+interface UserCardsProps {
+    users: User[];
+    onSelectUser: (user: User) => void;
+}
 
-const UserCard = ({user}: { user: User }) => {
+const UserCards = ({users, onSelectUser}: UserCardsProps) => {
     const styles = useStyles();
 
-    return (
-        <Card className={styles.userCard}>
-            <CardHeader className={styles.header}>
+    const UserCard = ({user}: { user: User }) => {
+        return (
+            <Card className={styles.userCard} onClick={() => onSelectUser(user)}>
                 <Avatar>
                     <AvatarImage
                         src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"/>
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
-                <CardTitle>
-                    {`${user.first_name} ${user.last_name}`}
-                </CardTitle>
-                <CardDescription>
-                    <div className={styles.subtext}>{user.role}</div>
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className={styles.subtext}>{user.context_field}</div>
-            </CardContent>
-        </Card>
+                <div className={styles.title}>{user.first_name} {user.last_name}</div>
+                <div className={styles.subtext}>{user.role}</div>
+            </Card>
+        );
+    };
+
+    return (
+        <>
+            {users.map(user => (
+                <UserCard key={user.id} user={user}/>
+            ))}
+        </>
     );
 };
 
-export default UserCard
+export default UserCards;

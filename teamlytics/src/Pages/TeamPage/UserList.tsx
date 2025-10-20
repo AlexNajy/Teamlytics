@@ -1,6 +1,8 @@
 import {makeStyles} from '@griffel/react';
+import {useState} from "react";
 import {useGetTeam} from "@/Pages/TeamPage/hooks/GetTeam.tsx";
-import UserCard from "@/Pages/TeamPage/UserCards.tsx";
+import UserCards from "./UserCards";
+import UserView from "./UserView";
 
 const useStyles = makeStyles({
     container: {
@@ -24,62 +26,48 @@ const useStyles = makeStyles({
         padding: '1rem',
         boxShadow: "0px 4px 8px 4px var(--shadow)",
     },
-    userCard: {
-        display: "flex",
-        flexDirection: "column",
-    },
-    header: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        gap: '0.5rem',
-        padding: '1rem',
-    },
-    avatarLarge: {
-        width: '4rem',
-        height: '4rem',
-    },
     title: {
         fontSize: '1rem',
         fontWeight: '600',
         color: 'var(--foreground)',
     },
-    subtext: {
-        fontSize: '0.875rem',
-        color: 'var(--muted-foreground)',
-    },
 });
 
-const UsersList = () => {
+const UserList = () => {
     const styles = useStyles();
-    const users = useGetTeam()
-    if (users.data === undefined) {
-        return <div>Loading...</div>
+    const [selectedUser, setSelectedUser] = useState<any | null>(null);
+    const user = useGetTeam();
+
+    if (user.data === undefined) {
+        return <div>Loading...</div>;
     }
 
-    const user = users.data.map((user: any) => {
+    const users = user.data.map((user: any) => {
         return {
             id: user.id,
             role: user.role,
             first_name: user.first_name,
             last_name: user.last_name,
             context_field: user.context_field,
-        }
-    })
+        };
+    });
 
     return (
         <div>
             <div className={styles.container}>
                 <div className={styles.listPanel}>
-                    {user.map(user => (
-                        <UserCard key={user.id} user={user}/>
-                    ))}
+                    <UserCards users={users} onSelectUser={setSelectedUser} />
+                </div>
+                <div className={styles.detailPanel}>
+                    {selectedUser ? (
+                        <UserView selectedUser={selectedUser} />
+                    ) : (
+                        <div className={styles.title}>Select a user</div>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
 
-export default UsersList;
+export default UserList;
