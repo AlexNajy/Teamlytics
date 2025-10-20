@@ -1,6 +1,7 @@
 import {makeStyles} from '@griffel/react';
 import {Card} from "@/components/ui/card";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import type {CompletedUser} from "@/sdk";
 
 const useStyles = makeStyles({
     userCard: {
@@ -30,17 +31,9 @@ const useStyles = makeStyles({
     },
 });
 
-interface User {
-    id: string | number;
-    role: string;
-    first_name: string;
-    last_name: string;
-    context_field?: any;
-}
-
 interface UserCardsProps {
-    users: User[];
-    onSelectUser: (user: User) => void;
+    users: CompletedUser[];
+    onSelectUser: (user: CompletedUser) => void;
 }
 
 const UserCards = ({users, onSelectUser}: UserCardsProps) => {

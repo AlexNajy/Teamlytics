@@ -1,5 +1,6 @@
 import {makeStyles} from '@griffel/react';
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
+import type {CompletedUser} from "@/sdk";
 
 const useStyles = makeStyles({
     header: {
@@ -26,16 +27,8 @@ const useStyles = makeStyles({
     },
 });
 
-interface User {
-    id: string | number;
-    role: string;
-    first_name: string;
-    last_name: string;
-    context_field?: any;
-}
-
 interface UserViewProps {
-    selectedUser: User;
+    selectedUser: CompletedUser;
 }
 
 const UserView = ({selectedUser}: UserViewProps) => {

@@ -1,8 +1,9 @@
 import {makeStyles} from '@griffel/react';
 import {useState} from "react";
-import {useGetTeam} from "@/Pages/TeamPage/hooks/GetTeam.tsx";
+import {useGetTeam} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
 import UserCards from "./UserCards";
 import UserView from "./UserView";
+import type {CompletedUser} from "@/sdk";
 
 const useStyles = makeStyles({
     container: {
@@ -35,14 +36,14 @@ const useStyles = makeStyles({
 
 const UserList = () => {
     const styles = useStyles();
-    const [selectedUser, setSelectedUser] = useState<any | null>(null);
-    const user = useGetTeam();
+    const [selectedUser, setSelectedUser] = useState<CompletedUser | null>(null);
+    const users = useGetTeam();
 
-    if (user.data === undefined) {
+    if (users.data === undefined) {
         return <div>Loading...</div>;
     }
 
-    const users = user.data.map((user: any) => {
+    const user = users.data.map((user: CompletedUser) => {
         return {
             id: user.id,
             role: user.role,
@@ -56,7 +57,7 @@ const UserList = () => {
         <div>
             <div className={styles.container}>
                 <div className={styles.listPanel}>
-                    <UserCards users={users} onSelectUser={setSelectedUser} />
+                    <UserCards users={user} onSelectUser={setSelectedUser} />
                 </div>
                 <div className={styles.detailPanel}>
                     {selectedUser ? (
