@@ -1,5 +1,5 @@
 import { makeStyles } from '@griffel/react';
-import TeamList from "@/Pages/TeamPage/TeamList.tsx";
+import UsersList from "@/Pages/TeamPage/UsersList.tsx";
 
 const useClasses = makeStyles({
     container: {
@@ -15,7 +15,7 @@ const Team = () => {
 
     return (
         <div className={classes.container}>
-            <TeamList/>
+            <UsersList/>
         </div>
     );
 };
