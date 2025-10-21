@@ -1,9 +1,10 @@
 import {makeStyles} from '@griffel/react';
 import {useState} from "react";
 import {useGetTeam} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
+import type {CompletedUser} from "@/sdk";
+import {ScrollArea} from "@/components/ui/scroll-area";
 import UserCards from "./UserCards";
 import UserView from "./UserView";
-import type {CompletedUser} from "@/sdk";
 
 const useStyles = makeStyles({
     container: {
@@ -12,6 +13,8 @@ const useStyles = makeStyles({
         alignItems: 'flex-start',
         gap: '1rem',
         width: '100%',
+        height: '100%',
+        backgroundColor: 'yellow',
     },
     listPanel: {
         flex: 1,
@@ -32,6 +35,10 @@ const useStyles = makeStyles({
         fontWeight: '600',
         color: 'var(--foreground)',
     },
+    scrollArea: {
+        backgroundColor: 'var(--primary)',
+        height: '100%',
+    },
 });
 
 const UserList = () => {
@@ -43,7 +50,7 @@ const UserList = () => {
         return <div>Loading...</div>;
     }
 
-    const user = users.data.map((user: CompletedUser) => {
+    const user = users.data.map((user: any) => {
         return {
             id: user.id,
             role: user.role,
@@ -54,18 +61,18 @@ const UserList = () => {
     });
 
     return (
-        <div>
-            <div className={styles.container}>
+        <div className={styles.container}>
+            <ScrollArea className={styles.scrollArea}>
                 <div className={styles.listPanel}>
-                    <UserCards users={user} onSelectUser={setSelectedUser} />
+                    <UserCards users={user} onSelectUser={setSelectedUser}/>
                 </div>
-                <div className={styles.detailPanel}>
-                    {selectedUser ? (
-                        <UserView selectedUser={selectedUser} />
-                    ) : (
-                        <div className={styles.title}>Select a user</div>
-                    )}
-                </div>
+            </ScrollArea>
+            <div className={styles.detailPanel}>
+                {selectedUser ? (
+                    <UserView selectedUser={selectedUser}/>
+                ) : (
+                    <div className={styles.title}>Select a user</div>
+                )}
             </div>
         </div>
     );
