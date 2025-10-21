@@ -14,7 +14,6 @@ const useStyles = makeStyles({
         gap: '1rem',
         width: '100%',
         height: '100%',
-        backgroundColor: 'yellow',
     },
     listPanel: {
         flex: 1,
@@ -36,7 +35,6 @@ const useStyles = makeStyles({
         color: 'var(--foreground)',
     },
     scrollArea: {
-        backgroundColor: 'var(--primary)',
         height: '100%',
     },
 });
@@ -50,21 +48,12 @@ const UserList = () => {
         return <div>Loading...</div>;
     }
 
-    const user = users.data.map((user: any) => {
-        return {
-            id: user.id,
-            role: user.role,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            context_field: user.context_field,
-        };
-    });
 
     return (
         <div className={styles.container}>
             <ScrollArea className={styles.scrollArea}>
                 <div className={styles.listPanel}>
-                    <UserCards users={user} onSelectUser={setSelectedUser}/>
+                    <UserCards users={users.data} onSelectUser={setSelectedUser}/>
                 </div>
             </ScrollArea>
             <div className={styles.detailPanel}>

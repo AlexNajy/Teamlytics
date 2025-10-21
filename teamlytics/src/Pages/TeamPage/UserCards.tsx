@@ -39,7 +39,7 @@ interface UserCardsProps {
 const UserCards = ({users, onSelectUser}: UserCardsProps) => {
     const styles = useStyles();
 
-    const UserCard = ({user}: { user: User }) => {
+    const UserCard = ({user}: { user: CompletedUser }) => {
         return (
             <Card className={styles.userCard} onClick={() => onSelectUser(user)}>
                 <Avatar>
