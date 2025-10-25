@@ -1,5 +1,5 @@
 import {makeStyles} from '@griffel/react';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useGetUsers} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
 import type {CompletedUser} from "@/sdk";
 import {ScrollArea} from "@/components/ui/scroll-area";
@@ -44,6 +44,15 @@ const UserList = () => {
     const styles = useStyles();
     const [selectedUser, setSelectedUser] = useState<CompletedUser | null>(null);
     const users = useGetUsers();
+
+    useEffect(() => {
+        if (!selectedUser || !users.data) return;
+
+        const userExists = users.data.find(user => user.id === selectedUser.id);
+        if (!userExists) {
+            setSelectedUser(null);
+        }
+    }, [users.data]);
 
     if (users.data === undefined) {
         return <div>Loading...</div>;
