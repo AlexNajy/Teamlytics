@@ -3,6 +3,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.tsx";
 import type {CompletedUser} from "@/sdk";
 import {Trash} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
+import {useDeleteUser} from "@/Pages/TeamPage/hooks/DeleteUser.tsx";
 
 const useStyles = makeStyles({
     header: {
@@ -53,13 +54,14 @@ interface UserViewProps {
 
 const UserView = ({selectedUser}: UserViewProps) => {
     const styles = useStyles();
+    const deleteUser = useDeleteUser();
 
     return (
         <div>
             <div className={styles.header}>
                 <Button
                     className={styles.deleteButton}
-                    onClick={() => deleteUser.mutate(user.id)}
+                    onClick={() => deleteUser.mutate(selectedUser.id)}
                 >
                     <Trash size={16}> </Trash>
                 </Button>

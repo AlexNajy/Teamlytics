@@ -1,6 +1,6 @@
 import {makeStyles} from '@griffel/react';
 import {useState} from "react";
-import {useGetTeam} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
+import {useGetUsers} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
 import type {CompletedUser} from "@/sdk";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import UserCards from "./UserCards";
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
 const UserList = () => {
     const styles = useStyles();
     const [selectedUser, setSelectedUser] = useState<CompletedUser | null>(null);
-    const users = useGetTeam();
+    const users = useGetUsers();
 
     if (users.data === undefined) {
         return <div>Loading...</div>;
