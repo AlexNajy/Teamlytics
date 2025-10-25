@@ -16,7 +16,7 @@ async function fetchUsers(): Promise<CompletedUser[]> {
 }
 export function useGetUsers() {
     return useQuery<CompletedUser[]>({
-        queryKey: ["team"],
+        queryKey: ["users"],
         queryFn: fetchUsers,
     })
 }
