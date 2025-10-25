@@ -10,6 +10,8 @@ const useStyles = makeStyles({
         boxShadow: "0px 2px 4px 2px var(--shadow)",
         borderRadius: '0.5rem',
         padding: '1rem',
+        marginRight: '0.5rem',
+        marginLeft: '0.5rem',
         cursor: 'pointer',
         transition: 'all 0.2s ease-in-out',
         display: 'flex',

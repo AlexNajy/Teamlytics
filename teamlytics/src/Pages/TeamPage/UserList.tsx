@@ -11,7 +11,6 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
-        gap: '1rem',
         width: '100%',
         height: '100%',
     },
@@ -28,6 +27,8 @@ const useStyles = makeStyles({
         borderRadius: '0.5rem',
         padding: '1rem',
         boxShadow: "0px 4px 8px 4px var(--shadow)",
+        marginRight: '0.5rem',
+        marginLeft: '0.5rem',
     },
     title: {
         fontSize: '1rem',
