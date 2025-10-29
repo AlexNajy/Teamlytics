@@ -15,13 +15,12 @@ const useStyles = makeStyles({
         height: '100%',
     },
     listPanel: {
-        flex: 1,
         display: 'flex',
         flexDirection: 'column',
         gap: '0.75rem',
     },
     detailPanel: {
-        flex: 2,
+        flex: 3,
         background: 'var(--card)',
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
@@ -37,6 +36,8 @@ const useStyles = makeStyles({
     },
     scrollArea: {
         height: '100%',
+        flex: 1,
+        display: 'flex',
     },
 });
 
