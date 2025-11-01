@@ -54,7 +54,7 @@ const useStyles = makeStyles({
         display: 'grid',
         gridTemplateColumns: '2fr 2fr',
     },
-    Title: {
+    title: {
         fontSize: '1.125rem',
         fontWeight: '600',
         color: 'var(--foreground)',
@@ -220,7 +220,7 @@ const AddTask = () => {
         <div className={styles.container}>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className={styles.form}>
-                    <div className={styles.Title}> Add a Task</div>
+                    <div className={styles.title}> Add a Task</div>
 
                     <div className={styles.column}>
                         <FormField name={"title"} render={({field}) => (

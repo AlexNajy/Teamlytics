@@ -5,6 +5,7 @@ import type {CompletedUser} from "@/sdk";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import UserCards from "./UserCards";
 import UserView from "./UserView";
+import NoUsers from "@/Pages/TeamPage/NoUsers.tsx";
 
 const useStyles = makeStyles({
     container: {
@@ -57,6 +58,10 @@ const UserList = () => {
 
     if (users.data === undefined) {
         return <div>Loading...</div>;
+    }
+
+    if (users.data.length === 0) {
+        return <NoUsers/>;
     }
 
 
