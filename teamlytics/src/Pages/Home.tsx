@@ -33,7 +33,6 @@ const useStyles = makeStyles({
         position: 'relative',
         marginBottom: '3rem'
     },
-    
     input: {
         position: 'relative',
         background: 'var(--card)',
