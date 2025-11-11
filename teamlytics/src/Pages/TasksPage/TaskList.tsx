@@ -156,7 +156,9 @@ const TaskList = () => {
     const task = useGetTasks()
     const users = useGetUsers();
     if (task.data === undefined || users.data === undefined) {
-        // TODO: Replace this with a reusable loading component later.
+        // Alex I think we should make a loading component.
+        // It should be a reusable page that replaces the content area with a loading page
+        // For now ->
         return <div>Loading...</div>
     }
 
