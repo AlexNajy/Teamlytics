@@ -10,6 +10,7 @@ import Team from "./Pages/TeamPage/Team.tsx";
 import Schedule from "./Pages/Schedule.tsx";
 import Settings from "./Pages/Settings.tsx";
 import {Toaster} from "sonner";
+import AddUser from "@/Pages/TeamPage/AddUser.tsx";
 
 const useClasses = makeStyles({
     background: {
@@ -27,21 +28,37 @@ function TeamlyticsApp() {
     const navigate = useNavigate();
 
     const isTasksPage = location.pathname === '/tasks';
+    const isTeamPage = location.pathname === '/team';
 
-    const handleAddTaskClick = () => {
-        navigate('/add-task');
-    };
+    console.log('Current path:', location.pathname);
+    console.log('isTasksPage:', isTasksPage);
+    console.log('isTeamPage:', isTeamPage);
+
+
+    let addButtonLabel: string | undefined;
+    let handleAddClick: (() => void) | undefined;
+
+    if (isTasksPage) {
+        addButtonLabel = "Add Task";
+        handleAddClick = () => navigate('/add-task');
+    } else if (isTeamPage) {
+        addButtonLabel = "Add User";
+        handleAddClick = () => navigate('/add-user');
+    }
+
+    console.log('addButtonLabel:', addButtonLabel);
 
     return (
         <div className={classes.background}>
             <BasePage
-                showAddTaskButton={isTasksPage}
-                onAddTaskClick={handleAddTaskClick}
+                addButtonLabel={addButtonLabel}
+                onAddButtonClick={handleAddClick}
             >
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/tasks" element={<Tasks/>}/>
                     <Route path="/add-task" element={<AddTask/>}/>
+                    <Route path="/add-user" element={<AddUser/>}/>
                     <Route path="/team" element={<Team/>}/>
                     <Route path="/schedule" element={<Schedule/>}/>
                     <Route path="/settings" element={<Settings/>}/>

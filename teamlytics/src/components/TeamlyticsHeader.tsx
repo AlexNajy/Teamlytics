@@ -79,17 +79,18 @@ const routeNames: Record<string, string> = {
     '/': 'Home',
     '/tasks': 'Tasks',
     '/add-task': 'Add Task',
+    '/add-user': 'Add User',
     '/team': 'Team',
     '/schedule': 'Schedule',
     '/settings': 'Settings',
 };
 
 interface TeamlyticsHeaderProps {
-    showAddTaskButton?: boolean;
-    onAddTaskClick?: () => void;
+    addButtonLabel?: string;
+    onAddButtonClick?: () => void;
 }
 
-const TeamlyticsHeader = ({showAddTaskButton = false, onAddTaskClick}: TeamlyticsHeaderProps) => {
+const TeamlyticsHeader = ({addButtonLabel, onAddButtonClick}: TeamlyticsHeaderProps) => {
     const classes = useClasses();
     const location = useLocation();
     const currentPage = routeNames[location.pathname] || 'Unknown';
@@ -116,15 +117,16 @@ const TeamlyticsHeader = ({showAddTaskButton = false, onAddTaskClick}: Teamlytic
                 </Breadcrumb>
             </div>
 
-            {showAddTaskButton && (
+            {addButtonLabel && (
                 <button
                     className={classes.button}
-                    onClick={onAddTaskClick}
+                    onClick={onAddButtonClick}
                 >
                     <span>+</span>
-                    Add Task
+                    {addButtonLabel}
                 </button>
             )}
+
         </header>
     );
 };

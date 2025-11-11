@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: '0.5rem',
         width: '100%',
-        //alignItems: 'flex-start', makes heights vary
+        height: '100%',
     },
     column: {
         display: 'flex',
@@ -165,19 +165,17 @@ const TaskList = () => {
     })
 
     return (
-        <div>
-            <div className={styles.container}>
-                {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
-                    <div key={statusKey} className={styles.column}>
-                        <div className={styles.columnTitle}>{statusLabel}</div>
-                        {tasks
-                            .filter(task => task.status === statusKey)
-                            .map(task => (
-                                <TaskCard key={task.id} task={task}/>
-                            ))}
-                    </div>
-                ))}
-            </div>
+        <div className={styles.container}>
+            {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
+                <div key={statusKey} className={styles.column}>
+                    <div className={styles.columnTitle}>{statusLabel}</div>
+                    {tasks
+                        .filter(task => task.status === statusKey)
+                        .map(task => (
+                            <TaskCard key={task.id} task={task}/>
+                        ))}
+                </div>
+            ))}
         </div>
     );
 };

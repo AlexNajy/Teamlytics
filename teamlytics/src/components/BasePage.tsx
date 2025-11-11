@@ -5,8 +5,8 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 
 interface BasePageProps {
     children: React.ReactNode;
-    showAddTaskButton?: boolean;
-    onAddTaskClick?: () => void;
+    addButtonLabel?: string;
+    onAddButtonClick?: () => void;
 }
 
 const useClasses = makeStyles({
@@ -33,7 +33,7 @@ const useClasses = makeStyles({
 
 
 // includes header and sidebar on top of an empty page
-const BasePage = ({ children, showAddTaskButton = false, onAddTaskClick }: BasePageProps) => {
+const BasePage = ({ children, addButtonLabel, onAddButtonClick }: BasePageProps) => {
     const classes = useClasses();
 
     return (
@@ -43,17 +43,18 @@ const BasePage = ({ children, showAddTaskButton = false, onAddTaskClick }: BaseP
 
                 <div className={classes.content}>
                     <TeamlyticsHeader
-                        showAddTaskButton={showAddTaskButton}
-                        onAddTaskClick={onAddTaskClick}
+                        addButtonLabel={addButtonLabel}
+                        onAddButtonClick={onAddButtonClick}
                     />
 
                     <main className={classes.main}>
-                       {children}
+                        {children}
                     </main>
                 </div>
             </div>
         </SidebarProvider>
     );
 };
+
 
 export default BasePage;
