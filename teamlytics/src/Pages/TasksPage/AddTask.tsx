@@ -20,6 +20,7 @@ import {Calendar} from '@/components/ui/calendar';
 import {CalendarIcon} from 'lucide-react';
 import {format} from "date-fns";
 import {useCreateTask} from "@/Pages/TasksPage/hooks/PostTask.tsx";
+import {useGetUsers} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
 import {makeStyles} from "@griffel/react";
 import {useNavigate} from 'react-router-dom';
 import {toast} from "sonner"
@@ -53,6 +54,12 @@ const useStyles = makeStyles({
     grid: {
         display: 'grid',
         gridTemplateColumns: '2fr 2fr',
+    },
+    footer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        padding: '0.5rem 2rem 0rem',
     },
     title: {
         fontSize: '1.125rem',
@@ -123,6 +130,25 @@ const useStyles = makeStyles({
             cursor: 'not-allowed'
         }
     },
+    cancelButton: {
+        padding: '0.75rem 2rem',
+        color: 'var(--card)',
+        backgroundColor: 'var(--muted-foreground)',
+        borderRadius: '0.5rem',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+        opacity: '0.9',
+        ':hover': {
+            color: 'var(--muted)',
+            opacity: '1',
+            boxShadow: '0 4px 6px -1px var(--shadow), 0 2px 4px -1px var(--shadow)'
+        },
+        ':disabled': {
+            opacity: '0.5',
+            cursor: 'not-allowed'
+        }
+    },
     selectContent: {
         backgroundColor: 'var(--card)',
         color: 'var(--foreground)',
@@ -172,6 +198,7 @@ export function niceStatuses(status: TaskStatusEnum): string {
 const AddTask = () => {
     const styles = useStyles();
     const createTask = useCreateTask()
+    const users = useGetUsers();
     const navigate = useNavigate();
 
     const defaultTask: Task = {
@@ -183,8 +210,6 @@ const AddTask = () => {
         notes: null,
         assignee: null,
     }
-
-    const TEMP_ASSIGNEES = ["Santi", "Luke", "Alex", "Arshya", "None"]
 
     const formSchema = z.object({
         title: z.string(),
@@ -215,6 +240,11 @@ const AddTask = () => {
 
     }
 
+    const handleCancelClick = () => navigate('/tasks');
+
+    if (users.data === undefined) {
+        return <div>Loading...</div>
+    }
 
     return (
         <div className={styles.container}>
@@ -344,10 +374,16 @@ const AddTask = () => {
                                             <SelectValue placeholder="Select assignee"/>
                                         </SelectTrigger>
                                         <SelectContent className={styles.selectContent}>
-                                            {TEMP_ASSIGNEES.map((assignee) => (
-                                                <SelectItem key={assignee} value={assignee}
-                                                            className={styles.selectItem}>
-                                                    {assignee}
+                                            <SelectItem value="none" className={styles.selectItem}>
+                                                None
+                                            </SelectItem>
+                                            {users.data.map((user) => (
+                                                <SelectItem
+                                                    key={user.id}
+                                                    value={user.id.toString()}
+                                                    className={styles.selectItem}
+                                                >
+                                                    {user.first_name} {user.last_name}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -380,9 +416,19 @@ const AddTask = () => {
                     )}
                     />
 
-                    <Button type={"submit"} className={styles.submitButton}>
-                        Submit
-                    </Button>
+                    <div className={styles.footer}>
+                        <Button
+                            className={styles.cancelButton}
+                            onClick={handleCancelClick}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button type={"submit"} className={styles.submitButton}>
+                            Submit
+                        </Button>
+                    </div>
+
                 </form>
             </Form>
         </div>

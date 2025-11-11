@@ -156,9 +156,7 @@ const TaskList = () => {
     const task = useGetTasks()
     const users = useGetUsers();
     if (task.data === undefined || users.data === undefined) {
-        // Alex I think we should make a loading component.
-        // It should be a reusable page that replaces the content area with a loading page
-        // For now ->
+        // TODO: Replace this with a reusable loading component later.
         return <div>Loading...</div>
     }
 
@@ -168,40 +166,40 @@ const TaskList = () => {
             title: task.title,
             description: task.description,
             status: task.status,
-            estimatedTime: task.estimated_time
+            estimatedTime: task.estimated_time,
+            assignee: task.assignee,
         }
     })
 
     return (
         <div className={styles.container}>
+            {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => {
+                const unassignedTasks = tasks.filter(
+                    task => task.assignee === null && task.status === statusKey
+                );
 
-            {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
-                <div key={statusKey} className={styles.column}>
-                    <div className={styles.columnTitle}>{statusLabel}</div>
-                    <hr className={styles.horizontalLine} />
-                    {tasks
-                        .filter(task => task.status === statusKey)
-                        .map(task => (
+                return (
+                    <div key={statusKey} className={styles.column}>
+                        <div className={styles.columnTitle}>{statusLabel}</div>
+                        <hr className={styles.horizontalLine}/>
+                        {unassignedTasks.map(task => (
                             <TaskCard key={task.id} task={task}/>
                         ))}
-                </div>
-            ))}
-
+                    </div>
+                );
+            })}
             {users.data.map(user => {
-                const userTaskIds = [
-                    user.current_task,
-                    ...user.queued_task
-                ].filter(Boolean);
+                const userTasks = tasks.filter(task => task.assignee === user.id.toString());
 
                 return (
                     <div key={user.id} className={styles.column}>
-                        <div className={styles.columnTitle}>{user.first_name} {user.last_name}</div>
-                        <hr className={styles.horizontalLine} />
-                        {tasks
-                            .filter(task => userTaskIds.includes(task.id))
-                            .map(task => (
-                                <TaskCard key={task.id} task={task}/>
-                            ))}
+                        <div className={styles.columnTitle}>
+                            {user.first_name} {user.last_name}
+                        </div>
+                        <hr className={styles.horizontalLine}/>
+                        {userTasks.map(task => (
+                            <TaskCard key={task.id} task={task}/>
+                        ))}
                     </div>
                 );
             })}
