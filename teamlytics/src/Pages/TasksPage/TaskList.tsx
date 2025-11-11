@@ -6,6 +6,7 @@ import {Duration} from "luxon";
 import {Trash} from "lucide-react";
 import {useDeleteTask} from "@/Pages/TasksPage/hooks/DeleteTask.tsx";
 import {useGetTasks} from "@/Pages/TasksPage/hooks/GetTasks.tsx";
+import {useGetUsers} from "@/Pages/TeamPage/hooks/GetUsers.tsx";
 
 
 const useStyles = makeStyles({
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     column: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        gap: '0.5rem',
         background: 'var(--card)',
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
@@ -95,14 +96,20 @@ const useStyles = makeStyles({
             backgroundColor: "var(--muted)",
         },
     },
+    horizontalLine: {
+        color: "var(--border)",
+        alignSelf: 'center',
+        width: '80%',
+        marginBottom: '0.5rem',
+    },
 
 });
 
 const STATUS_COLUMNS: { [key: string]: string } = {
     OPEN: "Open",
-    IN_PROGRESS: "In Progress",
+    //IN_PROGRESS: "In Progress",
     BLOCKED: "Blocked",
-    COMPLETED: "Completed"
+    //COMPLETED: "Completed"
 };
 
 const TaskCard = ({task}: { task: any }) => {
@@ -147,7 +154,8 @@ const TaskCard = ({task}: { task: any }) => {
 const TaskList = () => {
     const styles = useStyles();
     const task = useGetTasks()
-    if (task.data === undefined) {
+    const users = useGetUsers();
+    if (task.data === undefined || users.data === undefined) {
         // Alex I think we should make a loading component.
         // It should be a reusable page that replaces the content area with a loading page
         // For now ->
@@ -166,9 +174,11 @@ const TaskList = () => {
 
     return (
         <div className={styles.container}>
+
             {Object.entries(STATUS_COLUMNS).map(([statusKey, statusLabel]) => (
                 <div key={statusKey} className={styles.column}>
                     <div className={styles.columnTitle}>{statusLabel}</div>
+                    <hr className={styles.horizontalLine} />
                     {tasks
                         .filter(task => task.status === statusKey)
                         .map(task => (
@@ -176,6 +186,25 @@ const TaskList = () => {
                         ))}
                 </div>
             ))}
+
+            {users.data.map(user => {
+                const userTaskIds = [
+                    user.current_task,
+                    ...user.queued_task
+                ].filter(Boolean);
+
+                return (
+                    <div key={user.id} className={styles.column}>
+                        <div className={styles.columnTitle}>{user.first_name} {user.last_name}</div>
+                        <hr className={styles.horizontalLine} />
+                        {tasks
+                            .filter(task => userTaskIds.includes(task.id))
+                            .map(task => (
+                                <TaskCard key={task.id} task={task}/>
+                            ))}
+                    </div>
+                );
+            })}
         </div>
     );
 };
