@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     taskCard: {
         background: 'var(--card)',
         border: '1px solid var(--border)',
-        boxShadow: "0px 2px 4px 2px var(--shadow)",
+        boxShadow: "0px 1px 3px 1px var(--shadow)",
         borderRadius: '0.5rem',
         padding: '1rem',
         paddingBottom: '0.5rem',
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
         gap: '0.5rem',
 
         ":hover": {
-            boxShadow: "0px 4px 8px 4px var(--shadow)",
+            boxShadow: "0px 3px 6px 3px var(--shadow)",
         }
     },
     title: {
@@ -97,7 +97,7 @@ const useStyles = makeStyles({
         },
     },
     horizontalLine: {
-        color: "var(--border)",
+        color: "var(--muted)",
         alignSelf: 'center',
         width: '80%',
         marginBottom: '0.5rem',

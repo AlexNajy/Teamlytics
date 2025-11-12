@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     userCard: {
         background: 'var(--card)',
         border: '1px solid var(--border)',
-        boxShadow: "0px 2px 4px 2px var(--shadow)",
+        boxShadow: "0px 1px 3px 1px var(--shadow)",
         borderRadius: '0.5rem',
         padding: '1rem',
         marginRight: '0.5rem',
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         alignItems: 'center',
         gap: '1rem',
         ":hover": {
-            boxShadow: "0px 4px 8px 4px var(--shadow)",
+            boxShadow: "0px 3px 6px 3px var(--shadow)",
         }
     },
     title: {

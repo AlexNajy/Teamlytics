@@ -26,7 +26,7 @@ const useStyles = makeStyles({
         border: '1px solid var(--border)',
         borderRadius: '0.5rem',
         padding: '1rem',
-        boxShadow: "0px 4px 8px 4px var(--shadow)",
+        boxShadow: "0px 1px 3px 1px var(--shadow)",
         marginRight: '0.5rem',
         marginLeft: '0.5rem',
     },
